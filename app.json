@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "",
+    "slug": "",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/EVENTIX.png",
+    "scheme": "",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#00988D",
+      "image": "./assets/images/EVENTIX.png",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/EVENTIX.png",
+        "backgroundColor": "black"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.anonymous"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/EVENTIX.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
