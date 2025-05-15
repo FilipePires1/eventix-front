@@ -33,12 +33,6 @@ const styles = StyleSheet.create({
     fontWeight: 400,
   },
 
-  buttonTextBlue: {
-    color: 'white',
-    fontSize: 30,
-    fontWeight: 400,
-    backgroundColor: '#013750',
-  },
 });
 
 export default Button2;

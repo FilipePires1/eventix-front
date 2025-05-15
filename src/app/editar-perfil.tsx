@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native'
 
-import { Button2 } from "@/app/components/button2"
+import { Button } from "@/app/components/button"
 
 import { router } from "expo-router"
 
@@ -8,22 +8,30 @@ import { IconButton } from '../app/components/icons-lucide'
 
 import { Calendar, User, UserPen, CalendarPlus2 } from 'lucide-react-native'
 
+import { Input } from "../app/components/input"
+
 export default function Singup(){
     function handleNext () {
            router.navigate("/")
         }
     return(
          <View style={styles.container1}>
-         <Text style={styles.title}>Meus eventos</Text>
-         <Button2 title= "Convites" style={styles.buttonText} onPress= {() => router.navigate('/convites')} />
+         <Text style={styles.title}>Editar perfil</Text>
+         <Input/>
+         <Input/>
+         <Input/>
+         <Input/>
+          <View style={styles.BotoesAlinhados}>
+         <Button title= "Cancelar" style={styles.buttonText} onPress= {() => router.navigate('/convites')} />
+         <Button title= "Confirmar" style={styles.buttonText2} onPress= {() => router.navigate('/convites')} />
+            </View>
          <View style={styles.bottomBar}>
 
          </View>
 
-
          <View style={styles.tabBar}>
-         <IconButton color= 'white' Icon={Calendar} onPress={() => router.navigate('/home')} />
-         <IconButton Icon={User} onPress={() => router.navigate('/perfil')} />
+         <IconButton Icon={Calendar} onPress={() => router.navigate('/home')} />
+         <IconButton color= 'white' Icon={User} onPress={() => router.navigate('/perfil')} />
          <IconButton Icon={UserPen} onPress={() => router.navigate('/cadastro-pessoas')} />
          <IconButton Icon={CalendarPlus2} onPress={() => router.navigate('/cadastro-eventos')} />
         </View>
@@ -40,7 +48,7 @@ container1: { //toda tela
     padding: 45,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    gap: 30,
+    gap: 40,
     backgroundColor: '#00988D',
     textShadowColor: '#000000aa',       
     textShadowOffset: { width: 2, height: 2 }, 
@@ -74,17 +82,33 @@ bottomBar: { //retangulo azul inferior
 
   },
 
-buttonText: { //botao de convites
+buttonText: { //botao de cancelar
 
-    color: 'black',
-    fontSize: 30,
-    fontWeight: 300,
-    position: 'absolute',
-    alignItems: 'center',
     justifyContent: 'center',
-    bottom: 100,
+    backgroundColor: '#f23e02',
+    paddingVertical: 12,
+    width: '50%',
+    alignItems: 'center',
+    height: 52,
 
     },
+
+buttonText2: { //botao de confirmar
+
+    justifyContent: 'center',
+    backgroundColor: '#013750',
+    paddingVertical: 12,
+    width: '50%',
+    alignItems: 'center',
+    height: 52,
+
+    },
+
+BotoesAlinhados: {
+    flexDirection: 'row',
+    gap: 50,
+    top: 150
+},
 
 tabBar: { //lucide icons
 

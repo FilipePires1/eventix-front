@@ -14,16 +14,16 @@ export default function Singup(){
         }
     return(
          <View style={styles.container1}>
-         <Text style={styles.title}>Meus eventos</Text>
-         <Button2 title= "Convites" style={styles.buttonText} onPress= {() => router.navigate('/convites')} />
+         <Text style={styles.title}>Meu perfil</Text>
+         <Button2 title= "Editar perfil" style={styles.buttonText} onPress= {() => router.navigate('/editar-perfil')} />
          <View style={styles.bottomBar}>
 
          </View>
 
 
          <View style={styles.tabBar}>
-         <IconButton color= 'white' Icon={Calendar} onPress={() => router.navigate('/home')} />
-         <IconButton Icon={User} onPress={() => router.navigate('/perfil')} />
+         <IconButton Icon={Calendar} onPress={() => router.navigate('/home')} />
+         <IconButton color= 'white' Icon={User} onPress={() => router.navigate('/perfil')} />
          <IconButton Icon={UserPen} onPress={() => router.navigate('/cadastro-pessoas')} />
          <IconButton Icon={CalendarPlus2} onPress={() => router.navigate('/cadastro-eventos')} />
         </View>

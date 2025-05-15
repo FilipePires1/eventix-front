@@ -4,29 +4,29 @@ import { Button2 } from "@/app/components/button2"
 
 import { router } from "expo-router"
 
+import { Calendar, User, UserPen, CalendarPlus2 } from 'lucide-react-native';
+
 import { IconButton } from '../app/components/icons-lucide'
 
-import { Calendar, User, UserPen, CalendarPlus2 } from 'lucide-react-native'
-
-export default function Singup(){
-    function handleNext () {
-           router.navigate("/")
-        }
+    export default function Singup(){
+        function handleNext () {
+        router.navigate("/")
+    }
     return(
-         <View style={styles.container1}>
-         <Text style={styles.title}>Meus eventos</Text>
-         <Button2 title= "Convites" style={styles.buttonText} onPress= {() => router.navigate('/convites')} />
-         <View style={styles.bottomBar}>
+        <View style={styles.container1}>
 
-         </View>
+            <Text style={styles.title}>Meus Convites</Text>
 
+            <View style={styles.bottomBar}/>
 
-         <View style={styles.tabBar}>
-         <IconButton color= 'white' Icon={Calendar} onPress={() => router.navigate('/home')} />
-         <IconButton Icon={User} onPress={() => router.navigate('/perfil')} />
-         <IconButton Icon={UserPen} onPress={() => router.navigate('/cadastro-pessoas')} />
-         <IconButton Icon={CalendarPlus2} onPress={() => router.navigate('/cadastro-eventos')} />
-        </View>
+            <View style={styles.tabBar}>
+
+                <IconButton color= 'white' Icon={Calendar} onPress={() => router.navigate('/home')} />
+                <IconButton Icon={User} onPress={() => router.navigate('/perfil')} />
+                <IconButton Icon={UserPen} onPress={() => router.navigate('/cadastro-pessoas')} />
+                <IconButton Icon={CalendarPlus2} onPress={() => router.navigate('/cadastro-eventos')} />
+
+            </View>
 
         </View>
     )
@@ -73,18 +73,6 @@ bottomBar: { //retangulo azul inferior
     alignItems: 'center',
 
   },
-
-buttonText: { //botao de convites
-
-    color: 'black',
-    fontSize: 30,
-    fontWeight: 300,
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-    bottom: 100,
-
-    },
 
 tabBar: { //lucide icons
 
