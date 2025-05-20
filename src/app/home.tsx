@@ -10,6 +10,8 @@ import { IconButton } from '../app/components/icons-lucide'
 
 import { FontAwesome5 } from '@expo/vector-icons'
 
+import { EventoCard } from './components/Eventocard'
+
 export default function Singup(){
     function handleNext () {
            router.navigate("/")
@@ -17,10 +19,26 @@ export default function Singup(){
     return(
          <View style={styles.container1}>
          <Text style={styles.title}>Meus eventos</Text>
+
+               
+        
          <Button2 title= "Convites" style={styles.buttonText} onPress= {() => router.navigate('/convites')} />
          <View style={styles.bottomBar}>
          
          </View>
+
+          <EventoCard
+                    titulo="Culto de adoração"
+                    funcao="Diácono"
+                    local="Igreja batista shallom"
+                    data="06/03/2025"
+                    horario="18:00"/>
+                <EventoCard
+                    titulo="Culto de adoração"
+                    funcao="Guitarrista"
+                    local="Igreja batista shallom"
+                    data="19/03/2025"
+                    horario="18:30"/>
 
          <View style={styles.tabBar}>
          <IconButton Icon={(props) => <FontAwesome5 name="calendar-alt" {...props} />} size={23} color="white" onPress={() => router.navigate('/home')} />
@@ -41,7 +59,7 @@ container1: { //toda tela
     padding: 45,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    gap: 30,
+    gap: 20,
     backgroundColor: '#00988D',
     textShadowColor: '#000000aa',       
     textShadowOffset: { width: 2, height: 2 }, 
@@ -59,6 +77,7 @@ title: { //meus enventos
     textShadowColor: '#000000aa',   
     textShadowOffset: { width: 0.5, height: 0.5 }, 
     textShadowRadius: 0.5,
+    gap: 30
         
     },
 
@@ -107,6 +126,8 @@ tabBar: { //lucide icons
         backgroundColor: '#013750',
       },
     
-    
+    card: {
+        gap: 10
+    },
 
 })

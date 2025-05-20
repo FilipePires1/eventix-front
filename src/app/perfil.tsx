@@ -1,16 +1,30 @@
 import { View, Text, StyleSheet } from 'react-native'
+
 import { Button2 } from "@/app/components/button2"
+
 import { router } from "expo-router"
+
 import { IconButton } from '../app/components/icons-lucide'
+
 import { FontAwesome5 } from '@expo/vector-icons'
+
+import { EventoCard2 } from '@/app/components/PerfilCard'
 
 export default function Singup() {
   return (
     <View style={styles.container1}>
-      <Text style={styles.title}>Meu perfil</Text>
-      <Button2 title="Editar perfil" style={styles.buttonText} onPress={() => router.navigate('/editar-perfil')} />
 
+      <Text style={styles.title}>Meu perfil</Text>
+
+      <Button2 title="Editar perfil" style={styles.buttonText} onPress={() => router.navigate('/editar-perfil')} />
+        
       <View style={styles.bottomBar} />
+
+      <EventoCard2
+        Nome="Filipe Pires Nogueira"
+        Funcoes="Guitarrista"
+        Nascimento="11/01/2009"
+        Sexo='Masculino'/>
 
       <View style={styles.tabBar}>
          <IconButton Icon={(props) => <FontAwesome5 name="calendar-alt" {...props} />} size={23} onPress={() => router.navigate('/home')} />

@@ -16,8 +16,8 @@ export default function Singup() {
       <View style={styles.tabBar}>
        <IconButton Icon={(props) => <FontAwesome5 name="calendar-alt" {...props} />} size={23} onPress={() => router.navigate('/home')} />
          <IconButton Icon={(props) => <FontAwesome5 name="user-alt" {...props} />} size={20} onPress={() => router.navigate('/perfil')} />
-         <IconButton Icon={(props) => <FontAwesome5 name="user-edit" {...props} />} size={20} color="white" onPress={() => router.navigate('/pessoas')} />
-         <IconButton Icon={(props) => <FontAwesome5 name="calendar-plus" {...props} />} size={20} onPress={() => router.navigate('/eventos')} />
+         <IconButton Icon={(props) => <FontAwesome5 name="user-edit" {...props} />} size={20} onPress={() => router.navigate('/pessoas')} />
+         <IconButton Icon={(props) => <FontAwesome5 name="calendar-plus" {...props} />} size={20} color="white" onPress={() => router.navigate('/eventos')} />
     </View>
     </View>
   )

@@ -29,13 +29,13 @@ export default function Singup(){
             <Input placeholder="Data" placeholderTextColor="#b5b5b5" />
             <Input placeholder="Horário" placeholderTextColor="#b5b5b5" />
 
-            <Button3 title= "Adicionar Participantes" style={styles.buttonText3} onPress= {() => router.navigate('/convites')} />
-            <Button4 title= "Ver Participantes" style={styles.buttonText3} onPress= {() => router.navigate('/convites')} />
+            <Button3 title= "Adicionar Participantes" style={styles.buttonText3} onPress= {() => router.navigate('/')} />
+            <Button4 title= "Ver Participantes" style={styles.buttonText3} onPress= {() => router.navigate('/')} />
 
             <View style={styles.BotoesAlinhados}>
 
-                <Button title= "Cancelar" style={styles.buttonText} onPress= {() => router.navigate('/')} />
-                <Button title= "Confirmar" style={styles.buttonText2} onPress= {() => router.navigate('/')} />
+                <Button title= "Cancelar" style={styles.buttonText} onPress= {() => router.navigate('/eventos')} />
+                <Button title= "Confirmar" style={styles.buttonText2} onPress= {() => router.navigate('/eventos')} />
 
             </View>
 
