@@ -3,19 +3,21 @@ import { Button2 } from "@/app/components/button2"
 import { router } from "expo-router"
 import { IconButton } from '../app/components/icons-lucide'
 import { FontAwesome5 } from '@expo/vector-icons'
+import SearchBar from "@/app/components/pesquisa";
 
 export default function Singup() {
   return (
     <View style={styles.container1}>
-      <Text style={styles.title}>Meu perfil</Text>
-      <Button2 title="Editar perfil" style={styles.buttonText} onPress={() => router.navigate('/editar-perfil')} />
-
+      <Text style={styles.title}>Usuários</Text>
+      <SearchBar placeholder="Pesquisar usuários..." placeholderTextColor="#b5b5b5" />
+      <Button2 title="Cadastrar usuário" style={styles.buttonText} onPress={() => router.navigate('/cadastro-usuarios')} />
+      <Button2 title="Cadastrar função" style={styles.buttonText2} onPress={() => router.navigate('/cadastro-funcao')} />
       <View style={styles.bottomBar} />
 
       <View style={styles.tabBar}>
-         <IconButton Icon={(props) => <FontAwesome5 name="calendar-alt" {...props} />} size={23} onPress={() => router.navigate('/home')} />
-         <IconButton Icon={(props) => <FontAwesome5 name="user-alt" {...props} />} size={20} color="white" onPress={() => router.navigate('/perfil')} />
-         <IconButton Icon={(props) => <FontAwesome5 name="user-edit" {...props} />} size={20} onPress={() => router.navigate('/pessoas')} />
+       <IconButton Icon={(props) => <FontAwesome5 name="calendar-alt" {...props} />} size={23} onPress={() => router.navigate('/home')} />
+         <IconButton Icon={(props) => <FontAwesome5 name="user-alt" {...props} />} size={20} onPress={() => router.navigate('/perfil')} />
+         <IconButton Icon={(props) => <FontAwesome5 name="user-edit" {...props} />} size={20} color="white" onPress={() => router.navigate('/pessoas')} />
          <IconButton Icon={(props) => <FontAwesome5 name="calendar-plus" {...props} />} size={20} onPress={() => router.navigate('/eventos')} />
     </View>
     </View>
@@ -65,6 +67,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     bottom: 100,
+  },
+
+  buttonText2: {
+    color: 'black',
+    fontSize: 30,
+    fontWeight: '300',
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: 170,
+
   },
 
   tabBar: {

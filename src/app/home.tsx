@@ -1,12 +1,14 @@
 import { View, Text, StyleSheet } from 'react-native'
 
+import { Button } from '@/app/components/button'
+
 import { Button2 } from "@/app/components/button2"
 
 import { router } from "expo-router"
 
 import { IconButton } from '../app/components/icons-lucide'
 
-import { Calendar, User, UserPen, CalendarPlus2 } from 'lucide-react-native'
+import { FontAwesome5 } from '@expo/vector-icons'
 
 export default function Singup(){
     function handleNext () {
@@ -17,15 +19,14 @@ export default function Singup(){
          <Text style={styles.title}>Meus eventos</Text>
          <Button2 title= "Convites" style={styles.buttonText} onPress= {() => router.navigate('/convites')} />
          <View style={styles.bottomBar}>
-
+         
          </View>
 
-
          <View style={styles.tabBar}>
-         <IconButton color= 'white' Icon={Calendar} onPress={() => router.navigate('/home')} />
-         <IconButton Icon={User} onPress={() => router.navigate('/perfil')} />
-         <IconButton Icon={UserPen} onPress={() => router.navigate('/cadastro-pessoas')} />
-         <IconButton Icon={CalendarPlus2} onPress={() => router.navigate('/cadastro-eventos')} />
+         <IconButton Icon={(props) => <FontAwesome5 name="calendar-alt" {...props} />} size={23} color="white" onPress={() => router.navigate('/home')} />
+         <IconButton Icon={(props) => <FontAwesome5 name="user-alt" {...props} />} size={20} onPress={() => router.navigate('/perfil')} />
+         <IconButton Icon={(props) => <FontAwesome5 name="user-edit" {...props} />} size={20} onPress={() => router.navigate('/pessoas')} />
+         <IconButton Icon={(props) => <FontAwesome5 name="calendar-plus" {...props} />} size={20} onPress={() => router.navigate('/eventos')} />
         </View>
 
         </View>
@@ -98,5 +99,14 @@ tabBar: { //lucide icons
     gap: 55
 
     },
+
+    buttonTextBlue: { //evento
+        color: 'white',
+        fontSize: 30,
+        fontWeight: 300,
+        backgroundColor: '#013750',
+      },
+    
+    
 
 })

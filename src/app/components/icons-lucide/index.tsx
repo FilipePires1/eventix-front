@@ -1,20 +1,17 @@
 import React from 'react'
-
 import { TouchableOpacity, StyleSheet } from 'react-native'
 
-import { LucideIcon } from 'lucide-react-native'
-
 type Props = {
-  Icon: LucideIcon      
-  size?: number          
-  color?: string        
+  Icon: React.ComponentType<{ size?: number; color?: string }>
+  size?: number
+  color?: string
   onPress: () => void
 }
 
-export const IconButton = ({ Icon, color, size, onPress }: Props) => {
+export const IconButton = ({ Icon, size, color, onPress }: Props) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.button}>
-      <Icon color={color} size={size}/>
+      <Icon size={size} color={color} />
     </TouchableOpacity>
   )
 }
@@ -24,5 +21,7 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center',
-  }
+    
+  },
 })
+export default IconButton

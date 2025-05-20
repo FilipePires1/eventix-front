@@ -10,14 +10,15 @@ import { router } from "expo-router"
 
 import { IconButton } from '../app/components/icons-lucide'
 
-import { Calendar, User, UserPen, CalendarPlus2 } from 'lucide-react-native'
+import { FontAwesome5 } from '@expo/vector-icons'
 
 import { Input } from "../app/components/input"
 
-    export default function Singup(){
+
+export default function Singup(){
         function handleNext () {
         router.navigate("/")
-    }
+}
     return(
 
          <View style={styles.container1}>
@@ -42,10 +43,10 @@ import { Input } from "../app/components/input"
 
             <View style={styles.tabBar}>
 
-                <IconButton Icon={Calendar} onPress={() => router.navigate('/home')} />
-                <IconButton Icon={User} onPress={() => router.navigate('/perfil')} />
-                <IconButton Icon={UserPen} onPress={() => router.navigate('/cadastro-pessoas')} />
-                <IconButton color='white' Icon={CalendarPlus2} onPress={() => router.navigate('/cadastro-eventos')} />
+                <IconButton Icon={(props) => <FontAwesome5 name="calendar-alt" {...props} />} size={23} onPress={() => router.navigate('/home')} />
+                <IconButton Icon={(props) => <FontAwesome5 name="user-alt" {...props} />} size={20} onPress={() => router.navigate('/perfil')} />
+                <IconButton Icon={(props) => <FontAwesome5 name="user-edit" {...props} />} size={20} onPress={() => router.navigate('/pessoas')} />
+                <IconButton Icon={(props) => <FontAwesome5 name="calendar-plus" {...props} />} size={20} color="white" onPress={() => router.navigate('/eventos')} />
 
             </View>
 

@@ -2,9 +2,9 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 type Props = {
-  title: string;
-  style?: object;
-  onPress: () => void;
+  title: string
+  style?: object
+  onPress: () => void
 };
 
 export function Button2({ title, style, onPress }: Props) {
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     width:"100%",
         height: 52,
         backgroundColor: '#FEF5C8',
-        borderRadius: 15,
+        borderRadius: 11,
         justifyContent: 'center',
         alignItems: 'center',
         shadowRadius: 7,

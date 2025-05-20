@@ -6,9 +6,9 @@ import { router } from "expo-router"
 
 import { IconButton } from '../app/components/icons-lucide'
 
-import { Calendar, User, UserPen, CalendarPlus2 } from 'lucide-react-native'
-
 import { Input } from "../app/components/input"
+
+import { FontAwesome5 } from '@expo/vector-icons'
 
 export default function Singup(){
     function handleNext () {
@@ -22,18 +22,18 @@ export default function Singup(){
          <Input/>
          <Input/>
           <View style={styles.BotoesAlinhados}>
-         <Button title= "Cancelar" style={styles.buttonText} onPress= {() => router.navigate('/convites')} />
-         <Button title= "Confirmar" style={styles.buttonText2} onPress= {() => router.navigate('/convites')} />
+         <Button title= "Cancelar" style={styles.buttonText} onPress= {() => router.navigate('/perfil')} />
+         <Button title= "Confirmar" style={styles.buttonText2} onPress= {() => router.navigate('/perfil')} />
             </View>
          <View style={styles.bottomBar}>
 
          </View>
 
          <View style={styles.tabBar}>
-         <IconButton Icon={Calendar} onPress={() => router.navigate('/home')} />
-         <IconButton color= 'white' Icon={User} onPress={() => router.navigate('/perfil')} />
-         <IconButton Icon={UserPen} onPress={() => router.navigate('/cadastro-pessoas')} />
-         <IconButton Icon={CalendarPlus2} onPress={() => router.navigate('/cadastro-eventos')} />
+         <IconButton Icon={(props) => <FontAwesome5 name="calendar-alt" {...props} />} size={23} onPress={() => router.navigate('/home')} />
+         <IconButton Icon={(props) => <FontAwesome5 name="user-alt" {...props} />} size={20} color="white" onPress={() => router.navigate('/perfil')} />
+         <IconButton Icon={(props) => <FontAwesome5 name="user-edit" {...props} />} size={20} onPress={() => router.navigate('/pessoas')} />
+         <IconButton Icon={(props) => <FontAwesome5 name="calendar-plus" {...props} />} size={20} onPress={() => router.navigate('/eventos')} />
         </View>
 
         </View>
@@ -87,7 +87,7 @@ buttonText: { //botao de cancelar
     justifyContent: 'center',
     backgroundColor: '#f23e02',
     paddingVertical: 12,
-    width: '50%',
+    width: '40%',
     alignItems: 'center',
     height: 52,
 
@@ -98,7 +98,7 @@ buttonText2: { //botao de confirmar
     justifyContent: 'center',
     backgroundColor: '#013750',
     paddingVertical: 12,
-    width: '50%',
+    width: '40%',
     alignItems: 'center',
     height: 52,
 
@@ -106,8 +106,8 @@ buttonText2: { //botao de confirmar
 
 BotoesAlinhados: {
     flexDirection: 'row',
-    gap: 50,
-    top: 150
+    gap: 60,
+    top: 100
 },
 
 tabBar: { //lucide icons

@@ -6,7 +6,7 @@ import { Button } from "@/app/components/button"
 
 import { Button2 } from "@/app/components/button2"
 
-import { Input } from "../app/components/input"
+import { Input } from "./components/input"
 
 
 export default function Index() {
@@ -22,7 +22,7 @@ export default function Index() {
 
 
             <Button2 title= "Entrar" style={styles.buttonText} onPress= {() => router.navigate('/home')} />
-            <Button title= "Cadastrar" style={styles.buttonTextBlue} onPress= {() => router.navigate('/singup-pessoas')} />
+            <Button title= "Cadastrar" style={styles.buttonTextBlue} onPress= {() => router.navigate('/cadastro-usuarios')} />
 
             <Image
                 source={require('../app/components/images/EVENTIX.png')}
