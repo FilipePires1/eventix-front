@@ -1,24 +1,30 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { Button2 } from "@/app/components/button2"
 import { router } from "expo-router"
-import { IconButton } from '../app/components/icons-lucide'
 import { FontAwesome5 } from '@expo/vector-icons'
-import SearchBar from "@/app/components/pesquisa";
 
 export default function Singup() {
   return (
     <View style={styles.container1}>
       <Text style={styles.title}>Eventos</Text>
-      <SearchBar placeholder="Pesquisar eventos..." placeholderTextColor="#b5b5b5" />
-      <Button2 title="Criar evento" style={styles.buttonText} onPress={() => router.navigate('/cadastro-eventos')} />
-      <View style={styles.bottomBar} />
-
-      <View style={styles.tabBar}>
-       <IconButton Icon={(props) => <FontAwesome5 name="calendar-alt" {...props} />} size={23} onPress={() => router.navigate('/home')} />
-         <IconButton Icon={(props) => <FontAwesome5 name="user-alt" {...props} />} size={20} onPress={() => router.navigate('/perfil')} />
-         <IconButton Icon={(props) => <FontAwesome5 name="user-edit" {...props} />} size={20} onPress={() => router.navigate('/pessoas')} />
-         <IconButton Icon={(props) => <FontAwesome5 name="calendar-plus" {...props} />} size={20} color="white" onPress={() => router.navigate('/eventos')} />
-    </View>
+      
+      {/* Campo de pesquisa com botão de lupa */}
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Pesquisar eventos..."
+          placeholderTextColor="#b5b5b5"
+        />
+        <TouchableOpacity style={styles.searchButton}>
+          <FontAwesome5 name="search" size={20} color="#000" />
+        </TouchableOpacity>
+      </View>
+      
+      <Button2 
+        title="Criar evento" 
+        style={styles.buttonText} 
+        onPress={() => router.navigate('/cadastro-eventos')} 
+      />
     </View>
   )
 }
@@ -31,8 +37,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 30,
     backgroundColor: '#00988D',
-    textShadowColor: '#000000aa',
-    textShadowOffset: { width: 2, height: 2 },
     paddingTop: 50,
   },
 
@@ -47,46 +51,30 @@ const styles = StyleSheet.create({
     textShadowRadius: 0.5,
   },
 
-  bottomBar: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    width: '320%',
-    height: 72,
-    backgroundColor: '#2c6c74',
-    justifyContent: 'center',
+  searchContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: '#FEF5C8',
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    width: '100%',
+    height: 50,
+  },
+  
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+    color: 'black',
+  },
+  
+  searchButton: {
+    padding: 10,
   },
 
   buttonText: {
-    color: 'black',
-    fontSize: 30,
-    fontWeight: '300',
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
     bottom: 100,
-  },
-
-  buttonText2: {
-    color: 'black',
-    fontSize: 30,
-    fontWeight: '300',
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-    bottom: 170,
-
-  },
-
-  tabBar: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    backgroundColor: '#2C6B74',
-    paddingVertical: 12,
-    position: 'absolute',
-    bottom: 3,
-    width: '100%',
-    gap: 55,
-  },
+  }
 })

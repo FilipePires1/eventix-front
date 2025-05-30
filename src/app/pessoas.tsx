@@ -13,13 +13,6 @@ export default function Singup() {
       <Button2 title="Cadastrar usuário" style={styles.buttonText} onPress={() => router.navigate('/cadastro-usuarios')} />
       <Button2 title="Cadastrar função" style={styles.buttonText2} onPress={() => router.navigate('/cadastro-funcao')} />
       <View style={styles.bottomBar} />
-
-      <View style={styles.tabBar}>
-       <IconButton Icon={(props) => <FontAwesome5 name="calendar-alt" {...props} />} size={23} onPress={() => router.navigate('/home')} />
-         <IconButton Icon={(props) => <FontAwesome5 name="user-alt" {...props} />} size={20} onPress={() => router.navigate('/perfil')} />
-         <IconButton Icon={(props) => <FontAwesome5 name="user-edit" {...props} />} size={20} color="white" onPress={() => router.navigate('/pessoas')} />
-         <IconButton Icon={(props) => <FontAwesome5 name="calendar-plus" {...props} />} size={20} onPress={() => router.navigate('/eventos')} />
-    </View>
     </View>
   )
 }

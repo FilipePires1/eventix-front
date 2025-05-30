@@ -29,24 +29,13 @@ export default function Singup(){
             <Input placeholder="Data" placeholderTextColor="#b5b5b5" />
             <Input placeholder="Horário" placeholderTextColor="#b5b5b5" />
 
-            <Button3 title= "Adicionar Participantes" style={styles.buttonText3} onPress= {() => router.navigate('/')} />
-            <Button4 title= "Ver Participantes" style={styles.buttonText3} onPress= {() => router.navigate('/')} />
+            <Button3 title= "Adicionar Participantes" onPress= {() => router.navigate('/')} />
+            <Button4 title= "Ver Participantes" onPress= {() => router.navigate('/')} />
 
             <View style={styles.BotoesAlinhados}>
 
-                <Button title= "Cancelar" style={styles.buttonText} onPress= {() => router.navigate('/eventos')} />
-                <Button title= "Confirmar" style={styles.buttonText2} onPress= {() => router.navigate('/eventos')} />
-
-            </View>
-
-            <View style={styles.bottomBar}/>
-
-            <View style={styles.tabBar}>
-
-                <IconButton Icon={(props) => <FontAwesome5 name="calendar-alt" {...props} />} size={23} onPress={() => router.navigate('/home')} />
-                <IconButton Icon={(props) => <FontAwesome5 name="user-alt" {...props} />} size={20} onPress={() => router.navigate('/perfil')} />
-                <IconButton Icon={(props) => <FontAwesome5 name="user-edit" {...props} />} size={20} onPress={() => router.navigate('/pessoas')} />
-                <IconButton Icon={(props) => <FontAwesome5 name="calendar-plus" {...props} />} size={20} color="white" onPress={() => router.navigate('/eventos')} />
+                <Button title= "Cancelar" onPress= {() => router.navigate('/eventos')} />
+                <Button title= "Confirmar" onPress= {() => router.navigate('/eventos')} />
 
             </View>
 
@@ -83,19 +72,6 @@ const styles = StyleSheet.create({
         
     },
 
-    bottomBar: { //retangulo azul inferior
-
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        width: '320%',
-        height: 72,
-        backgroundColor: '#2c6c74',
-        justifyContent: 'center',
-        alignItems: 'center',
-
-  },
-
     buttonText: { //botao de cancelar
 
         justifyContent: 'center',
@@ -104,26 +80,6 @@ const styles = StyleSheet.create({
         width: '50%',
         alignItems: 'center',
         height: 52,
-
-    },
-
-    buttonText2: { //botao de confirmar
-
-        justifyContent: 'center',
-        backgroundColor: '#013750',
-        paddingVertical: 12,
-        width: '50%',
-        alignItems: 'center',
-        height: 52,
-
-    },
-
-    buttonText3: { //botao participantes
-
-        color: 'black',
-        fontSize: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
 
     },
 

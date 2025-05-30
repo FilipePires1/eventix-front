@@ -1,133 +1,106 @@
-import { View, Text, StyleSheet } from 'react-native'
-
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { Button } from '@/app/components/button'
-
-import { Button2 } from "@/app/components/button2"
-
 import { router } from "expo-router"
-
-import { IconButton } from '../app/components/icons-lucide'
-
-import { FontAwesome5 } from '@expo/vector-icons'
-
 import { EventoCard } from './components/Eventocard'
 
-export default function Singup(){
-    function handleNext () {
-           router.navigate("/")
-        }
-    return(
-         <View style={styles.container1}>
-         <Text style={styles.title}>Meus eventos</Text>
+export default function Singup() {
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Meus eventos</Text>
 
-               
-        
-         <Button2 title= "Convites" style={styles.buttonText} onPress= {() => router.navigate('/convites')} />
-         <View style={styles.bottomBar}>
-         
-         </View>
+            {/* Área de conteúdo principal com ScrollView */}
+            <View style={styles.content}>
+                <ScrollView 
+                    style={styles.scrollContainer}
+                    contentContainerStyle={styles.scrollContent}
+                >
+                    <EventoCard
+                        titulo="Culto de adoração"
+                        funcao="Diácono"
+                        local="Igreja batista shallom"
+                        data="06/03/2025"
+                        horario="18:00" />
+                    <EventoCard
+                        titulo="Culto de adoração"
+                        funcao="Guitarrista"
+                        local="Igreja batista shallom"
+                        data="19/03/2025"
+                        horario="18:30" />
+                    <EventoCard
+                        titulo="Culto de adoração"
+                        funcao="Guitarrista"
+                        local="Igreja batista shallom"
+                        data="19/03/2025"
+                        horario="18:30" />
+                    <EventoCard
+                        titulo="Culto de adoração"
+                        funcao="Guitarrista"
+                        local="Igreja batista shallom"
+                        data="19/03/2025"
+                        horario="18:30" />
+                    <EventoCard
+                        titulo="Culto de adoração"
+                        funcao="Guitarrista"
+                        local="Igreja batista shallom"
+                        data="19/03/2025"
+                        horario="18:30" />
+                    <EventoCard
+                        titulo="Culto de adoração"
+                        funcao="Guitarrista"
+                        local="Igreja batista shallom"
+                        data="19/03/2025"
+                        horario="18:30" />   
+                    {/* Adicione quantos EventoCards precisar */}
+                </ScrollView>
 
-          <EventoCard
-                    titulo="Culto de adoração"
-                    funcao="Diácono"
-                    local="Igreja batista shallom"
-                    data="06/03/2025"
-                    horario="18:00"/>
-                <EventoCard
-                    titulo="Culto de adoração"
-                    funcao="Guitarrista"
-                    local="Igreja batista shallom"
-                    data="19/03/2025"
-                    horario="18:30"/>
-
-         <View style={styles.tabBar}>
-         <IconButton Icon={(props) => <FontAwesome5 name="calendar-alt" {...props} />} size={23} color="white" onPress={() => router.navigate('/home')} />
-         <IconButton Icon={(props) => <FontAwesome5 name="user-alt" {...props} />} size={20} onPress={() => router.navigate('/perfil')} />
-         <IconButton Icon={(props) => <FontAwesome5 name="user-edit" {...props} />} size={20} onPress={() => router.navigate('/pessoas')} />
-         <IconButton Icon={(props) => <FontAwesome5 name="calendar-plus" {...props} />} size={20} onPress={() => router.navigate('/eventos')} />
-        </View>
-
+                {/* Botão fixo na parte inferior */}
+                <View style={styles.buttonContainer}>
+                    <Button 
+                        title="Convites" 
+                        onPress={() => router.navigate('/convites')} 
+                    />
+                </View>
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-
-container1: { //toda tela
-
-    flex: 1,
-    padding: 45,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    gap: 20,
-    backgroundColor: '#00988D',
-    textShadowColor: '#000000aa',       
-    textShadowOffset: { width: 2, height: 2 }, 
-    paddingTop: 50,
-        
+    container: {
+        flex: 1,
+        backgroundColor: '#00988D',
     },
-
-title: { //meus enventos
-
-    color: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: 400,
-    fontSize: 40,
-    textShadowColor: '#000000aa',   
-    textShadowOffset: { width: 0.5, height: 0.5 }, 
-    textShadowRadius: 0.5,
-    gap: 30
-        
-    },
-
-bottomBar: { //retangulo azul inferior
-
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    width: '320%',
-    height: 72,
-    backgroundColor: '#2c6c74',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-  },
-
-buttonText: { //botao de convites
-
-    color: 'black',
-    fontSize: 30,
-    fontWeight: 300,
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-    bottom: 100,
-
-    },
-
-tabBar: { //lucide icons
-
-    flexDirection: 'row',
-    justifyContent: 'center',
-    backgroundColor: '#2C6B74',
-    paddingVertical: 12,
-    position: 'absolute',
-    bottom: 3,
-    width: '100%',
-    gap: 55
-
-    },
-
-    buttonTextBlue: { //evento
-        color: 'white',
-        fontSize: 30,
-        fontWeight: 300,
-        backgroundColor: '#013750',
-      },
     
-    card: {
-        gap: 10
+    title: {
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: '400',
+        fontSize: 40,
+        textShadowColor: '#000000aa',
+        textShadowOffset: { width: 0.5, height: 0.5 },
+        textShadowRadius: 0.5,
+        marginTop: 50,
+        marginBottom: 20,
     },
 
+    content: {
+        flex: 1,
+        paddingHorizontal: 20,
+    },
+
+    scrollContainer: {
+        flex: 1,
+    },
+
+    scrollContent: {
+        paddingBottom: 10, // Espaço para o botão e TabBar
+        gap: 5,
+    },
+
+    buttonContainer: {
+        flex: 0.00009,
+        width: '100%',
+        justifyContent: 'flex-end',
+        padding: 80
+    }
 })

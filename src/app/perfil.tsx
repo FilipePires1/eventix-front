@@ -17,21 +17,15 @@ export default function Singup() {
       <Text style={styles.title}>Meu perfil</Text>
 
       <Button2 title="Editar perfil" style={styles.buttonText} onPress={() => router.navigate('/editar-perfil')} />
-        
+
       <View style={styles.bottomBar} />
 
       <EventoCard2
         Nome="Filipe Pires Nogueira"
         Funcoes="Guitarrista"
         Nascimento="11/01/2009"
-        Sexo='Masculino'/>
+        Sexo='Masculino' />
 
-      <View style={styles.tabBar}>
-         <IconButton Icon={(props) => <FontAwesome5 name="calendar-alt" {...props} />} size={23} onPress={() => router.navigate('/home')} />
-         <IconButton Icon={(props) => <FontAwesome5 name="user-alt" {...props} />} size={20} color="white" onPress={() => router.navigate('/perfil')} />
-         <IconButton Icon={(props) => <FontAwesome5 name="user-edit" {...props} />} size={20} onPress={() => router.navigate('/pessoas')} />
-         <IconButton Icon={(props) => <FontAwesome5 name="calendar-plus" {...props} />} size={20} onPress={() => router.navigate('/eventos')} />
-    </View>
     </View>
   )
 }
@@ -79,16 +73,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     bottom: 100,
-  },
-
-  tabBar: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    backgroundColor: '#2C6B74',
-    paddingVertical: 12,
-    position: 'absolute',
-    bottom: 3,
-    width: '100%',
-    gap: 55,
   },
 })

@@ -8,7 +8,6 @@ import { Button2 } from "@/app/components/button2"
 
 import { Input } from "./components/input"
 
-
 export default function Index() {
     function handleNext () {
        router.navigate("/")
@@ -22,18 +21,15 @@ export default function Index() {
 
 
             <Button2 title= "Entrar" style={styles.buttonText} onPress= {() => router.navigate('/home')} />
-            <Button title= "Cadastrar" style={styles.buttonTextBlue} onPress= {() => router.navigate('/cadastro-usuarios')} />
+            <Button2 title= "Cadastrar" style={styles.buttonTextBlue} onPress= {() => router.navigate('/cadastro-usuarios')} />
 
             <Image
                 source={require('../app/components/images/EVENTIX.png')}
                 style={styles.logo}
                 />
-
-    
             </View>
     )
 }
-
 
 const styles = StyleSheet.create({
 

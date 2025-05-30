@@ -17,7 +17,7 @@ export function Button2({ title, style, onPress }: Props) {
 
 const styles = StyleSheet.create({
   button: {
-    width:"100%",
+    width:"80%",
         height: 52,
         backgroundColor: '#FEF5C8',
         borderRadius: 11,
