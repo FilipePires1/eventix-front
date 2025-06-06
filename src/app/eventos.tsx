@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import { Button2 } from "@/app/components/button2"
+import  { ButtonLigth } from "@/app/components/button-ligth"
 import { router } from "expo-router"
 import { FontAwesome5 } from '@expo/vector-icons'
 
@@ -20,7 +20,7 @@ export default function Singup() {
         </TouchableOpacity>
       </View>
       
-      <Button2 
+      <ButtonLigth 
         title="Criar evento" 
         style={styles.buttonText} 
         onPress={() => router.navigate('/cadastro-eventos')} 

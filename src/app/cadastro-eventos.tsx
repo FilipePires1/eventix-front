@@ -1,42 +1,38 @@
 import { View, Text, StyleSheet } from 'react-native'
 
-import { Button } from "@/app/components/button"
-
-import { Button3 } from "@/app/components/button3"
-
-import { Button4 } from "@/app/components/button4"
+import { ButtonLigth } from "@/app/components/button-ligth"
 
 import { router } from "expo-router"
 
-import { IconButton } from '../app/components/icons-lucide'
-
-import { FontAwesome5 } from '@expo/vector-icons'
-
 import { Input } from "../app/components/input"
+import { ButtonDark } from './components/button-dark'
+import ButtonCancel from './components/button-cancel'
 
 
-export default function Singup(){
-        function handleNext () {
+export default function Singup() {
+    function handleNext() {
         router.navigate("/")
-}
-    return(
+    }
+    return (
 
-         <View style={styles.container1}>
+        <View style={styles.container1}>
 
-           <Text style={styles.title}>Cadastro de evento</Text>
+            <Text style={styles.title}>Cadastrar evento</Text>
 
-            <Input placeholder="Local" placeholderTextColor="#b5b5b5" />
-            <Input placeholder="Data" placeholderTextColor="#b5b5b5" />
-            <Input placeholder="Horário" placeholderTextColor="#b5b5b5" />
+            <Input placeholder="Digite o local do evento..." placeholderTextColor="#b5b5b5" />
+            <Input placeholder="Digite a data do evento..." placeholderTextColor="#b5b5b5" />
+            <Input placeholder="Digite o horário do evento..." placeholderTextColor="#b5b5b5" />
 
-            <Button3 title= "Adicionar Participantes" onPress= {() => router.navigate('/')} />
-            <Button4 title= "Ver Participantes" onPress= {() => router.navigate('/')} />
+            <ButtonLigth title="Adicionar Participantes" onPress={() => router.navigate('/')} />
+            <ButtonLigth title="Ver Participantes" onPress={() => router.navigate('/')} />
 
-            <View style={styles.BotoesAlinhados}>
-
-                <Button title= "Cancelar" onPress= {() => router.navigate('/eventos')} />
-                <Button title= "Confirmar" onPress= {() => router.navigate('/eventos')} />
-
+            <View style={styles.buttonContainer}>
+                <View style={styles.buttonWrapper}>
+                    <ButtonCancel title="Cancelar" onPress={() => router.navigate('/users')} />
+                </View>
+                <View style={styles.buttonWrapper}>
+                    <ButtonDark title="Confirmar" onPress={() => router.navigate('/users')} />
+                </View>
             </View>
 
         </View>
@@ -45,18 +41,16 @@ export default function Singup(){
 
 const styles = StyleSheet.create({
 
-    container1: { //toda tela
-
+    container1: {
         flex: 1,
         padding: 45,
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         alignItems: 'center',
-        gap: 40,
+        gap: 20,
         backgroundColor: '#00988D',
-        textShadowColor: '#000000aa',       
-        textShadowOffset: { width: 2, height: 2 }, 
-        paddingTop: 50,
-        
+        textShadowColor: '#000000aa',
+        textShadowOffset: { width: 2, height: 2 },
+        paddingTop: 40,
     },
 
     title: { //meus enventos
@@ -66,10 +60,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         fontWeight: 400,
         fontSize: 40,
-        textShadowColor: '#000000aa',   
-        textShadowOffset: { width: 0.5, height: 0.5 }, 
+        textShadowColor: '#000000aa',
+        textShadowOffset: { width: 0.5, height: 0.5 },
         textShadowRadius: 0.5,
-        
+
     },
 
     buttonText: { //botao de cancelar
@@ -83,24 +77,15 @@ const styles = StyleSheet.create({
 
     },
 
-    BotoesAlinhados: { //alinhamentos dos botoes confirmar e cancelar
-
-        flexDirection: 'row',
-        gap: 50,
-        top: 58
-    },
-
-    tabBar: { //lucide icons
-
-        flexDirection: 'row',
-        justifyContent: 'center',
-        backgroundColor: '#2C6B74',
-        paddingVertical: 12,
-        position: 'absolute',
-        bottom: 3,
+    buttonContainer: {
         width: '100%',
-        gap: 55
-
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        gap: 20,
+        marginTop: 10,
     },
 
+    buttonWrapper: {
+        flex: 1,
+    },
 })

@@ -8,7 +8,7 @@ type Props = {
   onPress: () => void
 };
 
-export function Button({ title, onPress }: Props) {
+export function ButtonDark({ title, onPress }: Props) {
   return (
     <TouchableOpacity onPress={onPress} style={styles.button}>
       <Text style={styles.buttonText}>{title}</Text>
@@ -19,19 +19,19 @@ export function Button({ title, onPress }: Props) {
 const styles = StyleSheet.create({
   button: {
     width: '100%',
-    height: 52,
-    backgroundColor: '#FEF5C8',
+    height: 50,
+    backgroundColor: '#013750',
     borderRadius: 11,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 8, // Espaçamento vertical padrão
+    shadowRadius: 3,
   },
   buttonText: {
-    color: '#000',
+    color: '#FFF',
     fontSize: 25,
-    fontWeight: '400',
+    fontWeight: 'bold',
     textAlign: 'center',
   }
 })
 
-export default Button
+export default ButtonDark

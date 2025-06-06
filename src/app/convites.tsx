@@ -1,17 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native'
 
-import { Button } from '@/app/components/button'
-
-import { router } from "expo-router"
-
-import { IconButton } from '../app/components/icons-lucide'
-
-import { FontAwesome5 } from '@expo/vector-icons'
-
 export default function Singup() {
-    function handleNext() {
-        router.navigate("/")
-    }
+
     return (
         <View style={styles.container1}>
             <Text style={styles.title}>Meus convites</Text>

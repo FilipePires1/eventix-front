@@ -1,32 +1,43 @@
 import { View, Text, StyleSheet } from 'react-native'
 
-import { Button } from "@/app/components/button"
-
 import { router } from "expo-router"
 
-import { IconButton } from '../app/components/icons-lucide'
-
 import { Input } from "../app/components/input"
+import ButtonDark from './components/button-dark'
+import ButtonCancel from './components/button-cancel'
+import { Picker } from '@react-native-picker/picker';
+import { useState } from 'react'
 
-import { FontAwesome5 } from '@expo/vector-icons'
+export default function EditarPerfil() {
 
-export default function Singup() {
-    function handleNext() {
-        router.navigate("/")
-    }
+    const [selectedSexo, setSelectedSexo] = useState('');
+
     return (
-        <View style={styles.container1}>
+        <View style={styles.container}>
             <Text style={styles.title}>Editar perfil</Text>
-            <Input />
-            <Input />
-            <Input />
-            <Input />
-            <View style={styles.BotoesAlinhados}>
-                <Button title="Cancelar" style={styles.buttonText} onPress={() => router.navigate('/perfil')} />
-                <Button title="Confirmar" style={styles.buttonText2} onPress={() => router.navigate('/perfil')} />
-            </View>
-            <View style={styles.bottomBar}>
+            <Input placeholder="Nome" />
+            <Input placeholder="Data de Nascimento" />
+            <Input placeholder="Email" />
 
+            <View style={styles.pickerWrapper}>
+                <Picker
+                    selectedValue={selectedSexo}
+                    onValueChange={(itemValue) => setSelectedSexo(itemValue)}
+                    style={styles.picker}
+                >
+                    <Picker.Item label="Sexo" value="" />
+                    <Picker.Item label="Masculino" value="masculino" />
+                    <Picker.Item label="Feminino" value="feminino" />
+                </Picker>
+            </View>
+
+            <View style={styles.buttonContainer}>
+                <View style={styles.buttonWrapper}>
+                    <ButtonCancel title="Cancelar" onPress={() => router.navigate('/users')} />
+                </View>
+                <View style={styles.buttonWrapper}>
+                    <ButtonDark title="Confirmar" onPress={() => router.navigate('/users')} />
+                </View>
             </View>
         </View>
     )
@@ -34,18 +45,16 @@ export default function Singup() {
 
 const styles = StyleSheet.create({
 
-    container1: { //toda tela
-
+    container: {
         flex: 1,
         padding: 45,
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         alignItems: 'center',
-        gap: 40,
+        gap: 20,
         backgroundColor: '#00988D',
         textShadowColor: '#000000aa',
         textShadowOffset: { width: 2, height: 2 },
-        paddingTop: 50,
-
+        paddingTop: 40,
     },
 
     title: { //meus enventos
@@ -61,58 +70,29 @@ const styles = StyleSheet.create({
 
     },
 
-    bottomBar: { //retangulo azul inferior
-
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        width: '320%',
-        height: 72,
-        backgroundColor: '#2c6c74',
-        justifyContent: 'center',
-        alignItems: 'center',
-
-    },
-
-    buttonText: { //botao de cancelar
-
-        justifyContent: 'center',
-        backgroundColor: '#f23e02',
-        paddingVertical: 12,
-        width: '40%',
-        alignItems: 'center',
-        height: 52,
-
-    },
-
-    buttonText2: { //botao de confirmar
-
-        justifyContent: 'center',
-        backgroundColor: '#013750',
-        paddingVertical: 12,
-        width: '40%',
-        alignItems: 'center',
-        height: 52,
-
-    },
-
-    BotoesAlinhados: {
-        flexDirection: 'row',
-        gap: 60,
-        top: 100
-    },
-
-    tabBar: { //lucide icons
-
-        flexDirection: 'row',
-        justifyContent: 'center',
-        backgroundColor: '#2C6B74',
-        paddingVertical: 12,
-        position: 'absolute',
-        bottom: 3,
+    pickerWrapper: {
         width: '100%',
-        gap: 55
-
+        backgroundColor: '#FEF5C8',
+        borderRadius: 11,
+        paddingHorizontal: 0,
+        elevation: 8,
+        shadowRadius: 7,
     },
 
+    picker: {
+        height: 52,
+        color: '#000',
+    },
+
+    buttonContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        gap: 20,
+        marginTop: 10,
+    },
+
+    buttonWrapper: {
+        flex: 1,
+    },
 })

@@ -1,37 +1,68 @@
-import { router, Slot } from 'expo-router'
-import { View, StyleSheet } from 'react-native'
+import { router, Slot, usePathname } from 'expo-router'
+import { View, StyleSheet, Dimensions } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { IconButton } from '@/app/components/icons-lucide'
 
 export default function Layout() {
+    const { height } = Dimensions.get('window');
+    const vh = height / 100; // 1% da altura da tela
+
+    const pathname = usePathname()
+    
+    // Lista de rotas onde a tab bar NÃO deve aparecer
+    const hideTabBarRoutes = ['/', '/(auth)/singup/page']
+    
+    // Verifica se a rota atual está na lista de rotas para esconder a tab bar
+    const shouldShowTabBar = !hideTabBarRoutes.includes(pathname)
+
+     // Mapeamento das rotas e seus ícones correspondentes
+    const tabs = [
+        {
+            route: '/home',
+            iconName: 'calendar-alt',
+            size: 27
+        },
+        {
+            route: '/eventos',
+            iconName: 'calendar-plus',
+            size: 27
+        },
+        {
+            route: '/perfil',
+            iconName: 'user-alt',
+            size: 25
+        },
+        {
+            route: '/users',
+            iconName: 'user-edit',
+            size: 25
+        }
+    ]
+
     return (
         <View style={styles.container}>
             <Slot /> 
-            
-            {/* Barra de tabs fixa na parte inferior */}
-            <View style={styles.tabBar}>
-                <IconButton 
-                    Icon={(props) => <FontAwesome5 name="calendar-alt" {...props} />} 
-                    size={23} 
-                    color="white" 
-                    onPress={() => router.navigate('/home')} 
-                />
-                <IconButton 
-                    Icon={(props) => <FontAwesome5 name="calendar-plus" {...props} />} 
-                    size={20} 
-                    onPress={() => router.navigate('/eventos')} 
-                />
-                <IconButton 
-                    Icon={(props) => <FontAwesome5 name="user-alt" {...props} />} 
-                    size={20} 
-                    onPress={() => router.navigate('/perfil')} 
-                />
-                <IconButton 
-                    Icon={(props) => <FontAwesome5 name="user-edit" {...props} />} 
-                    size={20} 
-                    onPress={() => router.navigate('/pessoas')} 
-                />
-            </View>
+            {shouldShowTabBar && (
+                <View style={styles.tabBar}>
+                    {tabs.map((tab) => {
+                        const isActive = pathname === tab.route
+                        return (
+                            <IconButton 
+                                key={tab.route}
+                                Icon={(props) => (
+                                    <FontAwesome5 
+                                        name={tab.iconName} 
+                                        {...props} 
+                                        color={isActive ? 'white' : 'black'}
+                                    />
+                                )} 
+                                size={tab.size} 
+                                onPress={() => router.navigate(tab.route)} 
+                            />
+                        )
+                    })}
+                </View>
+            )}
         </View>
     )
 }
@@ -43,12 +74,12 @@ const styles = StyleSheet.create({
     },
     tabBar: {
         flexDirection: 'row',
-        justifyContent: 'center',
         backgroundColor: '#2C6B74',
         paddingVertical: 12,
         position: 'absolute',
         bottom: 0,
         width: '100%',
-        gap: 55
+        justifyContent: 'space-around',
+        height: 100
     },
 })

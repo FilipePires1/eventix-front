@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
+
+import { ButtonLigth } from "@/app/components/button-ligth";
 import { router } from "expo-router";
-import { Input } from "../app/components/input";
 import { Picker } from '@react-native-picker/picker';
-import ButtonCancel from './components/button-cancel';
-import ButtonDark from './components/button-dark';
+import Input from '@/app/components/input';
+import { IconButton } from '@/app/components/icons-lucide'
+import { FontAwesome5 } from '@expo/vector-icons'
+import ButtonDark from '@/app/components/button-dark';
+import ButtonCAncel from '@/app/components/button-cancel';
 
 export default function Singup() {
   const [selectedSexo, setSelectedSexo] = useState('');
@@ -12,11 +16,11 @@ export default function Singup() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Cadastrar usuário</Text>
+      <Text style={styles.title}>Criar conta</Text>
 
-      <Input placeholder="Nome" placeholderTextColor="#b5b5b5" />
-      <Input placeholder="Data de Nascimento" placeholderTextColor="#b5b5b5" />
-      <Input placeholder="Email" placeholderTextColor="#b5b5b5" />
+      <Input placeholder="Digite seu nome..." placeholderTextColor="#b5b5b5" />
+      <Input placeholder="Digite sua data de nascimento..." placeholderTextColor="#b5b5b5" />
+      <Input placeholder="Digite seu melhor email..." placeholderTextColor="#b5b5b5" />
 
       <View style={styles.pickerWrapper}>
         <Picker
@@ -42,13 +46,9 @@ export default function Singup() {
         </Picker>
       </View>
 
-      <View style={styles.buttonContainer}>
-        <View style={styles.buttonWrapper}>
-          <ButtonCancel title="Cancelar" onPress={() => router.navigate('/users')} />
-        </View>
-        <View style={styles.buttonWrapper}>
-          <ButtonDark title="Confirmar" onPress={() => router.navigate('/users')} />
-        </View>
+      <View style={styles.BotoesAlinhados}>
+        <ButtonCAncel title="Cancelar" onPress={() => router.navigate('/')} />
+        <ButtonDark title="Confirmar" onPress={() => router.navigate('/home')} />
       </View>
 
     </View>
@@ -58,21 +58,20 @@ export default function Singup() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 45,
-    justifyContent: 'center',
+    padding: 40,
     alignItems: 'center',
+    justifyContent: 'center',
     gap: 20,
     backgroundColor: '#00988D',
     textShadowColor: '#000000aa',
     textShadowOffset: { width: 2, height: 2 },
-    paddingTop: 40,
   },
   title: {
     color: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    fontWeight: '400',
-    fontSize: 35,
+    fontWeight: 'bold',
+    fontSize: 38,
     textShadowColor: '#000000aa',
     textShadowOffset: { width: 0.5, height: 0.5 },
     textShadowRadius: 0.5,
@@ -89,14 +88,11 @@ const styles = StyleSheet.create({
     height: 52,
     color: '#000',
   },
-  buttonContainer: {
-    width: '100%',  
+  BotoesAlinhados: {
+    width: '45%',
+    alignItems: 'center',
+    justifyContent: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 20,
-    marginTop: 10,
-  },
-  buttonWrapper: {
-    flex: 1,  
+    gap: 40,
   },
 });

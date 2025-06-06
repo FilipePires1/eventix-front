@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native'
 
-import { Button2 } from "@/app/components/button2"
+import { ButtonLigth } from "@/app/components/button-ligth"
 
 import { router } from "expo-router"
 
@@ -16,7 +16,7 @@ export default function Singup() {
 
       <Text style={styles.title}>Meu perfil</Text>
 
-      <Button2 title="Editar perfil" style={styles.buttonText} onPress={() => router.navigate('/editar-perfil')} />
+      <ButtonLigth title="Editar perfil" style={styles.buttonText} onPress={() => router.navigate('/editar-perfil')} />
 
       <View style={styles.bottomBar} />
 

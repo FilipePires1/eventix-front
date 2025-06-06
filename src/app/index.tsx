@@ -1,49 +1,41 @@
-import { View, Text, StyleSheet, Image } from "react-native"
-
-import { router } from "expo-router"
-
-import { Button } from "@/app/components/button"
-
-import { Button2 } from "@/app/components/button2"
-
+import { View, Text, StyleSheet } from "react-native"
+import { router, Link } from "expo-router"
 import { Input } from "./components/input"
+import ButtonDark from "./components/button-dark"
 
-export default function Index() {
-    function handleNext () {
-       router.navigate("/")
-    }
+export default function Login() {
     return (
-            <View style={styles.container1}>
+        <View style={styles.container}>
             <Text style={styles.title}>Login</Text>
 
-            <Input placeholder="E-mail" placeholderTextColor="#b5b5b5" />
-            <Input placeholder="Senha" placeholderTextColor="#b5b5b5" secureTextEntry />
+            <View style={styles.form}>
+                <Input placeholder="Digite seu e-mail..." placeholderTextColor="#b5b5b5" />
+                <Input placeholder="Digite sua senha" placeholderTextColor="#b5b5b5" secureTextEntry />
 
 
-            <Button2 title= "Entrar" style={styles.buttonText} onPress= {() => router.navigate('/home')} />
-            <Button2 title= "Cadastrar" style={styles.buttonTextBlue} onPress= {() => router.navigate('/cadastro-usuarios')} />
+                <ButtonDark title="Entrar" onPress={() => router.navigate('/home')} />
+        
+                <Link href={'/(auth)/singup/page'} style={styles.link}>
+                    <Text>Ainda não possui uma conta? Cadastre-se</Text>
+                </Link>    
+            </View>
 
-            <Image
+            {/* <Image
                 source={require('../app/components/images/EVENTIX.png')}
                 style={styles.logo}
-                />
-            </View>
+            /> */}
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
 
-    container1: {
+    container: {
         flex: 1,
-        padding: 45,
         justifyContent: 'center',
         alignItems: 'center',
         gap: 30,
-        backgroundColor: '#00988D',
-        textShadowColor: '#000000aa',       
-        textShadowOffset: { width: 2, height: 2 }, 
-        textShadowRadius: 4,  
-
+        backgroundColor: '#00988D'
     },
 
     title: {
@@ -52,45 +44,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         fontWeight: 400,
         fontSize: 60,
-        textShadowColor: '#000000aa',   
-        textShadowOffset: { width: 0.5, height: 0.5 }, 
-        textShadowRadius: 0.5,  
+        textShadowColor: '#000000aa',
+        textShadowOffset: { width: 0.5, height: 0.5 },
+        textShadowRadius: 0.5,
 
     },
 
-    logo: {
-        width: 150,
-        height: 150,
-        marginBottom: -180, 
-        bottom: -10,  
-        alignSelf: 'center', 
-    
+    form: {
+        width: '75%',
+        gap: 20,
     },
 
-    buttonBlue: {
-        width:"100%",
-        height: 52,
-        backgroundColor: '#013750',
-        borderRadius: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        shadowRadius: 7,
-        elevation: 8,
-    
-    },
-
-    buttonText: {
-        color: 'black',
-        fontSize: 30,
-        fontWeight: 300,
-    },
-
-    buttonTextBlue: {
+    link: {
         color: 'white',
-        fontSize: 30,
-        fontWeight: 300,
-        backgroundColor: '#013750',
-      },
-        
-    
+        textAlign: 'center',
+        fontSize: 14,
+        fontWeight: 'bold',
+    },
 })

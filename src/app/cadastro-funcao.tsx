@@ -2,76 +2,58 @@ import { View, Text, StyleSheet } from 'react-native'
 
 import { router } from "expo-router"
 
-import { IconButton } from '../app/components/icons-lucide'
-
-import { FontAwesome5 } from '@expo/vector-icons'
-
 import { Input } from '@/app/components/input'
 
-import { Button} from '@/app/components/button'
+import { ButtonLigth } from '@/app/components/button-ligth'
+import ButtonCancel from './components/button-cancel'
+import ButtonDark from './components/button-dark'
 
 
 export default function Singup() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Cadastro função</Text>
+      <Text style={styles.title}>Cadastrar função</Text>
 
-        <Input style={styles.buttonText4} placeholder="Nome da função" placeholderTextColor="#b5b5b5" />
+      <Input style={styles.buttonText} placeholder="Digite o nome da função..." placeholderTextColor="#b5b5b5" />
 
-      <View style={styles.BotoesAlinhados}>
-
-        <Button title= "Cancelar" style={styles.buttonText} onPress= {() => router.navigate('/pessoas')} />
-        <Button title= "Cadastrar" style={styles.buttonText2} onPress= {() => router.navigate('/pessoas')} />
-
+      <View style={styles.buttonContainer}>
+        <View style={styles.buttonWrapper}>
+          <ButtonCancel title="Cancelar" onPress={() => router.navigate('/users')} />
+        </View>
+        <View style={styles.buttonWrapper}>
+          <ButtonDark title="Confirmar" onPress={() => router.navigate('/users')} />
+        </View>
       </View>
-
-
-      <View style={styles.bottomBar} />
-
     </View>
   )
 }
 
 const styles = StyleSheet.create({
 
-  container: { //tela toda
-
+  container: {
     flex: 1,
     padding: 45,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
     gap: 20,
     backgroundColor: '#00988D',
     textShadowColor: '#000000aa',
     textShadowOffset: { width: 2, height: 2 },
-    paddingTop: 50,
+    paddingTop: 40,
   },
 
-  title: { //titulo
-
+  title: {
     color: 'white',
     alignItems: 'center',
     justifyContent: 'center',
     fontWeight: '400',
-    fontSize: 40,
+    fontSize: 35,
     textShadowColor: '#000000aa',
     textShadowOffset: { width: 0.5, height: 0.5 },
     textShadowRadius: 0.5,
   },
 
-  bottomBar: { //barra azul inferior
-
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    width: '320%',
-    height: 72,
-    backgroundColor: '#2c6c74',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  buttonText4: { //add funcao
+  buttonText: { //add funcao
 
     width: '100%',
     height: 52,
@@ -84,32 +66,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  buttonText: { //cancelar
-
-    justifyContent: 'center',
-    backgroundColor: '#f23e02',
-    paddingVertical: 12,
-    width: '40%',
-    alignItems: 'center',
-    height: 52,
-
+  buttonContainer: {
+    width: '100%',  
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 20,
+    marginTop: 10,
   },
-
-  buttonText2: { //cadastrar
-
-    justifyContent: 'center',
-    backgroundColor: '#013750',
-    paddingVertical: 12,
-    width: '40%',
-    alignItems: 'center',
-    height: 52,
-  },
-
-    BotoesAlinhados: { //alinhamento dos botoes cadastrar e cancelar
-      flexDirection: 'row',
-      gap: 50,
-      justifyContent: 'center'
-  
+  buttonWrapper: {
+    flex: 1,  
   },
 
 })

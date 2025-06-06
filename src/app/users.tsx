@@ -1,24 +1,24 @@
 import { View, Text, StyleSheet } from 'react-native'
-import { Button2 } from "@/app/components/button2"
+import { ButtonLigth } from "@/app/components/button-ligth"
 import { router } from "expo-router"
-import { IconButton } from '../app/components/icons-lucide'
+import { IconButton } from './components/icons-lucide'
 import { FontAwesome5 } from '@expo/vector-icons'
 import SearchBar from "@/app/components/pesquisa";
 
 export default function Singup() {
   return (
-    <View style={styles.container1}>
+    <View style={styles.container}>
       <Text style={styles.title}>Usuários</Text>
       <SearchBar placeholder="Pesquisar usuários..." placeholderTextColor="#b5b5b5" />
-      <Button2 title="Cadastrar usuário" style={styles.buttonText} onPress={() => router.navigate('/cadastro-usuarios')} />
-      <Button2 title="Cadastrar função" style={styles.buttonText2} onPress={() => router.navigate('/cadastro-funcao')} />
+      <ButtonLigth title="Cadastrar usuário" style={styles.buttonText} onPress={() => router.navigate('/cadastro-usuarios')} />
+      <ButtonLigth title="Cadastrar função" style={styles.buttonText2} onPress={() => router.navigate('/cadastro-funcao')} />
       <View style={styles.bottomBar} />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container1: {
+  container: {
     flex: 1,
     padding: 45,
     justifyContent: 'flex-start',

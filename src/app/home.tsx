@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
-import { Button } from '@/app/components/button'
+import { ButtonLigth } from '@/app/components/button-ligth'
 import { router } from "expo-router"
 import { EventoCard } from './components/Eventocard'
 
@@ -13,6 +13,7 @@ export default function Singup() {
                 <ScrollView 
                     style={styles.scrollContainer}
                     contentContainerStyle={styles.scrollContent}
+                    showsHorizontalScrollIndicator={false}
                 >
                     <EventoCard
                         titulo="Culto de adoração"
@@ -55,7 +56,7 @@ export default function Singup() {
 
                 {/* Botão fixo na parte inferior */}
                 <View style={styles.buttonContainer}>
-                    <Button 
+                    <ButtonLigth 
                         title="Convites" 
                         onPress={() => router.navigate('/convites')} 
                     />
@@ -69,6 +70,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#00988D',
+        marginBottom: 50
     },
     
     title: {
@@ -101,6 +103,6 @@ const styles = StyleSheet.create({
         flex: 0.00009,
         width: '100%',
         justifyContent: 'flex-end',
-        padding: 80
+        padding: 80,   
     }
 })
