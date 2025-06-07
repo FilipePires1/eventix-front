@@ -19,6 +19,8 @@ export default function Singup() {
           <FontAwesome5 name="search" size={20} color="#000" />
         </TouchableOpacity>
       </View>
+
+      
       
       <ButtonLigth 
         title="Criar evento" 
