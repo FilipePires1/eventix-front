@@ -1,80 +1,113 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { EventoCard } from './components/Eventocard'
 
 export default function Singup() {
 
+    const convites = [
+        {
+            titulo: "Culto de adoração",
+            funcao: "Diácono",
+            local: "Igreja batista shallom",
+            data: "06/03/2027",
+            horario: "18:00"
+        },
+        {
+            titulo: "Culto de adoração",
+            funcao: "Guitarrista",
+            local: "Igreja batista shallom",
+            data: "19/03/2025",
+            horario: "18:30"
+        },
+        {
+            titulo: "Culto de louvor",
+            funcao: "Vocalista",
+            local: "Igreja batista shallom",
+            data: "20/03/2025",
+            horario: "19:00"
+        },
+        {
+            titulo: "Culto da família",
+            funcao: "Recepcionista",
+            local: "Igreja batista shallom",
+            data: "21/03/2025",
+            horario: "19:30"
+        },
+        {
+            titulo: "Culto de jovens",
+            funcao: "Baterista",
+            local: "Igreja batista shallom",
+            data: "22/03/2025",
+            horario: "20:00"
+        },
+        {
+            titulo: "Culto de jovens",
+            funcao: "Baterista",
+            local: "Igreja batista shallom",
+            data: "22/03/2025",
+            horario: "20:00"
+        }
+    ]
+
     return (
-        <View style={styles.container1}>
+        <View style={styles.container}>
             <Text style={styles.title}>Meus convites</Text>
 
-            <View style={styles.bottomBar}>
-
+            {/* Área de conteúdo principal com ScrollView */}
+            <View style={styles.content}>
+                <ScrollView
+                    style={styles.scrollContainer}
+                    contentContainerStyle={styles.scrollContent}
+                    showsVerticalScrollIndicator={false}
+                >
+                    {/* Renderização dinâmica dos EventoCards */}
+                    {convites.map((evento, index) => (
+                        <EventoCard
+                            key={index}
+                            titulo={evento.titulo}
+                            funcao={evento.funcao}
+                            local={evento.local}
+                            data={evento.data}
+                            horario={evento.horario}
+                        />
+                    ))}
+                </ScrollView>
             </View>
-
         </View>
+
     )
 }
 
 const styles = StyleSheet.create({
 
-    container1: { //toda tela
-
+    container: {
         flex: 1,
-        padding: 45,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        gap: 30,
         backgroundColor: '#00988D',
-        textShadowColor: '#000000aa',
-        textShadowOffset: { width: 2, height: 2 },
-        paddingTop: 50,
-
+        marginBottom: 50,
+        paddingBottom: 70
     },
-
-    title: { //meus enventos
-
+    
+    title: {
         color: 'white',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontWeight: 400,
+        textAlign: 'center',
+        fontWeight: '600',
         fontSize: 40,
         textShadowColor: '#000000aa',
         textShadowOffset: { width: 0.5, height: 0.5 },
         textShadowRadius: 0.5,
-
+        marginTop: 50,
+        marginBottom: 20,
     },
 
-    bottomBar: { //retangulo azul inferior
-
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        width: '320%',
-        height: 72,
-        backgroundColor: '#2c6c74',
-        justifyContent: 'center',
-        alignItems: 'center',
-
+    content: {
+        flex: 1,
+        paddingHorizontal: 20,
     },
 
-    buttonText: { //botao de convites
-
-        color: 'black',
-        fontSize: 30,
-        fontWeight: 300,
-        position: 'absolute',
-        alignItems: 'center',
-        justifyContent: 'center',
-        bottom: 100,
-
+    scrollContainer: {
+        flex: 1,
     },
 
-    buttonTextBlue: { //evento
-        color: 'white',
-        fontSize: 30,
-        fontWeight: 300,
-        backgroundColor: '#013750',
+    scrollContent: {
+        gap: 5,
     },
-
-
-
 })
