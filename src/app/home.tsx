@@ -3,7 +3,45 @@ import { ButtonLigth } from '@/app/components/button-ligth'
 import { router } from "expo-router"
 import { EventoCard } from './components/Eventocard'
 
-export default function Singup() {
+const eventos = [
+  {
+    titulo: "Culto de adoração",
+    funcao: "Diácono",
+    local: "Igreja batista shallom",
+    data: "06/03/2027",
+    horario: "18:00"
+  },
+  {
+    titulo: "Culto de adoração",
+    funcao: "Guitarrista",
+    local: "Igreja batista shallom",
+    data: "19/03/2025",
+    horario: "18:30"
+  },
+  {
+    titulo: "Culto de louvor",
+    funcao: "Vocalista",
+    local: "Igreja batista shallom",
+    data: "20/03/2025",
+    horario: "19:00"
+  },
+  {
+    titulo: "Culto da família",
+    funcao: "Recepcionista",
+    local: "Igreja batista shallom",
+    data: "21/03/2025",
+    horario: "19:30"
+  },
+  {
+    titulo: "Culto de jovens",
+    funcao: "Baterista",
+    local: "Igreja batista shallom",
+    data: "22/03/2025",
+    horario: "20:00"
+  }
+]
+
+export default function Home() {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Meus eventos</Text>
@@ -13,45 +51,19 @@ export default function Singup() {
                 <ScrollView 
                     style={styles.scrollContainer}
                     contentContainerStyle={styles.scrollContent}
-                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
                 >
-                    <EventoCard
-                        titulo="Culto de adoração"
-                        funcao="Diácono"
-                        local="Igreja batista shallom"
-                        data="06/03/2025"
-                        horario="18:00" />
-                    <EventoCard
-                        titulo="Culto de adoração"
-                        funcao="Guitarrista"
-                        local="Igreja batista shallom"
-                        data="19/03/2025"
-                        horario="18:30" />
-                    <EventoCard
-                        titulo="Culto de adoração"
-                        funcao="Guitarrista"
-                        local="Igreja batista shallom"
-                        data="19/03/2025"
-                        horario="18:30" />
-                    <EventoCard
-                        titulo="Culto de adoração"
-                        funcao="Guitarrista"
-                        local="Igreja batista shallom"
-                        data="19/03/2025"
-                        horario="18:30" />
-                    <EventoCard
-                        titulo="Culto de adoração"
-                        funcao="Guitarrista"
-                        local="Igreja batista shallom"
-                        data="19/03/2025"
-                        horario="18:30" />
-                    <EventoCard
-                        titulo="Culto de adoração"
-                        funcao="Guitarrista"
-                        local="Igreja batista shallom"
-                        data="19/03/2025"
-                        horario="18:30" />   
-                    {/* Adicione quantos EventoCards precisar */}
+                    {/* Renderização dinâmica dos EventoCards */}
+                    {eventos.map((evento, index) => (
+                        <EventoCard
+                            key={index}
+                            titulo={evento.titulo}
+                            funcao={evento.funcao}
+                            local={evento.local}
+                            data={evento.data}
+                            horario={evento.horario}
+                        />
+                    ))}
                 </ScrollView>
 
                 {/* Botão fixo na parte inferior */}
