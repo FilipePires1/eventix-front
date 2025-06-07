@@ -80,6 +80,6 @@ const styles = StyleSheet.create({
         bottom: 0,
         width: '100%',
         justifyContent: 'space-around',
-        height: 100
+        height: 80
     },
 })

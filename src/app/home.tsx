@@ -4,6 +4,11 @@ import { router } from "expo-router"
 import { EventoCard } from './components/Eventocard'
 
 export default function Singup() {
+    const eventos = [
+        
+    ]
+    
+    
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Meus eventos</Text>
@@ -70,7 +75,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#00988D',
-        marginBottom: 50
+        marginBottom: 50,
     },
     
     title: {
@@ -95,14 +100,13 @@ const styles = StyleSheet.create({
     },
 
     scrollContent: {
-        paddingBottom: 10, // Espaço para o botão e TabBar
-        gap: 5,
+        gap: 3,
     },
 
     buttonContainer: {
-        flex: 0.00009,
         width: '100%',
         justifyContent: 'flex-end',
-        padding: 80,   
+        padding: 50,  
+        height: 120 
     }
 })
