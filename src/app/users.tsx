@@ -1,8 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native'
 import { ButtonLigth } from "@/app/components/button-ligth"
 import { router } from "expo-router"
-import { IconButton } from './components/icons-lucide'
-import { FontAwesome5 } from '@expo/vector-icons'
 import SearchBar from "@/app/components/pesquisa";
 
 export default function Singup() {
