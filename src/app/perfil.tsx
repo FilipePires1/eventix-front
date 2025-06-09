@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { ButtonLigth } from "@/app/components/button-ligth"
 
@@ -6,19 +6,17 @@ import { router } from "expo-router"
 
 import { IconButton } from '../app/components/icons-lucide'
 
-import { FontAwesome5 } from '@expo/vector-icons'
+import { FontAwesome5, MaterialIcons } from '@expo/vector-icons'
 
 import { EventoCard2 } from '@/app/components/PerfilCard'
 
 export default function Singup() {
   return (
-    <View style={styles.container1}>
+    <View style={styles.container}>
 
       <Text style={styles.title}>Meu perfil</Text>
 
       <ButtonLigth title="Editar perfil" style={styles.buttonText} onPress={() => router.navigate('/editar-perfil')} />
-
-      <View style={styles.bottomBar} />
 
       <EventoCard2
         Nome="Filipe Pires Nogueira"
@@ -26,17 +24,28 @@ export default function Singup() {
         Nascimento="11/01/2009"
         Sexo='Masculino' />
 
+      <View style={styles.button}>
+        <View style={styles.buttonText}>
+          <ButtonLigth title="Editar Perfil" onPress={() => router.navigate('/editar-perfil')} />
+        </View>
+
+        <TouchableOpacity style={styles.buttonCancel} onPress={() => router.navigate('/')}>
+          <MaterialIcons name="logout" size={25} color="#fff" />
+          <Text style={styles.buttonTextCancel}>Sair</Text>
+        </TouchableOpacity>
+
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container1: {
+  container: {
     flex: 1,
     padding: 45,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
-    gap: 30,
+    gap: 18,
     backgroundColor: '#00988D',
     textShadowColor: '#000000aa',
     textShadowOffset: { width: 2, height: 2 },
@@ -54,24 +63,34 @@ const styles = StyleSheet.create({
     textShadowRadius: 0.5,
   },
 
-  bottomBar: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    width: '320%',
-    height: 72,
-    backgroundColor: '#2c6c74',
-    justifyContent: 'center',
-    alignItems: 'center',
+  buttonText: {
+    width: '60%',
+
   },
 
-  buttonText: {
-    color: 'black',
-    fontSize: 30,
-    fontWeight: '300',
-    position: 'absolute',
-    alignItems: 'center',
+  buttonCancel: {
+
+    width: '40%',
+    height: 50,
+    backgroundColor: '#F23E02',
+    borderRadius: 11,
     justifyContent: 'center',
-    bottom: 100,
+    alignItems: 'center',
+    shadowRadius: 3,
+    flexDirection: 'row',
+    color: 'white'
+   
   },
+
+  button: {
+    flexDirection: 'row',
+    gap: 10
+
+  },
+
+  buttonTextCancel: {
+    color: 'white',
+    fontSize: 25,
+  },
+  
 })

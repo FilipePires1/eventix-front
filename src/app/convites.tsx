@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
-import { EventoCard } from './components/Eventocard'
+import { EventoCard } from './components/eventocard'
 
 export default function Singup() {
 
