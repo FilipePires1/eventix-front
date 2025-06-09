@@ -2,24 +2,24 @@ import React from 'react'
 
 import { View, Text, StyleSheet } from 'react-native'
 
-interface EventoCardProps {
-  Nome: string
-  Funcoes: string
-  Nascimento: string
-  Sexo: string
+interface PerfilCardProps {
+  nome: string
+  funcoes: string
+  nascimento: string
+  sexo: string
 }
 
-export function EventoCard2({ Nome, Funcoes, Nascimento, Sexo  }: EventoCardProps) {
+export function PerfilCard({ nome, funcoes, nascimento, sexo  }: PerfilCardProps) {
   return (
     <View style={styles.card}>
 
-        <Text style={styles.nome}>Nome: {Nome}</Text>
+        <Text style={styles.nome}>Nome: {nome}</Text>
 
-        <Text style={styles.funcoes}>Funções: {Funcoes}</Text>
+        <Text style={styles.funcoes}>Funções: {funcoes}</Text>
 
-        <Text style={styles.nascimento}>Nascimento: {Nascimento}</Text>
+        <Text style={styles.nascimento}>Nascimento: {nascimento}</Text>
 
-         <Text style={styles.sexo}>Sexo: {Sexo}</Text>
+         <Text style={styles.sexo}>Sexo: {sexo}</Text>
 
     </View>
   )

@@ -8,14 +8,14 @@ import { Input } from "../app/components/input"
 import { ButtonDark } from './components/button-dark'
 import ButtonCancel from './components/button-cancel'
 
+// Faltando rota salvar no banco ao confirmar o cadastro do evento
+// Criar uma dialog para pesquisar e adicioanr os participantes
+// Criar card para listar os participantes que forem sendo adicionados
 
-export default function Singup() {
-    function handleNext() {
-        router.navigate("/")
-    }
+export default function CadastroEvento() {
     return (
 
-        <View style={styles.container1}>
+        <View style={styles.container}>
 
             <Text style={styles.title}>Cadastrar evento</Text>
 
@@ -23,25 +23,24 @@ export default function Singup() {
             <Input placeholder="Digite a data do evento..." placeholderTextColor="#b5b5b5" />
             <Input placeholder="Digite o horário do evento..." placeholderTextColor="#b5b5b5" />
 
-            <ButtonLigth title="Adicionar Participantes" onPress={() => router.navigate('/')} />
+            <ButtonLigth title="Adicionar Participantes" onPress={() => router.navigate('/')} /> 
             <ButtonLigth title="Ver Participantes" onPress={() => router.navigate('/')} />
 
             <View style={styles.buttonContainer}>
                 <View style={styles.buttonWrapper}>
-                    <ButtonCancel title="Cancelar" onPress={() => router.navigate('/users')} />
+                    <ButtonCancel title="Cancelar" onPress={() => router.navigate('/eventos')} />
                 </View>
                 <View style={styles.buttonWrapper}>
-                    <ButtonDark title="Confirmar" onPress={() => router.navigate('/users')} />
+                    <ButtonDark title="Confirmar" onPress={() => router.navigate('/eventos')} />
                 </View>
             </View>
-
         </View>
     )
 }
 
 const styles = StyleSheet.create({
 
-    container1: {
+    container: {
         flex: 1,
         padding: 45,
         justifyContent: 'center',
@@ -59,11 +58,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         fontWeight: 400,
-        fontSize: 40,
+        fontSize: 35,
         textShadowColor: '#000000aa',
         textShadowOffset: { width: 0.5, height: 0.5 },
         textShadowRadius: 0.5,
-
     },
 
     buttonText: { //botao de cancelar

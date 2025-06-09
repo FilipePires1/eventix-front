@@ -41,7 +41,9 @@ export default function Layout() {
 
     return (
         <View style={styles.container}>
-            <Slot /> 
+        <View style={styles.contentContainer}>
+            <Slot />
+        </View>
             {shouldShowTabBar && (
                 <View style={styles.tabBar}>
                     {tabs.map((tab) => {
@@ -80,6 +82,11 @@ const styles = StyleSheet.create({
         bottom: 0,
         width: '100%',
         justifyContent: 'space-around',
-        height: 100
+        height: 90, // Reduzi a altura para 70 (era 100)
     },
+    // Adicione este novo estilo
+    contentContainer: {
+        flex: 1,
+        paddingBottom: 70, // Igual à altura da tabBar
+    }
 })

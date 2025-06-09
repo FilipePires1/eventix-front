@@ -1,39 +1,38 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-
 import { ButtonLigth } from "@/app/components/button-ligth"
-
 import { router } from "expo-router"
+import { MaterialIcons } from '@expo/vector-icons'
+import { PerfilCard } from '@/app/components/PerfilCard'
 
-import { IconButton } from '../app/components/icons-lucide'
-
-import { FontAwesome5, MaterialIcons } from '@expo/vector-icons'
-
-import { EventoCard2 } from '@/app/components/PerfilCard'
-
-export default function Singup() {
+export default function Perfil() {
   return (
     <View style={styles.container}>
-
       <Text style={styles.title}>Meu perfil</Text>
 
-      <ButtonLigth title="Editar perfil" style={styles.buttonText} onPress={() => router.navigate('/editar-perfil')} />
+      <View style={styles.cardContainer}>
+        <PerfilCard
+          nome="Filipe Pires Nogueira"
+          funcoes="Guitarrista"
+          nascimento="11/01/2009"
+          sexo='Masculino' 
+        />
 
-      <EventoCard2
-        Nome="Filipe Pires Nogueira"
-        Funcoes="Guitarrista"
-        Nascimento="11/01/2009"
-        Sexo='Masculino' />
-
-      <View style={styles.button}>
-        <View style={styles.buttonText}>
-          <ButtonLigth title="Editar Perfil" onPress={() => router.navigate('/editar-perfil')} />
+        <View style={styles.buttonsRow}>
+          <View style={styles.buttonWrapper}>
+            <ButtonLigth 
+              title="Editar perfil" 
+              onPress={() => router.navigate('/editar-perfil')} 
+            />
+          </View>
+          
+          <TouchableOpacity 
+            style={styles.buttonSair} 
+            onPress={() => router.navigate('/')}
+          >
+            <MaterialIcons name="logout" size={25} color="#fff" />
+            <Text style={styles.buttonTextSair}>Sair</Text>
+          </TouchableOpacity>
         </View>
-
-        <TouchableOpacity style={styles.buttonCancel} onPress={() => router.navigate('/')}>
-          <MaterialIcons name="logout" size={25} color="#fff" />
-          <Text style={styles.buttonTextCancel}>Sair</Text>
-        </TouchableOpacity>
-
       </View>
     </View>
   )
@@ -42,34 +41,39 @@ export default function Singup() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 45,
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 18,
+    padding: 20,
     backgroundColor: '#00988D',
-    textShadowColor: '#000000aa',
-    textShadowOffset: { width: 2, height: 2 },
     paddingTop: 50,
   },
-
+  
   title: {
     color: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
+    textAlign: 'center',
     fontWeight: '400',
     fontSize: 40,
     textShadowColor: '#000000aa',
     textShadowOffset: { width: 0.5, height: 0.5 },
     textShadowRadius: 0.5,
+    marginBottom: 20,
   },
 
-  buttonText: {
-    width: '60%',
-
+  cardContainer: {
+    width: '100%',
+    paddingHorizontal: 25,
   },
 
-  buttonCancel: {
+  buttonsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 15,
+    width: '100%',
+  },
 
+  buttonWrapper: {
+    width: '55%', // Ajuste conforme necessário
+  },
+
+  buttonSair: {
     width: '40%',
     height: 50,
     backgroundColor: '#F23E02',
@@ -78,19 +82,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     shadowRadius: 3,
     flexDirection: 'row',
-    color: 'white'
-   
+    gap: 8,
   },
 
-  button: {
-    flexDirection: 'row',
-    gap: 10
-
-  },
-
-  buttonTextCancel: {
+  buttonTextSair: {
     color: 'white',
-    fontSize: 25,
+    fontSize: 20,
+    fontWeight: '500',
   },
-  
 })
