@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
-
-import { ButtonLigth } from "@/app/components/button-ligth";
 import { router } from "expo-router";
 import { Picker } from '@react-native-picker/picker';
 import Input from '@/app/components/input';
-import { IconButton } from '@/app/components/icons-lucide'
-import { FontAwesome5 } from '@expo/vector-icons'
 import ButtonDark from '@/app/components/button-dark';
 import ButtonCAncel from '@/app/components/button-cancel';
 

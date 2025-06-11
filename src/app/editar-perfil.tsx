@@ -33,10 +33,10 @@ export default function EditarPerfil() {
 
             <View style={styles.buttonContainer}>
                 <View style={styles.buttonWrapper}>
-                    <ButtonCancel title="Cancelar" onPress={() => router.navigate('/users')} />
+                    <ButtonCancel title="Cancelar" onPress={() => router.navigate('/perfil')} />
                 </View>
                 <View style={styles.buttonWrapper}>
-                    <ButtonDark title="Confirmar" onPress={() => router.navigate('/users')} />
+                    <ButtonDark title="Confirmar" onPress={() => router.navigate('/perfil')} />
                 </View>
             </View>
         </View>

@@ -15,7 +15,7 @@ export default function Layout() {
     // Verifica se a rota atual está na lista de rotas para esconder a tab bar
     const shouldShowTabBar = !hideTabBarRoutes.includes(pathname)
 
-     // Mapeamento das rotas e seus ícones correspondentes
+    // Mapeamento das rotas e seus ícones correspondentes
     const tabs = [
         {
             route: '/home',
@@ -41,7 +41,9 @@ export default function Layout() {
 
     return (
         <View style={styles.container}>
-            <Slot /> 
+        <View style={styles.contentContainer}>
+            <Slot />
+        </View>
             {shouldShowTabBar && (
                 <View style={styles.tabBar}>
                     {tabs.map((tab) => {
@@ -82,4 +84,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         height: 80
     },
+    // Adicione este novo estilo
+    contentContainer: {
+        flex: 1,
+        paddingBottom: 70, // Igual à altura da tabBar
+    }
 })
