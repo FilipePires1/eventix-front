@@ -1,29 +1,60 @@
 import { View, Text, StyleSheet } from 'react-native'
-
 import { ButtonLigth } from "@/app/components/button-ligth"
-
 import { router } from "expo-router"
-
 import { Input } from "../app/components/input"
 import { ButtonDark } from './components/button-dark'
 import ButtonCancel from './components/button-cancel'
-
-// Faltando rota salvar no banco ao confirmar o cadastro do evento
-// Criar uma dialog para pesquisar e adicioanr os participantes
-// Criar card para listar os participantes que forem sendo adicionados
+import { useState } from 'react'
 
 export default function CadastroEvento() {
+    const [date, setDate] = useState('');
+
+    const formatDate = (input) => {
+        // Remove tudo que não é dígito
+        let value = input.replace(/\D/g, '');
+
+        // Aplica a formatação
+        if (value.length > 2) {
+            value = value.substring(0, 2) + '/' + value.substring(2);
+        }
+        if (value.length > 5) {
+            value = value.substring(0, 5) + '/' + value.substring(5, 9);
+        }
+
+        return value;
+    };
+
+    const handleDateChange = (text) => {
+        const formattedDate = formatDate(text);
+        setDate(formattedDate);
+    };
+
     return (
-
         <View style={styles.container}>
-
             <Text style={styles.title}>Cadastrar evento</Text>
 
-            <Input placeholder="Digite o local do evento..." placeholderTextColor="#b5b5b5" />
-            <Input placeholder="Digite a data do evento..." placeholderTextColor="#b5b5b5" />
-            <Input placeholder="Digite o horário do evento..." placeholderTextColor="#b5b5b5" />
+            <Input
+                placeholder="Digite o nome do evento..."
+                placeholderTextColor="#b5b5b5"
+            />
+            <Input
+                placeholder="Digite o local do evento..."
+                placeholderTextColor="#b5b5b5"
+            />
+            <Input
+                placeholder="Digite a data do evento..."
+                placeholderTextColor="#b5b5b5"
+                value={date}
+                onChangeText={handleDateChange}
+                keyboardType="numeric"
+                maxLength={10}
+            />
+            <Input
+                placeholder="Digite o horário do evento..."
+                placeholderTextColor="#b5b5b5"
+            />
 
-            <ButtonLigth title="Adicionar Participantes" onPress={() => router.navigate('/')} /> 
+            <ButtonLigth title="Adicionar Participantes" onPress={() => router.navigate('/')} />
             <ButtonLigth title="Ver Participantes" onPress={() => router.navigate('/')} />
 
             <View style={styles.buttonContainer}>

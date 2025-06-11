@@ -9,14 +9,47 @@ import ButtonDark from './components/button-dark';
 export default function Singup() {
   const [selectedSexo, setSelectedSexo] = useState('');
   const [selectedFuncao, setSelectedFuncao] = useState('');
+  const [date, setDate] = useState('');
+
+  const formatDate = (input) => {
+    // Remove tudo que não é dígito
+    let value = input.replace(/\D/g, '');
+
+    // Aplica a formatação
+    if (value.length > 2) {
+      value = value.substring(0, 2) + '/' + value.substring(2);
+    }
+    if (value.length > 5) {
+      value = value.substring(0, 5) + '/' + value.substring(5, 9);
+    }
+
+    return value;
+  };
+
+  const handleDateChange = (text) => {
+    const formattedDate = formatDate(text);
+    setDate(formattedDate);
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Cadastrar usuário</Text>
 
-      <Input placeholder="Nome" placeholderTextColor="#b5b5b5" />
-      <Input placeholder="Data de Nascimento" placeholderTextColor="#b5b5b5" />
-      <Input placeholder="Email" placeholderTextColor="#b5b5b5" />
+      <Input
+        placeholder="Nome"
+        placeholderTextColor="#b5b5b5" />
+
+      <Input
+        placeholder="Data de Nascimento"
+        placeholderTextColor="#b5b5b5"
+        value={date}
+        onChangeText={handleDateChange}
+        keyboardType="numeric"
+        maxLength={10} />
+
+      <Input
+        placeholder="Email"
+        placeholderTextColor="#b5b5b5" />
 
       <View style={styles.pickerWrapper}>
         <Picker
@@ -90,13 +123,13 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   buttonContainer: {
-    width: '100%',  
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     gap: 20,
     marginTop: 10,
   },
   buttonWrapper: {
-    flex: 1,  
+    flex: 1,
   },
 });

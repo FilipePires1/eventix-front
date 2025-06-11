@@ -64,7 +64,7 @@ export default function Home() {
                     <View style={styles.searchContainer}>
                         <TextInput
                             style={styles.searchInput}
-                            placeholder="Pesquisar eventos..."
+                            placeholder="Pesquisar meus eventos..."
                             placeholderTextColor="#b5b5b5"
                             value={searchText}
                             onChangeText={setSearchText}

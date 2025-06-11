@@ -15,7 +15,7 @@ export default function Layout() {
     // Verifica se a rota atual está na lista de rotas para esconder a tab bar
     const shouldShowTabBar = !hideTabBarRoutes.includes(pathname)
 
-     // Mapeamento das rotas e seus ícones correspondentes
+    // Mapeamento das rotas e seus ícones correspondentes
     const tabs = [
         {
             route: '/home',
