@@ -1,12 +1,30 @@
 import React from 'react'
 
-import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { TouchableOpacity, Text, StyleSheet, Alert } from 'react-native'
 
 type Props = {
   title: string
   style?: object
   onPress: () => void
 };
+
+const showAlert = () => {
+    Alert.alert(
+      'Confirmação',
+      'Você deseja confirmar o convite?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+        },
+        {
+          text: 'Confirmar',
+          onPress: () => console.log('Confirmado!'),
+        },
+      ],
+      { cancelable: false }
+    );
+  };
 
 export function ButtonLigth({ title, onPress }: Props) {
   return (

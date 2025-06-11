@@ -1,7 +1,10 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
-import { EventoCard } from './components/eventocard'
+import { ConviteCard } from './components/convite-card'
+import React, { useState } from 'react'
 
 export default function Singup() {
+
+    const [visivel, setVisivel] = useState(true);
 
     const convites = [
         {
@@ -25,49 +28,28 @@ export default function Singup() {
             data: "20/03/2025",
             horario: "19:00"
         },
-        {
-            titulo: "Culto da família",
-            funcao: "Recepcionista",
-            local: "Igreja batista shallom",
-            data: "21/03/2025",
-            horario: "19:30"
-        },
-        {
-            titulo: "Culto de jovens",
-            funcao: "Baterista",
-            local: "Igreja batista shallom",
-            data: "22/03/2025",
-            horario: "20:00"
-        },
-        {
-            titulo: "Culto de jovens",
-            funcao: "Baterista",
-            local: "Igreja batista shallom",
-            data: "22/03/2025",
-            horario: "20:00"
-        }
+
     ]
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Meus convites</Text>
 
-            {/* Área de conteúdo principal com ScrollView */}
             <View style={styles.content}>
                 <ScrollView
                     style={styles.scrollContainer}
-                    contentContainerStyle={styles.scrollContent}
+                    contentContainerStyle={styles.scrollContent}     
                     showsVerticalScrollIndicator={false}
                 >
-                    {/* Renderização dinâmica dos EventoCards */}
                     {convites.map((evento, index) => (
-                        <EventoCard
+                        <ConviteCard
                             key={index}
                             titulo={evento.titulo}
-                            funcao={evento.funcao}
+                            funcao={evento.funcao}            
                             local={evento.local}
                             data={evento.data}
                             horario={evento.horario}
+                            onCancel={() => setVisivel(false)}
                         />
                     ))}
                 </ScrollView>
