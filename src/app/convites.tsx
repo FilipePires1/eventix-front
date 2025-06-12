@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { EventoCard } from './components/eventocard'
+import { ConviteCard } from './components/convite-card'
 
 export default function Singup() {
 
@@ -61,7 +62,7 @@ export default function Singup() {
                 >
                     {/* Renderização dinâmica dos EventoCards */}
                     {convites.map((evento, index) => (
-                        <EventoCard
+                        <ConviteCard
                             key={index}
                             titulo={evento.titulo}
                             funcao={evento.funcao}
