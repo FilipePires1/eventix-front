@@ -12,7 +12,7 @@ interface EventoCardProps {
   horario: string
 }
 
-export function EventoCard({ titulo, funcao, local, data, horario, id }: EventoCardProps) {
+export function UserCard({ titulo, funcao, local, data, horario, id }: EventoCardProps) {
   const [visible, setVisible] = useState(false)
 
   const handleExcluir = () => {

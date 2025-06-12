@@ -3,7 +3,7 @@ import { ButtonLigth } from "@/app/components/button-ligth"
 import { router } from "expo-router"
 import { FontAwesome5 } from '@expo/vector-icons'
 import { useState } from 'react'
-import { EventoCard } from './components/eventocard'
+import { EventoCardEdit } from './components/eventocard-edit'
 
 const eventos = [
   {
@@ -89,8 +89,9 @@ export default function Eventos() {
           >
             {filteredEventos.length > 0 ? (
               filteredEventos.map((evento, index) => (
-                <EventoCard
+                <EventoCardEdit
                   key={index}
+                  id={index}
                   titulo={evento.titulo}
                   funcao={evento.funcao}
                   local={evento.local}

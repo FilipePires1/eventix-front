@@ -12,7 +12,7 @@ interface EventoCardProps {
   horario: string
 }
 
-export function EventoCard({ titulo, funcao, local, data, horario, id }: EventoCardProps) {
+export function EventoCardEdit({ titulo, funcao, local, data, horario, id }: EventoCardProps) {
   const [visible, setVisible] = useState(false)
 
   const handleExcluir = () => {
@@ -75,6 +75,14 @@ export function EventoCard({ titulo, funcao, local, data, horario, id }: EventoC
             <Text style={styles.text}>Data: {data}</Text>
             <Text style={styles.text}>Horário: {horario}</Text>
 
+            <View style={styles.buttonRow}>
+              <TouchableOpacity style={styles.editButton} onPress={handleEditar}>
+                <Text style={styles.buttonText}>Editar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.deleteButton} onPress={handleExcluir}>
+                <Text style={styles.buttonText}>Excluir</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>

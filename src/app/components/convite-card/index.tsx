@@ -14,14 +14,14 @@ export function ConviteCard({ titulo, funcao, local, data, horario, onCancel }: 
   const showAlert = () => {
   Alert.alert(
       'Cancelar',
-      'Você deseja cancelar o convite?',
+      'Você deseja recusar o convite?',
       [
         {
           text: 'Voltar',
           style: 'cancel',
         },
         {
-          text: 'Cancelar',
+          text: 'Recusar',
           style: 'destructive',
           onPress: onCancel,
         },

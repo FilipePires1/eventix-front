@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { ConviteCard } from './components/convite-card'
 import React, { useState } from 'react'
-import { ConviteCard } from './components/convite-card'
+
 
 export default function Singup() {
 

@@ -1,10 +1,9 @@
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native'
 import { ButtonLigth } from '@/app/components/button-ligth'
 import { router } from "expo-router"
-import { EventoCard } from './components/eventocard'
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useState } from 'react';
-
+import { EventoCard } from './components/eventocard'
 const eventos = [
     {
         titulo: "Culto de adoração",
@@ -69,14 +68,14 @@ export default function Home() {
                             value={searchText}
                             onChangeText={setSearchText}
                         />
-                        <TouchableOpacity 
+                        <TouchableOpacity
                             style={styles.searchButton}
                             onPress={() => setSearchText('')} // Limpa a busca ao clicar
                         >
-                            <FontAwesome5 
-                                name={searchText ? 'times' : 'search'} 
-                                size={20} 
-                                color="#000" 
+                            <FontAwesome5
+                                name={searchText ? 'times' : 'search'}
+                                size={20}
+                                color="#000"
                             />
                         </TouchableOpacity>
                     </View>
@@ -95,8 +94,7 @@ export default function Home() {
                                     funcao={evento.funcao}
                                     local={evento.local}
                                     data={evento.data}
-                                    horario={evento.horario}
-                                />
+                                    horario={evento.horario} id={0} />
                             ))
                         ) : (
                             <Text style={styles.noResultsText}>
