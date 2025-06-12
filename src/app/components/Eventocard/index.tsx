@@ -1,7 +1,10 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Modal, TouchableOpacity, Alert } from 'react-native';
+import { router } from 'expo-router';
+import { MaterialIcons } from '@expo/vector-icons'
 
 interface EventoCardProps {
+  id: number;
   titulo: string;
   funcao: string;
   local: string;
@@ -9,22 +12,80 @@ interface EventoCardProps {
   horario: string;
 }
 
-export function EventoCard({ titulo, funcao, local, data, horario }: EventoCardProps) {
-  return (
-    <View style={styles.card}>
-      <View style={styles.row}>
-        <Text style={styles.titulo}>{titulo}</Text>
-        <Text style={styles.funcao}>{funcao}</Text>
-      </View>
+export function EventoCard({ titulo, funcao, local, data, horario, id }: EventoCardProps) {
+  const [visible, setVisible] = useState(false);
 
-      <View style={styles.row}>
-        <Text style={styles.local}>{local}</Text>
-        <View style={styles.dataHora}>
-          <Text style={styles.data}>{data}</Text>
-          <Text style={styles.horario}>{horario}</Text>
+  const handleExcluir = () => {
+    Alert.alert(
+      'Confirmar exclusão',
+      'Tem certeza de que deseja excluir este evento?',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Excluir',
+          onPress: () => {
+            console.log('Evento excluído!');
+            // Chamar API ou atualizar estado
+          },
+          style: 'destructive',
+        },
+      ]
+    );
+  };
+
+  const handleEditar = () => {
+    setVisible(false);
+    router.navigate(`../editar-evento/${id}`);
+  };
+
+  return (
+    <>
+      <TouchableOpacity style={styles.card} onPress={() => setVisible(true)}>
+        <View style={styles.row}>
+          <Text style={styles.titulo}>{titulo}</Text>
+          <Text style={styles.funcao}>{funcao}</Text>
         </View>
-      </View>
-    </View>
+
+        <View style={styles.row}>
+          <Text style={styles.local}>{local}</Text>
+          <View style={styles.dataHora}>
+            <Text style={styles.data}>{data}</Text>
+            <Text style={styles.horario}>{horario}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+
+      <Modal
+        visible={visible}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContainer}>
+            <TouchableOpacity style={styles.iconClose} onPress={() => setVisible(false)}>
+              <MaterialIcons name="close" size={28} color="white" />
+            </TouchableOpacity>
+
+
+            <Text style={styles.modalTitle}>{titulo}</Text>
+            <Text style={styles.text}>Função: {funcao}</Text>
+            <Text style={styles.text}>Local: {local}</Text>
+            <Text style={styles.text}>Data: {data}</Text>
+            <Text style={styles.text}>Horário: {horario}</Text>
+
+            <View style={styles.buttonRow}>
+              <TouchableOpacity style={styles.editButton} onPress={handleEditar}>
+                <Text style={styles.buttonText}>Editar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.deleteButton} onPress={handleExcluir}>
+                <Text style={styles.buttonText}>Excluir</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    </>
   );
 }
 
@@ -51,27 +112,80 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     fontWeight: '400',
-    marginHorizontal: 1
+    marginHorizontal: 1,
   },
   local: {
     color: '#fff',
     fontSize: 18,
-    fontWeight: 400
+    fontWeight: '400',
   },
   dataHora: {
     alignItems: 'flex-end',
-    marginTop: 1,
-    
   },
   data: {
     color: '#fff',
     fontSize: 20,
-    fontWeight: 400
+    fontWeight: '400',
   },
   horario: {
     color: '#fff',
     fontSize: 20,
-    fontWeight: 400,
-    
+    fontWeight: '400',
   },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContainer: {
+    width: '85%',
+    backgroundColor: '#013750',
+    borderRadius: 15,
+    padding: 20,
+    elevation: 10,
+    position: 'relative',
+  },
+  iconClose: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 10,
+  },
+  modalTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    color: 'white',
+    textAlign: 'center',
+  },
+  text: {
+    color: 'white',
+    marginBottom: 4,
+    fontSize: 18
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 20,
+  },
+  editButton: {
+    padding: 10,
+    backgroundColor: '#2196F3',
+    borderRadius: 8,
+    marginRight: 10,
+  },
+  deleteButton: {
+    padding: 10,
+    backgroundColor: '#D32F2F',
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  x: {
+    color: '#fff',
+    fontWeight: 'bold'
+  }
 });
