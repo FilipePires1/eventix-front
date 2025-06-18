@@ -5,6 +5,7 @@ import { Input } from "../app/components/input"
 import { ButtonDark } from './components/button-dark'
 import ButtonCancel from './components/button-cancel'
 import { useState } from 'react'
+import { ParticipanteCard } from './components/participantescard'
 
 export default function CadastroEvento() {
     const [date, setDate] = useState('');
@@ -28,6 +29,14 @@ export default function CadastroEvento() {
         const formattedDate = formatDate(text);
         setDate(formattedDate);
     };
+
+    const participantes = [
+        {
+            usuario: "Filipe Pires",
+            funcao: "Guitarrista",
+
+        },
+    ]
 
     return (
         <View style={styles.container}>
@@ -55,7 +64,10 @@ export default function CadastroEvento() {
             />
 
             <ButtonLigth title="Adicionar Participantes" onPress={() => router.navigate('/')} />
-            <ButtonLigth title="Ver Participantes" onPress={() => router.navigate('/')} />
+            <ParticipanteCard
+                usuario= ''
+                funcao= ''/>
+            
 
             <View style={styles.buttonContainer}>
                 <View style={styles.buttonWrapper}>

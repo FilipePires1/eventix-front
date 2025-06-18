@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     shadowRadius: 3,
+    elevation: 5
   },
   buttonText: {
     color: '#000',

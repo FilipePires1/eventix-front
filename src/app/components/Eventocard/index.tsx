@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Modal, TouchableOpacity, Alert } from 'react-native'
-import { router } from 'expo-router'
+import { View, Text, StyleSheet, Modal, TouchableOpacity, } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 
 interface EventoCardProps {
@@ -14,30 +13,6 @@ interface EventoCardProps {
 
 export function EventoCard({ titulo, funcao, local, data, horario, id }: EventoCardProps) {
   const [visible, setVisible] = useState(false)
-
-  const handleExcluir = () => {
-    Alert.alert(
-      'Confirmar exclusão',
-      'Tem certeza de que deseja excluir este evento?',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Excluir',
-          onPress: () => {
-            console.log('Evento excluído!')
-            setVisible(false)
-            // Chamar API ou atualizar estado
-          },
-          style: 'destructive',
-        },
-      ]
-    )
-  }
-
-  const handleEditar = () => {
-    setVisible(false)
-    router.navigate(`../editar-evento/${id}`)
-  };
 
   return (
     <>

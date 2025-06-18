@@ -8,10 +8,10 @@ export default function Layout() {
     const vh = height / 100; // 1% da altura da tela
 
     const pathname = usePathname()
-    
+
     // Lista de rotas onde a tab bar NÃO deve aparecer
     const hideTabBarRoutes = ['/', '/(auth)/singup/page']
-    
+
     // Verifica se a rota atual está na lista de rotas para esconder a tab bar
     const shouldShowTabBar = !hideTabBarRoutes.includes(pathname)
 
@@ -20,46 +20,50 @@ export default function Layout() {
         {
             route: '/home',
             iconName: 'calendar-alt',
-            size: 27
+            size: 27,
+            label: 'Início'
         },
         {
             route: '/eventos',
             iconName: 'calendar-plus',
-            size: 27
+            size: 27,
+            label: 'Eventos'
         },
         {
             route: '/perfil',
             iconName: 'user-alt',
-            size: 25
+            size: 25,
+            label: 'Perfil'
         },
         {
             route: '/users',
             iconName: 'user-edit',
-            size: 25
+            size: 25,
+            label: 'Usuários'
         }
     ]
 
     return (
         <View style={styles.container}>
-        <View style={styles.contentContainer}>
-            <Slot />
-        </View>
+            <View style={styles.contentContainer}>
+                <Slot />
+            </View>
             {shouldShowTabBar && (
                 <View style={styles.tabBar}>
                     {tabs.map((tab) => {
                         const isActive = pathname === tab.route
                         return (
-                            <IconButton 
+                            <IconButton
                                 key={tab.route}
                                 Icon={(props) => (
-                                    <FontAwesome5 
-                                        name={tab.iconName} 
-                                        {...props} 
+                                    <FontAwesome5
+                                        name={tab.iconName}
+                                        {...props}
                                         color={isActive ? 'white' : 'black'}
                                     />
-                                )} 
-                                size={tab.size} 
-                                onPress={() => router.navigate(tab.route)} 
+                                )}
+                                size={tab.size}
+                                onPress={() => router.navigate(tab.route)}
                             />
                         )
                     })}
@@ -88,5 +92,6 @@ const styles = StyleSheet.create({
     contentContainer: {
         flex: 1,
         paddingBottom: 70, // Igual à altura da tabBar
-    }
+    },
+
 })
