@@ -3,7 +3,7 @@ import { ButtonLigth } from '@/app/components/button-ligth'
 import { router } from "expo-router"
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useState } from 'react';
-import { EventoCard } from './components/eventocard'
+import { EventoCard } from './components/Eventocard';
 const eventos = [
     {
         titulo: "Culto de adoração",
