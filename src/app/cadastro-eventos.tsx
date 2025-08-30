@@ -6,9 +6,11 @@ import { ButtonDark } from './components/button-dark'
 import ButtonCancel from './components/button-cancel'
 import { useState } from 'react'
 import { ParticipanteCard } from './components/participantescard'
+import DlgAdicionarMusica from './components/dlg-adicionar-musica'
 
 export default function CadastroEvento() {
     const [date, setDate] = useState('');
+    const [openDialog, setOpenDialog] = useState<string>('')
 
     const formatDate = (input) => {
         // Remove tudo que não é dígito
@@ -68,6 +70,11 @@ export default function CadastroEvento() {
                 usuario= ''
                 funcao= ''/>
             
+            <ButtonLigth title="Adicionar Músicas" onPress={() => setOpenDialog('addSong')} />
+            <DlgAdicionarMusica 
+                visible={openDialog} 
+                onClose={() => setOpenDialog('')} 
+            />
 
             <View style={styles.buttonContainer}>
                 <View style={styles.buttonWrapper}>
