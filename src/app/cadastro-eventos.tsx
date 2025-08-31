@@ -57,74 +57,80 @@ export default function CadastroEvento() {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Cadastrar evento</Text>
+        <ScrollView
+            style={styles.scrollContainer}
+            contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+            showsVerticalScrollIndicator={false}
+        >
+            <View style={styles.container}>
+                <Text style={styles.title}>Cadastrar evento</Text>
 
-            <Input
-                placeholder="Digite o nome do evento..."
-                placeholderTextColor="#b5b5b5"
-            />
-            <Input
-                placeholder="Digite o local do evento..."
-                placeholderTextColor="#b5b5b5"
-            />
-            <Input
-                placeholder="Digite a data do evento..."
-                placeholderTextColor="#b5b5b5"
-                value={date}
-                onChangeText={handleDateChange}
-                keyboardType="numeric"
-                maxLength={10}
-            />
-            <Input
-                placeholder="Digite o horário do evento..."
-                placeholderTextColor="#b5b5b5"
-            />
+                <Input
+                    placeholder="Digite o nome do evento..."
+                    placeholderTextColor="#b5b5b5"
+                />
+                <Input
+                    placeholder="Digite o local do evento..."
+                    placeholderTextColor="#b5b5b5"
+                />
+                <Input
+                    placeholder="Digite a data do evento..."
+                    placeholderTextColor="#b5b5b5"
+                    value={date}
+                    onChangeText={handleDateChange}
+                    keyboardType="numeric"
+                    maxLength={10}
+                />
+                <Input
+                    placeholder="Digite o horário do evento..."
+                    placeholderTextColor="#b5b5b5"
+                />
 
-            <ButtonLigth title="Adicionar Participantes" onPress={() => router.navigate('/')} />
-            <ParticipanteCard
-                usuario= ''
-                funcao= ''/>
-            
-            <ButtonLigth title="Adicionar Músicas" onPress={() => setOpenDialog('addSong')} />
-            <DlgAdicionarMusica 
-                visible={openDialog} 
-                onClose={() => setOpenDialog('')} 
-                onSelectSong={handleSelectSong}
-            />
+                <ButtonLigth title="Adicionar Participantes" onPress={() => router.navigate('/')} />
+                <ParticipanteCard
+                    usuario= ''
+                    funcao= ''/>
+                
+                <ButtonLigth title="Adicionar Músicas" onPress={() => setOpenDialog('addSong')} />
+                <DlgAdicionarMusica 
+                    visible={openDialog} 
+                    onClose={() => setOpenDialog('')} 
+                    onSelectSong={handleSelectSong}
+                />
 
-            <ScrollView
-                style={styles.scrollContainer}
-                contentContainerStyle={styles.scrollContent}
-                showsVerticalScrollIndicator={false}
-            >
-                {selectedSongs.map((song, index) => (
-                    <View style={styles.card} key={index}>
-                        <View>
-                            <Text style={styles.text}>Título: {song.titulo}</Text>
-                            <Text style={styles.text}>Autor: {song.autor}</Text>
-                            <Text style={styles.text}>Tom: {song.tom}</Text>
-                        </View>
-                        <TouchableOpacity onPress={() => handleDeleteSong(index)}>
-                            <FontAwesome5
-                                name='trash'
-                                size={25}
-                                color="#F23E02"
-                            />
-                        </TouchableOpacity>
-                    </View>                    
-                ))}
-            </ScrollView>
+                <ScrollView
+                    style={styles.scrollContainer}
+                    contentContainerStyle={styles.scrollContent}
+                    showsVerticalScrollIndicator={false}
+                >
+                    {selectedSongs.map((song, index) => (
+                        <View style={styles.card} key={index}>
+                            <View>
+                                <Text style={styles.text}>Título: {song.titulo}</Text>
+                                <Text style={styles.text}>Autor: {song.autor}</Text>
+                                <Text style={styles.text}>Tom: {song.tom}</Text>
+                            </View>
+                            <TouchableOpacity onPress={() => handleDeleteSong(index)}>
+                                <FontAwesome5
+                                    name='trash'
+                                    size={25}
+                                    color="#F23E02"
+                                />
+                            </TouchableOpacity>
+                        </View>                    
+                    ))}
+                </ScrollView>
 
-            <View style={styles.buttonContainer}>
-                <View style={styles.buttonWrapper}>
-                    <ButtonCancel title="Cancelar" onPress={() => router.navigate('/eventos')} />
-                </View>
-                <View style={styles.buttonWrapper}>
-                    <ButtonDark title="Confirmar" onPress={() => router.navigate('/eventos')} />
+                <View style={styles.buttonContainer}>
+                    <View style={styles.buttonWrapper}>
+                        <ButtonCancel title="Cancelar" onPress={() => router.navigate('/eventos')} />
+                    </View>
+                    <View style={styles.buttonWrapper}>
+                        <ButtonDark title="Confirmar" onPress={() => router.navigate('/eventos')} />
+                    </View>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -139,7 +145,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#00988D',
         textShadowColor: '#000000aa',
         textShadowOffset: { width: 2, height: 2 },
-        paddingTop: 40,
     },
 
     title: { //meus enventos
