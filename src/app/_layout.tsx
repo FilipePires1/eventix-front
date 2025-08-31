@@ -40,7 +40,13 @@ export default function Layout() {
             iconName: 'user-edit',
             size: 25,
             label: 'Usuários'
-        }
+        },
+        {
+            route: '/musicas',
+            iconName: 'music',
+            size: 25,
+            label: 'Músicas'
+        },
     ]
 
     return (
