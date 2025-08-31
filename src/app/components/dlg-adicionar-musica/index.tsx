@@ -11,14 +11,50 @@ import {
 import { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 import ButtonLigth from "../button-ligth";
+import { MusicaCardSelected } from "../musica-card-selected";
 
 interface Props {
   visible: string;
   onClose: () => void;
 }
 
+const musicas = [
+  {
+    titulo: "Música A",
+    autor: "Pessoa A"
+  },
+  {
+    titulo: "Música B",
+    autor: "Pessoa B"
+  },
+  {
+    titulo: "Música C",
+    autor: "Pessoa C"
+  },
+  {
+    titulo: "Música D",
+    autor: "Pessoa D"
+  },
+  {
+    titulo: "Música E",
+    autor: "Pessoa E"
+  },
+  {
+    titulo: "Música F",
+    autor: "Pessoa F"
+  },
+]
+
+
 export default function DlgAdicionarMusica({ visible, onClose }: Props) {
   const [selectedTom, setSelectedTom] = useState("");
+  const [selectedSong, setSelectedSong] = useState<string>('');
+  const [searchText, setSearchText] = useState('')
+
+  const filteredMusicas = musicas.filter(musica =>
+    musica.titulo.toLowerCase().includes(searchText.toLowerCase()) || 
+    musica.autor.toLowerCase().includes(searchText.toLowerCase())
+  )
 
   return (
     <>
@@ -41,6 +77,7 @@ export default function DlgAdicionarMusica({ visible, onClose }: Props) {
                 <TextInput
                   style={styles.inputSearchBar}
                   placeholder="Pesquisar"
+                  onChangeText={setSearchText}
                 />
                 <FontAwesome
                   name="search"
@@ -74,14 +111,31 @@ export default function DlgAdicionarMusica({ visible, onClose }: Props) {
               </View>
             </View>
 
+            <ScrollView
+              style={styles.scrollContainer}
+              contentContainerStyle={styles.scrollContent}
+              showsVerticalScrollIndicator={false}
+            >
+              {filteredMusicas.length > 0 ? (
+                filteredMusicas.map((musica, index) => (
+                  <MusicaCardSelected 
+                    key={index} 
+                    autor={musica.autor} 
+                    titulo={musica.titulo} 
+                    selected={selectedSong == musica.titulo}
+                    onPress={() => setSelectedSong(musica.titulo)}
+                  />
+                ))
+              ) : (
+                <Text style={styles.noResultsText}>
+                  Nenhuma música encontrada
+                </Text>
+              )}
+            </ScrollView>
+
             <View style={{marginTop: 10}}>
                 <ButtonLigth title="Adicionar Música" onPress={() => {}}/>
             </View>
-
-            <ScrollView
-              contentContainerStyle={styles.scrollContent}
-              showsVerticalScrollIndicator={false}
-            ></ScrollView>
           </View>
         </View>
       </Modal>
@@ -193,4 +247,14 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  scrollContainer: {
+    flexGrow: 1,
+    marginBottom: 10
+  },
+  noResultsText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 18,
+    marginTop: 20,
+  }
 });
