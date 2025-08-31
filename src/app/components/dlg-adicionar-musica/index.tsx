@@ -61,6 +61,8 @@ export default function DlgAdicionarMusica({ visible, onClose, onSelectSong }: P
   const handleSelectSong = () => {
     if (selectedSong && selectedTom) {
       onSelectSong({ ...selectedSong, tom: selectedTom });
+      setSelectedTom('')
+      setSelectedSong(null)
     }else{
       Alert.alert('Aviso', 'Selecione o tom e a música')
     }
