@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
 import { ButtonLigth } from "@/app/components/button-ligth"
 import { router } from "expo-router"
 import { Input } from "../app/components/input"
@@ -7,10 +7,12 @@ import ButtonCancel from './components/button-cancel'
 import { useState } from 'react'
 import { ParticipanteCard } from './components/participantescard'
 import DlgAdicionarMusica from './components/dlg-adicionar-musica'
+import { FontAwesome5 } from '@expo/vector-icons'
 
 export default function CadastroEvento() {
     const [date, setDate] = useState('');
     const [openDialog, setOpenDialog] = useState<string>('')
+    const [selectedSongs, setSelectedSongs] = useState<{titulo: string; autor: string, tom: string}[]>([]);
 
     const formatDate = (input) => {
         // Remove tudo que não é dígito
@@ -39,6 +41,20 @@ export default function CadastroEvento() {
 
         },
     ]
+
+   const handleSelectSong = (song: { titulo: string; autor: string, tom: string }) => {
+        setSelectedSongs((prev) => {
+            if (prev.find((s) => s.titulo === song.titulo && s.autor === song.autor && s.tom === song.tom)) {
+                return prev;
+            }
+            return [...prev, song];
+        });
+        setOpenDialog('');
+    };
+
+    const handleDeleteSong = (index: number) => {
+        setSelectedSongs((prev) => prev.filter((_, i) => i !== index));
+    };
 
     return (
         <View style={styles.container}>
@@ -74,7 +90,31 @@ export default function CadastroEvento() {
             <DlgAdicionarMusica 
                 visible={openDialog} 
                 onClose={() => setOpenDialog('')} 
+                onSelectSong={handleSelectSong}
             />
+
+            <ScrollView
+                style={styles.scrollContainer}
+                contentContainerStyle={styles.scrollContent}
+                showsVerticalScrollIndicator={false}
+            >
+                {selectedSongs.map((song, index) => (
+                    <View style={styles.card} key={index}>
+                        <View>
+                            <Text style={styles.text}>Título: {song.titulo}</Text>
+                            <Text style={styles.text}>Autor: {song.autor}</Text>
+                            <Text style={styles.text}>Tom: {song.tom}</Text>
+                        </View>
+                        <TouchableOpacity onPress={() => handleDeleteSong(index)}>
+                            <FontAwesome5
+                                name='trash'
+                                size={25}
+                                color="#F23E02"
+                            />
+                        </TouchableOpacity>
+                    </View>                    
+                ))}
+            </ScrollView>
 
             <View style={styles.buttonContainer}>
                 <View style={styles.buttonWrapper}>
@@ -135,5 +175,30 @@ const styles = StyleSheet.create({
 
     buttonWrapper: {
         flex: 1,
+    },
+    card: {
+        backgroundColor: "#013750",
+        borderRadius: 15,
+        padding: 18,
+        marginVertical: 8,
+        width: "100%",
+        elevation: 4,
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    text: {
+        color: "#fff",
+        fontSize: 20,
+        fontWeight: "300",
+    },
+    scrollContainer: {
+        width: '100%',
+        flex: 1,
+        marginBottom: 10
+    },
+    scrollContent: {
+        paddingBottom: 20,
     },
 })

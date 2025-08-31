@@ -7,6 +7,7 @@ import {
   Text,
   StyleSheet,
   TextInput,
+  Alert,
 } from "react-native";
 import { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
@@ -16,6 +17,7 @@ import { MusicaCardSelected } from "../musica-card-selected";
 interface Props {
   visible: string;
   onClose: () => void;
+  onSelectSong: (song: { titulo: string; autor: string; tom: string }) => void
 }
 
 const musicas = [
@@ -46,15 +48,23 @@ const musicas = [
 ]
 
 
-export default function DlgAdicionarMusica({ visible, onClose }: Props) {
+export default function DlgAdicionarMusica({ visible, onClose, onSelectSong }: Props) {
   const [selectedTom, setSelectedTom] = useState("");
-  const [selectedSong, setSelectedSong] = useState<string>('');
+  const [selectedSong, setSelectedSong] = useState<{titulo: string; autor: string} | null>(null);
   const [searchText, setSearchText] = useState('')
 
   const filteredMusicas = musicas.filter(musica =>
     musica.titulo.toLowerCase().includes(searchText.toLowerCase()) || 
     musica.autor.toLowerCase().includes(searchText.toLowerCase())
   )
+
+  const handleSelectSong = () => {
+    if (selectedSong && selectedTom) {
+      onSelectSong({ ...selectedSong, tom: selectedTom });
+    }else{
+      Alert.alert('Aviso', 'Selecione o tom e a música')
+    }
+  }
 
   return (
     <>
@@ -122,8 +132,8 @@ export default function DlgAdicionarMusica({ visible, onClose }: Props) {
                     key={index} 
                     autor={musica.autor} 
                     titulo={musica.titulo} 
-                    selected={selectedSong == musica.titulo}
-                    onPress={() => setSelectedSong(musica.titulo)}
+                    selected={selectedSong == musica}
+                    onPress={() => setSelectedSong(musica)}
                   />
                 ))
               ) : (
@@ -134,7 +144,7 @@ export default function DlgAdicionarMusica({ visible, onClose }: Props) {
             </ScrollView>
 
             <View style={{marginTop: 10}}>
-                <ButtonLigth title="Adicionar Música" onPress={() => {}}/>
+                <ButtonLigth title="Adicionar Música" onPress={handleSelectSong}/>
             </View>
           </View>
         </View>
