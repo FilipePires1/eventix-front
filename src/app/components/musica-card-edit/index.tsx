@@ -17,7 +17,7 @@ interface MusicaCardProps {
   id: number;
 }
 
-export function MusicaCard({
+export function MusicaCardEdit({
   titulo,
   autor,
   id,

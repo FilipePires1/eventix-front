@@ -3,7 +3,7 @@ import { ButtonLigth } from "@/app/components/button-ligth"
 import { router } from "expo-router"
 import { FontAwesome5 } from '@expo/vector-icons'
 import { useState } from 'react'
-import { MusicaCard } from './components/musica-card'
+import { MusicaCardEdit } from './components/musica-card-edit'
 
 const musicas = [
   {
@@ -80,7 +80,7 @@ export default function Musicas() {
           >
             {filteredEventos.length > 0 ? (
               filteredEventos.map((musica, index) => (
-                <MusicaCard
+                <MusicaCardEdit
                   key={index}
                   id={index}
                   titulo={musica.titulo}
