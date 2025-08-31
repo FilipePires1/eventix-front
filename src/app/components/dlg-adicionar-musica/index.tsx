@@ -68,17 +68,23 @@ export default function DlgAdicionarMusica({ visible, onClose, onSelectSong }: P
     }
   }
 
+  const handleCloseModal = () => {
+    setSelectedTom('')
+    setSelectedSong(null)
+    onClose()
+  }
+  
   return (
     <>
       <Modal
         visible={visible === 'addSong'}
         transparent={true}
         animationType="fade"
-        onRequestClose={onClose}
+        onRequestClose={handleCloseModal}
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContainer}>
-            <TouchableOpacity style={styles.iconClose} onPress={onClose}>
+            <TouchableOpacity style={styles.iconClose} onPress={handleCloseModal}>
               <MaterialIcons name="close" size={28} color="white" />
             </TouchableOpacity>
 
