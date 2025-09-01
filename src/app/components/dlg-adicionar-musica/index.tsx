@@ -10,176 +10,155 @@ import {
   Alert,
 } from "react-native";
 import { useState } from "react";
-import { Picker } from "@react-native-picker/picker";
+import DropDownPicker from "react-native-dropdown-picker";
 import ButtonLigth from "../button-ligth";
 import { MusicaCardSelected } from "../musica-card-selected";
 
 interface Props {
   visible: string;
   onClose: () => void;
-  onSelectSong: (song: { titulo: string; autor: string; tom: string }) => void
+  onSelectSong: (song: { titulo: string; autor: string; tom: string }) => void;
 }
 
 const musicas = [
-  {
-    titulo: "Música A",
-    autor: "Pessoa A"
-  },
-  {
-    titulo: "Música B",
-    autor: "Pessoa B"
-  },
-  {
-    titulo: "Música C",
-    autor: "Pessoa C"
-  },
-  {
-    titulo: "Música D",
-    autor: "Pessoa D"
-  },
-  {
-    titulo: "Música E",
-    autor: "Pessoa E"
-  },
-  {
-    titulo: "Música F",
-    autor: "Pessoa F"
-  },
-]
+  { titulo: "Música A", autor: "Pessoa A" },
+  { titulo: "Música B", autor: "Pessoa B" },
+  { titulo: "Música C", autor: "Pessoa C" },
+  { titulo: "Música D", autor: "Pessoa D" },
+  { titulo: "Música E", autor: "Pessoa E" },
+  { titulo: "Música F", autor: "Pessoa F" },
+];
 
+export default function DlgAdicionarMusica({
+  visible,
+  onClose,
+  onSelectSong,
+}: Props) {
+  const [selectedTom, setSelectedTom] = useState<string | null>(null);
+  const [selectedSong, setSelectedSong] = useState<{
+    titulo: string;
+    autor: string;
+  } | null>(null);
+  const [searchText, setSearchText] = useState("");
 
-export default function DlgAdicionarMusica({ visible, onClose, onSelectSong }: Props) {
-  const [selectedTom, setSelectedTom] = useState("");
-  const [selectedSong, setSelectedSong] = useState<{titulo: string; autor: string} | null>(null);
-  const [searchText, setSearchText] = useState('')
+  // estado para o dropdown
+  const [open, setOpen] = useState(false);
+  const [items, setItems] = useState([
+    { label: "C", value: "C" },
+    { label: "C#", value: "C#" },
+    { label: "D", value: "D" },
+    { label: "D#", value: "D#" },
+    { label: "E", value: "E" },
+    { label: "F", value: "F" },
+    { label: "F#", value: "F#" },
+    { label: "G", value: "G" },
+    { label: "G#", value: "G#" },
+    { label: "A", value: "A" },
+    { label: "A#", value: "A#" },
+    { label: "B", value: "B" },
+  ]);
 
-  const filteredMusicas = musicas.filter(musica =>
-    musica.titulo.toLowerCase().includes(searchText.toLowerCase()) || 
-    musica.autor.toLowerCase().includes(searchText.toLowerCase())
-  )
+  const filteredMusicas = musicas.filter(
+    (musica) =>
+      musica.titulo.toLowerCase().includes(searchText.toLowerCase()) ||
+      musica.autor.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   const handleSelectSong = () => {
     if (selectedSong && selectedTom) {
       onSelectSong({ ...selectedSong, tom: selectedTom });
-      setSelectedTom('')
-      setSelectedSong(null)
-    }else{
-      Alert.alert('Aviso', 'Selecione o tom e a música')
+      setSelectedTom(null);
+      setSelectedSong(null);
+    } else {
+      Alert.alert("Aviso", "Selecione o tom e a música");
     }
-  }
+  };
 
   const handleCloseModal = () => {
-    setSelectedTom('')
-    setSelectedSong(null)
-    onClose()
-  }
-  
+    setSelectedTom(null);
+    setSelectedSong(null);
+    onClose();
+  };
+
   return (
-    <>
-      <Modal
-        visible={visible === 'addSong'}
-        transparent={true}
-        animationType="fade"
-        onRequestClose={handleCloseModal}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContainer}>
-            <TouchableOpacity style={styles.iconClose} onPress={handleCloseModal}>
-              <MaterialIcons name="close" size={28} color="white" />
-            </TouchableOpacity>
+    <Modal
+      visible={visible === "addSong"}
+      transparent={true}
+      animationType="fade"
+      onRequestClose={handleCloseModal}
+    >
+      <View style={styles.modalOverlay}>
+        <View style={styles.modalContainer}>
+          <TouchableOpacity style={styles.iconClose} onPress={handleCloseModal}>
+            <MaterialIcons name="close" size={28} color="white" />
+          </TouchableOpacity>
 
-            <Text style={styles.modalTitle}>Adicionar música</Text>
+          <Text style={styles.modalTitle}>Adicionar música</Text>
 
-            <View style={{ gap: 10, flexDirection: "row" }}>
-              <View style={styles.searchBar}>
-                <TextInput
-                  style={styles.inputSearchBar}
-                  placeholder="Pesquisar"
-                  onChangeText={setSearchText}
-                />
-                <FontAwesome
-                  name="search"
-                  size={20}
-                  color="#000"
-                  style={styles.iconSearchBar}
-                />
-              </View>
-
-              <View style={styles.picker}>
-                <Picker
-                  onValueChange={(itemValue, itemIndex) =>
-                    setSelectedTom(itemValue)
-                  }
-                  selectedValue={selectedTom}
-                >
-                  <Picker.Item label="Tom" value="" enabled={false} />
-                  <Picker.Item label="C" value="C" />
-                  <Picker.Item label="C#" value="C#" />
-                  <Picker.Item label="D" value="D" />
-                  <Picker.Item label="D#" value="D#" />
-                  <Picker.Item label="E" value="E" />
-                  <Picker.Item label="F" value="F" />
-                  <Picker.Item label="F#" value="F#" />
-                  <Picker.Item label="G" value="G" />
-                  <Picker.Item label="G#" value="G#" />
-                  <Picker.Item label="A" value="A" />
-                  <Picker.Item label="A#" value="A#" />
-                  <Picker.Item label="B" value="B" />
-                </Picker>
-              </View>
+          <View style={{ gap: 10, flexDirection: "row", zIndex: 1000 }}>
+            {/* Barra de pesquisa */}
+            <View style={styles.searchBar}>
+              <TextInput
+                style={styles.inputSearchBar}
+                placeholder="Pesquisar"
+                onChangeText={setSearchText}
+              />
+              <FontAwesome
+                name="search"
+                size={20}
+                color="#000"
+                style={styles.iconSearchBar}
+              />
             </View>
 
-            <ScrollView
-              style={styles.scrollContainer}
-              contentContainerStyle={styles.scrollContent}
-              showsVerticalScrollIndicator={false}
-            >
-              {filteredMusicas.length > 0 ? (
-                filteredMusicas.map((musica, index) => (
-                  <MusicaCardSelected 
-                    key={index} 
-                    autor={musica.autor} 
-                    titulo={musica.titulo} 
-                    selected={selectedSong == musica}
-                    onPress={() => setSelectedSong(musica)}
-                  />
-                ))
-              ) : (
-                <Text style={styles.noResultsText}>
-                  Nenhuma música encontrada
-                </Text>
-              )}
-            </ScrollView>
-
-            <View style={{marginTop: 10}}>
-                <ButtonLigth title="Adicionar Música" onPress={handleSelectSong}/>
+            {/* Dropdown de Tom */}
+            <View style={{ flex: 1 }}>
+              <DropDownPicker
+                open={open}
+                value={selectedTom}
+                items={items}
+                setOpen={setOpen}
+                setValue={setSelectedTom}
+                setItems={setItems}
+                placeholder="Tom"
+                style={styles.dropdown}
+                dropDownContainerStyle={styles.dropdownContainer}
+              />
             </View>
           </View>
+
+          <ScrollView
+            style={styles.scrollContainer}
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={false}
+          >
+            {filteredMusicas.length > 0 ? (
+              filteredMusicas.map((musica, index) => (
+                <MusicaCardSelected
+                  key={index}
+                  autor={musica.autor}
+                  titulo={musica.titulo}
+                  selected={selectedSong == musica}
+                  onPress={() => setSelectedSong(musica)}
+                />
+              ))
+            ) : (
+              <Text style={styles.noResultsText}>
+                Nenhuma música encontrada
+              </Text>
+            )}
+          </ScrollView>
+
+          <View style={{ marginTop: 10 }}>
+            <ButtonLigth title="Adicionar Música" onPress={handleSelectSong} />
+          </View>
         </View>
-      </Modal>
-    </>
+      </View>
+    </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    width: "100%",
-    height: 50,
-    backgroundColor: "#FEF5C8",
-    borderRadius: 11,
-    justifyContent: "center",
-    alignItems: "center",
-    shadowRadius: 3,
-  },
-  row: {
-    flexDirection: "row",
-  },
-  titulo: {
-    color: "#000",
-    fontSize: 25,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
   modalOverlay: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.4)",
@@ -208,28 +187,6 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
   },
-  button: {
-    width: "100%",
-    height: 80,
-    backgroundColor: "#FEF5C8",
-    borderRadius: 15,
-    justifyContent: "space-between",
-    alignItems: "center",
-    shadowRadius: 3,
-    elevation: 5,
-    padding: 20,
-    flexDirection: "row",
-    marginBottom: 10,
-  },
-  buttonRow: {
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "flex-start",
-    gap: 5,
-  },
-  textModal: {
-    fontSize: 15,
-  },
   scrollContent: {
     paddingBottom: 20,
   },
@@ -255,24 +212,24 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#000",
   },
-  picker: {
-    flex: 1,
+  dropdown: {
     backgroundColor: "#FEF5C8",
     borderRadius: 11,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
+    borderColor: "transparent",
+    height: 50,
+  },
+  dropdownContainer: {
+    backgroundColor: "#FEF5C8",
+    borderColor: "transparent",
   },
   scrollContainer: {
     flexGrow: 1,
-    marginBottom: 10
+    marginBottom: 10,
   },
   noResultsText: {
-    color: 'white',
-    textAlign: 'center',
+    color: "white",
+    textAlign: "center",
     fontSize: 18,
     marginTop: 20,
-  }
+  },
 });
