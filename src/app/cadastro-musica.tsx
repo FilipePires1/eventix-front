@@ -14,8 +14,24 @@ export default function CadastroMusica() {
                 placeholderTextColor="#b5b5b5"
             />
             <Input
-                placeholder="Digite o autor da música..."
+                placeholder="Link"
                 placeholderTextColor="#b5b5b5"
+            />
+            <Input
+                placeholder="Tom da versão"
+                placeholderTextColor="#b5b5b5"
+            />
+            <Input
+                placeholder="Link da letra"
+                placeholderTextColor="#b5b5b5"
+            />
+            <Input
+                placeholder="Letra"
+                placeholderTextColor="#b5b5b5"
+                multiline={true}
+                numberOfLines={10}
+                style={{height: 200}}
+                textAlignVertical="top"
             />
 
             <View style={styles.buttonContainer}>
