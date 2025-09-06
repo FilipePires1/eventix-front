@@ -12,89 +12,63 @@ import {
 import { useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import ButtonLigth from "../button-ligth";
-import { MusicaCardSelected } from "../musica-card-selected";
+import { ParticipanteCardSelected } from "../participante-card-selected";
 
 interface Props {
   visible: string;
   onClose: () => void;
-  onSelectSong: (song: { titulo: string; autor: string; tom: string }) => void;
+  onSelectPessoa: (pessoa: { nome: string; funcao: string }) => void;
 }
 
-const musicas = [
-  { titulo: "Música A", autor: "Pessoa A" },
-  { titulo: "Música B", autor: "Pessoa B" },
-  { titulo: "Música C", autor: "Pessoa C" },
-  { titulo: "Música D", autor: "Pessoa D" },
-  { titulo: "Música E", autor: "Pessoa E" },
-  { titulo: "Música F", autor: "Pessoa F" },
+const pessoas = [
+  { nome: "Walter" },
+  { nome: "Filipe" },
+  { nome: "Ozéias" },
+  { nome: "Samuel" },
+  { nome: "Guimel" },
+  { nome: "Henrique" },
 ];
 
-export default function DlgAdicionarMusica({
+export default function DlgAdicionarParticipante({
   visible,
   onClose,
-  onSelectSong,
+  onSelectPessoa,
 }: Props) {
-  const [selectedTom, setSelectedTom] = useState<string | null>(null);
-  const [selectedSong, setSelectedSong] = useState<{
-    titulo: string;
-    autor: string;
-  } | null>(null);
+  const [selectedFuncao, setSelectedFuncao] = useState<string | null>(null);
+  const [selectedPessoa, setSelectedPessoa] = useState<{ nome: string } | null>(null);
   const [searchText, setSearchText] = useState("");
 
-  // estado para o dropdown
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
-    { label: "C", value: "C" },
-    { label: "Cm", value: "Cm" },
-    { label: "C#", value: "C#" },
-    { label: "C#m", value: "C#m" },
-    { label: "D", value: "D" },
-    { label: "Dm", value: "Dm" },
-    { label: "D#", value: "D#" },
-    { label: "D#m", value: "D#m" },
-    { label: "E", value: "E" },
-    { label: "Em", value: "Em" },
-    { label: "F", value: "F" },
-    { label: "Fm", value: "Fm" },
-    { label: "F#", value: "F#" },
-    { label: "F#m", value: "F#m" },
-    { label: "G", value: "G" },
-    { label: "Gm", value: "Gm" },
-    { label: "G#", value: "G#" },
-    { label: "G#m", value: "G#m" },
-    { label: "A", value: "A" },
-    { label: "Am", value: "Am" },
-    { label: "A#", value: "A#" },
-    { label: "A#m", value: "A#m" },
-    { label: "B", value: "B" },
-    { label: "Bm", value: "Bm" },
+    { label: "Diácono", value: "Diácono" },
+    { label: "Guitarrista", value: "Guitarrista" },
+    { label: "Baterista", value: "Baterista" },
   ]);
 
-  const filteredMusicas = musicas.filter(
-    (musica) =>
-      musica.titulo.toLowerCase().includes(searchText.toLowerCase()) ||
-      musica.autor.toLowerCase().includes(searchText.toLowerCase())
+  const filteredPessoas = pessoas.filter((pessoa) =>
+    pessoa.nome.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const handleSelectSong = () => {
-    if (selectedSong && selectedTom) {
-      onSelectSong({ ...selectedSong, tom: selectedTom });
-      setSelectedTom(null);
-      setSelectedSong(null);
+  const handleSelectPessoa = () => {
+    if (selectedPessoa && selectedFuncao) {
+      onSelectPessoa({ ...selectedPessoa, funcao: selectedFuncao });
+      setSelectedFuncao(null);
+      setSelectedPessoa(null);
+      onClose();
     } else {
-      Alert.alert("Aviso", "Selecione o tom e a música");
+      Alert.alert("Aviso", "Selecione uma pessoa e uma função");
     }
   };
 
   const handleCloseModal = () => {
-    setSelectedTom(null);
-    setSelectedSong(null);
+    setSelectedFuncao(null);
+    setSelectedPessoa(null);
     onClose();
   };
 
   return (
     <Modal
-      visible={visible === "addSong"}
+      visible={visible === "addParticipante"}
       transparent={true}
       animationType="fade"
       onRequestClose={handleCloseModal}
@@ -105,14 +79,14 @@ export default function DlgAdicionarMusica({
             <MaterialIcons name="close" size={28} color="white" />
           </TouchableOpacity>
 
-          <Text style={styles.modalTitle}>Adicionar música</Text>
+          <Text style={styles.modalTitle}>Adicionar Participantes</Text>
 
           <View style={{ gap: 10, flexDirection: "row", zIndex: 1000 }}>
-            {/* Barra de pesquisa */}
             <View style={styles.searchBar}>
               <TextInput
                 style={styles.inputSearchBar}
                 placeholder="Pesquisar"
+                value={searchText}
                 onChangeText={setSearchText}
               />
               <FontAwesome
@@ -123,16 +97,15 @@ export default function DlgAdicionarMusica({
               />
             </View>
 
-            {/* Dropdown de Tom */}
             <View style={{ flex: 1 }}>
               <DropDownPicker
                 open={open}
-                value={selectedTom}
+                value={selectedFuncao}
                 items={items}
                 setOpen={setOpen}
-                setValue={setSelectedTom}
+                setValue={setSelectedFuncao}
                 setItems={setItems}
-                placeholder="Tom"
+                placeholder="Função"
                 style={styles.dropdown}
                 dropDownContainerStyle={styles.dropdownContainer}
               />
@@ -144,25 +117,22 @@ export default function DlgAdicionarMusica({
             contentContainerStyle={styles.scrollContent}
             showsVerticalScrollIndicator={false}
           >
-            {filteredMusicas.length > 0 ? (
-              filteredMusicas.map((musica, index) => (
-                <MusicaCardSelected
+            {filteredPessoas.length > 0 ? (
+              filteredPessoas.map((pessoa, index) => (
+                <ParticipanteCardSelected
                   key={index}
-                  autor={musica.autor}
-                  titulo={musica.titulo}
-                  selected={selectedSong == musica}
-                  onPress={() => setSelectedSong(musica)}
+                  nome={pessoa.nome}
+                  selected={selectedPessoa?.nome === pessoa.nome}
+                  onPress={() => setSelectedPessoa(pessoa)}
                 />
               ))
             ) : (
-              <Text style={styles.noResultsText}>
-                Nenhuma música encontrada
-              </Text>
+              <Text style={styles.noResultsText}>Nenhum participante encontrado</Text>
             )}
           </ScrollView>
 
           <View style={{ marginTop: 10 }}>
-            <ButtonLigth title="Adicionar Música" onPress={handleSelectSong} />
+            <ButtonLigth title="Adicionar Participante" onPress={handleSelectPessoa} />
           </View>
         </View>
       </View>
@@ -170,6 +140,7 @@ export default function DlgAdicionarMusica({
   );
 }
 
+// Estilos permanecem os mesmos
 const styles = StyleSheet.create({
   modalOverlay: {
     flex: 1,

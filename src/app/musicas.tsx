@@ -7,8 +7,8 @@ import { MusicaCardEdit } from './components/musica-card-edit'
 
 const musicas = [
   {
-    titulo: "Música A",
-    autor: "Pessoa A"
+    titulo: "Ousado Amor",
+    autor: "Isaías Saad"
   },
   {
     titulo: "Música B",
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
 
     scrollContent: {
         paddingBottom: 10,
-        gap: 5,
+        gap: 1,
     },
 
     buttonContainer: {

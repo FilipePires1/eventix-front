@@ -10,13 +10,26 @@ export default function CadastroMusica() {
             <Text style={styles.title}>Cadastrar música</Text>
 
             <Input
-                placeholder="Digite o título da música..."
+                placeholder="Nome da música..."
                 placeholderTextColor="#b5b5b5"
             />
             <Input
-                placeholder="Digite o autor da música..."
+                placeholder="Autor..."
                 placeholderTextColor="#b5b5b5"
             />
+            <Input
+                placeholder="Link..."
+                placeholderTextColor="#b5b5b5"
+            />
+            <Input
+                placeholder="Tom da Versão..."
+                placeholderTextColor="#b5b5b5"
+            />
+            <Input
+                placeholder="Link da Letra..."
+                placeholderTextColor="#b5b5b5"
+            />
+           
 
             <View style={styles.buttonContainer}>
                 <View style={styles.buttonWrapper}>

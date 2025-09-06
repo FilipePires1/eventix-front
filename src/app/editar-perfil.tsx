@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native'
 
 import { router } from "expo-router"
-
+import DropDownPicker from "react-native-dropdown-picker";
 import { Input } from "../app/components/input"
 import ButtonDark from './components/button-dark'
 import ButtonCancel from './components/button-cancel'
@@ -10,7 +10,14 @@ import { useState } from 'react'
 
 export default function EditarPerfil() {
 
-    const [selectedSexo, setSelectedSexo] = useState('');
+    const [selectedSexo, setSelectedSexo] = useState<string | null>(null);
+
+    // estado para abrir/fechar dropdowns
+    const [openSexo, setOpenSexo] = useState(false);
+    const [sexoItems, setSexoItems] = useState([
+        { label: "Masculino", value: "masculino" },
+        { label: "Feminino", value: "feminino" },
+    ]);
 
     return (
         <View style={styles.container}>
@@ -19,17 +26,19 @@ export default function EditarPerfil() {
             <Input placeholder="Data de Nascimento" />
             <Input placeholder="Email" />
 
-            <View style={styles.pickerWrapper}>
-                <Picker
-                    selectedValue={selectedSexo}
-                    onValueChange={(itemValue) => setSelectedSexo(itemValue)}
-                    style={styles.picker}
-                >
-                    <Picker.Item label="Sexo" value="" />
-                    <Picker.Item label="Masculino" value="masculino" />
-                    <Picker.Item label="Feminino" value="feminino" />
-                </Picker>
-            </View>
+            <DropDownPicker
+                open={openSexo}
+                value={selectedSexo}
+                items={sexoItems}
+                setOpen={setOpenSexo}
+                setValue={setSelectedSexo}
+                setItems={setSexoItems}
+                placeholder="Sexo"
+                style={styles.dropdown}
+                dropDownContainerStyle={styles.dropdownContainer}
+                zIndex={3000}
+                zIndexInverse={1000}
+            />
 
             <View style={styles.buttonContainer}>
                 <View style={styles.buttonWrapper}>
@@ -94,5 +103,18 @@ const styles = StyleSheet.create({
 
     buttonWrapper: {
         flex: 1,
+    },
+
+    dropdown: {
+        width: "100%",
+        backgroundColor: "#FEF5C8",
+        borderRadius: 11,
+        borderColor: "transparent",
+        elevation: 8,
+        shadowRadius: 7,
+    },
+    dropdownContainer: {
+        backgroundColor: "#FEF5C8",
+        borderColor: "transparent",
     },
 })

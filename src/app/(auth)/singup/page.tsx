@@ -1,94 +1,141 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { router } from "expo-router";
-import { Picker } from '@react-native-picker/picker';
-import Input from '@/app/components/input';
-import ButtonDark from '@/app/components/button-dark';
-import ButtonCAncel from '@/app/components/button-cancel';
+import React, { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { Stack, router } from "expo-router";
+import DropDownPicker from "react-native-dropdown-picker";
+import Input from "@/app/components/input";
+import ButtonDark from "@/app/components/button-dark";
+import ButtonCancel from "@/app/components/button-cancel";
 
-export default function Singup() {
-  const [selectedSexo, setSelectedSexo] = useState('');
-  const [selectedFuncao, setSelectedFuncao] = useState('');
+export default function Signup() {
+  const [selectedSexo, setSelectedSexo] = useState<string | null>(null);
+  const [selectedFuncao, setSelectedFuncao] = useState<string | null>(null);
+  const [date, setDate] = useState("");
+
+  const [openSexo, setOpenSexo] = useState(false);
+  const [openFuncao, setOpenFuncao] = useState(false);
+
+  const [sexoItems, setSexoItems] = useState([
+    { label: "Masculino", value: "masculino" },
+    { label: "Feminino", value: "feminino" },
+  ]);
+
+  const [funcaoItems, setFuncaoItems] = useState([
+    { label: "Guitarrista", value: "Guitarrista" },
+    { label: "Diácono", value: "Diácono" },
+  ]);
+
+  const formatDate = (input: string) => {
+    let value = input.replace(/\D/g, "");
+    if (value.length > 2) value = value.substring(0, 2) + "/" + value.substring(2);
+    if (value.length > 5) value = value.substring(0, 5) + "/" + value.substring(5, 9);
+    return value;
+  };
+
+  const handleDateChange = (text: string) => {
+    setDate(formatDate(text));
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Criar conta</Text>
+      <Text style={styles.title}>Cadastrar usuário</Text>
 
-      <Input placeholder="Digite seu nome..." placeholderTextColor="#b5b5b5" />
-      <Input placeholder="Digite sua data de nascimento..." placeholderTextColor="#b5b5b5" />
-      <Input placeholder="Digite seu melhor email..." placeholderTextColor="#b5b5b5" />
+      <Input placeholder="Nome" placeholderTextColor="#b5b5b5" />
 
-      <View style={styles.pickerWrapper}>
-        <Picker
-          selectedValue={selectedSexo}
-          onValueChange={(itemValue) => setSelectedSexo(itemValue)}
-          style={styles.picker}
-        >
-          <Picker.Item label="Sexo" value="" />
-          <Picker.Item label="Masculino" value="masculino" />
-          <Picker.Item label="Feminino" value="feminino" />
-        </Picker>
+      <Input
+        placeholder="Data de Nascimento"
+        placeholderTextColor="#b5b5b5"
+        value={date}
+        onChangeText={handleDateChange}
+        keyboardType="numeric"
+        maxLength={10}
+      />
+
+      <Input placeholder="Email" placeholderTextColor="#b5b5b5" />
+
+      <DropDownPicker
+        open={openSexo}
+        value={selectedSexo}
+        items={sexoItems}
+        setOpen={setOpenSexo}
+        setValue={setSelectedSexo}
+        setItems={setSexoItems}
+        placeholder="Sexo"
+        style={styles.dropdown}
+        dropDownContainerStyle={styles.dropdownContainer}
+        zIndex={3000}
+        zIndexInverse={1000}
+      />
+
+      <DropDownPicker
+        open={openFuncao}
+        value={selectedFuncao}
+        items={funcaoItems}
+        setOpen={setOpenFuncao}
+        setValue={setSelectedFuncao}
+        setItems={setFuncaoItems}
+        placeholder="Função"
+        style={styles.dropdown}
+        dropDownContainerStyle={styles.dropdownContainer}
+        zIndex={2000}
+        zIndexInverse={2000}
+      />
+
+      <View style={styles.buttonContainer}>
+        <View style={styles.buttonWrapper}>
+          <ButtonCancel title="Cancelar" onPress={() => router.navigate("/users")} />
+        </View>
+        <View style={styles.buttonWrapper}>
+          <ButtonDark title="Confirmar" onPress={() => router.navigate("/users")} />
+        </View>
       </View>
-
-      <View style={styles.pickerWrapper}>
-        <Picker
-          selectedValue={selectedFuncao}
-          onValueChange={(itemValue) => setSelectedFuncao(itemValue)}
-          style={styles.picker}
-        >
-          <Picker.Item label="Função" value="" />
-          <Picker.Item label="Guitarrista" value="Guitarrista" />
-          <Picker.Item label="Diácono" value="Diácono" />
-        </Picker>
-      </View>
-
-      <View style={styles.BotoesAlinhados}>
-        <ButtonCAncel title="Cancelar" onPress={() => router.navigate('/')} />
-        <ButtonDark title="Confirmar" onPress={() => router.navigate('/home')} />
-      </View>
-
     </View>
   );
 }
 
+// 👇 Aqui você desativa o header da Stack
+Signup.getLayout = () => (
+  <Stack.Screen options={{ headerShown: false }} />
+);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 45,
+    justifyContent: "center",
+    alignItems: "center",
     gap: 20,
-    backgroundColor: '#00988D',
-    textShadowColor: '#000000aa',
-    textShadowOffset: { width: 2, height: 2 },
+    backgroundColor: "#00988D",
+    paddingTop: 40,
   },
   title: {
-    color: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: 'bold',
-    fontSize: 38,
-    textShadowColor: '#000000aa',
+    color: "white",
+    fontWeight: "400",
+    fontSize: 35,
+    textAlign: "center",
+    textShadowColor: "#000000aa",
     textShadowOffset: { width: 0.5, height: 0.5 },
     textShadowRadius: 0.5,
   },
-  pickerWrapper: {
-    width: '100%',
-    backgroundColor: '#FEF5C8',
+  dropdown: {
+    width: "100%",
+    backgroundColor: "#FEF5C8",
     borderRadius: 11,
-    paddingHorizontal: 0,
+    borderColor: "transparent",
     elevation: 8,
     shadowRadius: 7,
   },
-  picker: {
-    height: 52,
-    color: '#000',
+  dropdownContainer: {
+    backgroundColor: "#FEF5C8",
+    borderColor: "transparent",
   },
-  BotoesAlinhados: {
-    width: '45%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    gap: 40,
+  buttonContainer: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 20,
+    marginTop: 10,
+  },
+  buttonWrapper: {
+    flex: 1,
   },
 });

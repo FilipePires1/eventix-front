@@ -7,24 +7,21 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-interface MusicaCardProps {
-  titulo: string;
-  autor: string;
+interface ParticipanteCardProps {
+  nome: string;
   selected: boolean;
   onPress: () => void;
 }
 
-export function MusicaCardSelected({
-  titulo,
-  autor,
+export function ParticipanteCardSelected({
+  nome,
   selected = false,
   onPress
-}: MusicaCardProps) {
+}: ParticipanteCardProps) {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.card}>
-        <Text style={styles.titulo}>{titulo}</Text>
-        <Text style={styles.autor}>{autor}</Text>
+        <Text style={styles.titulo}>{nome}</Text>
         {selected && (
           <Text style={{color: '#fef5c8', textTransform: 'uppercase'}}>Selecionado</Text>
         )}

@@ -1,78 +1,63 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
-import { ButtonLigth } from "@/app/components/button-ligth"
-import { router } from "expo-router"
-import { Input } from "../app/components/input"
-import { ButtonDark } from './components/button-dark'
-import ButtonCancel from './components/button-cancel'
-import { useState } from 'react'
-import { ParticipanteCard } from './components/participantescard'
-import DlgAdicionarMusica from './components/dlg-adicionar-musica'
-import { FontAwesome5 } from '@expo/vector-icons'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { ButtonLigth } from "@/app/components/button-ligth";
+import { router } from "expo-router";
+import { Input } from "../app/components/input";
+import { ButtonDark } from './components/button-dark';
+import ButtonCancel from './components/button-cancel';
+import { useState } from 'react';
+import { ParticipanteCard } from './components/participantescard';
+import DlgAdicionarMusica from './components/dlg-adicionar-musica';
+import { FontAwesome5 } from '@expo/vector-icons';
+import DlgAdicionarParticipante from './components/dlg-adicionar-participantes';
 
 export default function CadastroEvento() {
     const [date, setDate] = useState('');
-    const [openDialog, setOpenDialog] = useState<string>('')
-    const [selectedSongs, setSelectedSongs] = useState<{titulo: string; autor: string, tom: string}[]>([]);
+    const [openDialog, setOpenDialog] = useState<string>('');
+    const [selectedSongs, setSelectedSongs] = useState<{ titulo: string; autor: string; tom: string }[]>([]);
+    const [selectedPessoas, setSelectedPessoas] = useState<{ nome: string; funcao: string }[]>([]);
 
-    const formatDate = (input) => {
-        // Remove tudo que não é dígito
+    const formatDate = (input: string) => {
         let value = input.replace(/\D/g, '');
-
-        // Aplica a formatação
-        if (value.length > 2) {
-            value = value.substring(0, 2) + '/' + value.substring(2);
-        }
-        if (value.length > 5) {
-            value = value.substring(0, 5) + '/' + value.substring(5, 9);
-        }
-
+        if (value.length > 2) value = value.substring(0, 2) + '/' + value.substring(2);
+        if (value.length > 5) value = value.substring(0, 5) + '/' + value.substring(5, 9);
         return value;
     };
 
-    const handleDateChange = (text) => {
-        const formattedDate = formatDate(text);
-        setDate(formattedDate);
+    const handleDateChange = (text: string) => {
+        setDate(formatDate(text));
     };
 
-    const participantes = [
-        {
-            usuario: "Filipe Pires",
-            funcao: "Guitarrista",
-
-        },
-    ]
-
-   const handleSelectSong = (song: { titulo: string; autor: string, tom: string }) => {
-        setSelectedSongs((prev) => {
-            if (prev.find((s) => s.titulo === song.titulo && s.autor === song.autor && s.tom === song.tom)) {
-                return prev;
-            }
+    const handleSelectSong = (song: { titulo: string; autor: string; tom: string }) => {
+        setSelectedSongs(prev => {
+            if (prev.find(s => s.titulo === song.titulo && s.autor === song.autor && s.tom === song.tom)) return prev;
             return [...prev, song];
         });
         setOpenDialog('');
     };
 
     const handleDeleteSong = (index: number) => {
-        setSelectedSongs((prev) => prev.filter((_, i) => i !== index));
+        setSelectedSongs(prev => prev.filter((_, i) => i !== index));
+    };
+
+    const handleSelectPessoa = (pessoa: { nome: string; funcao: string }) => {
+        setSelectedPessoas(prev => {
+            if (prev.find(p => p.nome === pessoa.nome && p.funcao === pessoa.funcao)) return prev;
+            return [...prev, pessoa];
+        });
+        setOpenDialog('');
+    };
+
+    const handleDeletePessoa = (index: number) => {
+        setSelectedPessoas(prev => prev.filter((_, i) => i !== index));
     };
 
     return (
-        <ScrollView
-            style={styles.scrollContainer}
-            contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
-            showsVerticalScrollIndicator={false}
-        >
+       
             <View style={styles.container}>
                 <Text style={styles.title}>Cadastrar evento</Text>
 
-                <Input
-                    placeholder="Digite o nome do evento..."
-                    placeholderTextColor="#b5b5b5"
-                />
-                <Input
-                    placeholder="Digite o local do evento..."
-                    placeholderTextColor="#b5b5b5"
-                />
+                <Input placeholder="Digite o nome do evento..." placeholderTextColor="#b5b5b5" />
+                <Input placeholder="Digite o local do evento..." placeholderTextColor="#b5b5b5" />
                 <Input
                     placeholder="Digite a data do evento..."
                     placeholderTextColor="#b5b5b5"
@@ -81,23 +66,30 @@ export default function CadastroEvento() {
                     keyboardType="numeric"
                     maxLength={10}
                 />
-                <Input
-                    placeholder="Digite o horário do evento..."
-                    placeholderTextColor="#b5b5b5"
-                />
+                <Input placeholder="Digite o horário do evento..." placeholderTextColor="#b5b5b5" />
 
-                <ButtonLigth title="Adicionar Participantes" onPress={() => router.navigate('/')} />
+                {/* Botão e modal de Participantes */}
+                <ButtonLigth title="Adicionar Participantes" onPress={() => setOpenDialog('addParticipante')} />
+                <DlgAdicionarParticipante
+                    visible={openDialog}
+                    onClose={() => setOpenDialog('')}
+                    onSelectPessoa={handleSelectPessoa}
+                />
                 <ParticipanteCard
-                    usuario= ''
-                    funcao= ''/>
+                    usuario=''
+                    funcao='' />
+                {/* Lista de Participantes Selecionados */}
                 
+
+                {/* Botão e modal de Músicas */}
                 <ButtonLigth title="Adicionar Músicas" onPress={() => setOpenDialog('addSong')} />
-                <DlgAdicionarMusica 
-                    visible={openDialog} 
-                    onClose={() => setOpenDialog('')} 
+                <DlgAdicionarMusica
+                    visible={openDialog}
+                    onClose={() => setOpenDialog('')}
                     onSelectSong={handleSelectSong}
                 />
 
+                {/* Lista de Músicas Selecionadas */}
                 <ScrollView
                     style={styles.scrollContainer}
                     contentContainerStyle={styles.scrollContent}
@@ -111,13 +103,9 @@ export default function CadastroEvento() {
                                 <Text style={styles.text}>Tom: {song.tom}</Text>
                             </View>
                             <TouchableOpacity onPress={() => handleDeleteSong(index)}>
-                                <FontAwesome5
-                                    name='trash'
-                                    size={25}
-                                    color="#F23E02"
-                                />
+                                <FontAwesome5 name="trash" size={25} color="#F23E02" />
                             </TouchableOpacity>
-                        </View>                    
+                        </View>
                     ))}
                 </ScrollView>
 
@@ -130,12 +118,11 @@ export default function CadastroEvento() {
                     </View>
                 </View>
             </View>
-        </ScrollView>
-    )
+
+    );
 }
 
 const styles = StyleSheet.create({
-
     container: {
         flex: 1,
         padding: 45,
@@ -146,30 +133,16 @@ const styles = StyleSheet.create({
         textShadowColor: '#000000aa',
         textShadowOffset: { width: 2, height: 2 },
     },
-
-    title: { //meus enventos
-
+    title: {
         color: 'white',
         alignItems: 'center',
         justifyContent: 'center',
-        fontWeight: 400,
+        fontWeight: '400',
         fontSize: 35,
         textShadowColor: '#000000aa',
         textShadowOffset: { width: 0.5, height: 0.5 },
         textShadowRadius: 0.5,
     },
-
-    buttonText: { //botao de cancelar
-
-        justifyContent: 'center',
-        backgroundColor: '#f23e02',
-        paddingVertical: 12,
-        width: '50%',
-        alignItems: 'center',
-        height: 52,
-
-    },
-
     buttonContainer: {
         width: '100%',
         flexDirection: 'row',
@@ -177,7 +150,6 @@ const styles = StyleSheet.create({
         gap: 20,
         marginTop: 10,
     },
-
     buttonWrapper: {
         flex: 1,
     },
@@ -188,10 +160,9 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         width: "100%",
         elevation: 4,
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     text: {
         color: "#fff",
@@ -201,9 +172,9 @@ const styles = StyleSheet.create({
     scrollContainer: {
         width: '100%',
         flex: 1,
-        marginBottom: 10
+        marginBottom: 10,
     },
     scrollContent: {
         paddingBottom: 20,
     },
-})
+});
