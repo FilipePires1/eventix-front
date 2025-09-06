@@ -1,44 +1,58 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { ButtonLigth } from "@/app/components/button-ligth"
 import { router } from "expo-router"
-import SearchBar from "@/app/components/pesquisa";
 import { PerfilCard } from './components/PerfilCard';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
-
-const users = [
-  {
-    nome: "Henrique Pires",
-    funcoes: "Guitarrista, Vocalista",
-    nascimento: "17/02/2004",
-    sexo: "Masculino",
-  },
-  {
-    nome: "Filipe Pires",
-    funcoes: "Guitarrista, Vocalista",
-    nascimento: "17/02/2004",
-    sexo: "Masculino",
-  },
-  {
-    nome: "Vania Pires",
-    funcoes: "Guitarrista, Vocalista",
-    nascimento: "17/02/2004",
-    sexo: "Masculino",
-  },
-  {
-    nome: "Kayo Jorge",
-    funcoes: "Guitarrista, Vocalista",
-    nascimento: "17/02/2004",
-    sexo: "Masculino",
-  }
-]
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Users() {
+
+  const [users, setUsers] = useState<Array<any>>([]);
+  const [loading, setLoading] = useState(true);
+
+  function formatDate(input: string): string {
+    const [day, month, year] = input.split('-');
+    return `${day}/${month}/${year}`;
+  }
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const token = await AsyncStorage.getItem("jwtToken");
+        if (!token) {
+          Alert.alert("No token found");
+          return;
+        }
+
+        const response = await fetch("http://192.168.15.5:8080/usuarios/admin", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Fetched users:", data);
+          setUsers(data);
+        } else {
+          console.log("Failed to fetch users:", response.status);
+        }
+      } catch (error) {
+        console.log("Erro de conexão", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   const [searchText, setSearchText] = useState('')
 
   // Função para filtrar os eventos baseado no texto de busca
-  const filteredEventos = users.filter(user =>
+  const filteredEventos = users.filter((user: any) =>
     user.nome.toLowerCase().includes(searchText.toLowerCase())
   )
 
@@ -76,13 +90,15 @@ export default function Users() {
             contentContainerStyle={styles.scrollContent}
             showsVerticalScrollIndicator={false}
           >
-            {filteredEventos.length > 0 ? (
+            {loading ? (
+              <Text style={styles.noResultsText}>Carregando usuários...</Text>
+            ) : filteredEventos.length > 0 ? (
               filteredEventos.map((user, index) => (
                 <PerfilCard
                   key={index}
                   nome={user.nome}
-                  funcoes={user.funcoes}
-                  nascimento={user.nascimento}
+                  funcoes={user.funcoes.map((f: any) => f.nomeFuncao).join(', ')}
+                  nascimento={formatDate(user.dataNascimento)}
                   sexo={user.sexo}
                 />
 

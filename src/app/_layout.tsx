@@ -10,7 +10,7 @@ export default function Layout() {
     const pathname = usePathname()
 
     // Lista de rotas onde a tab bar NÃO deve aparecer
-    const hideTabBarRoutes = ['/', '/(auth)/singup/page']
+    const hideTabBarRoutes = ['/', '/singup']
 
     // Verifica se a rota atual está na lista de rotas para esconder a tab bar
     const shouldShowTabBar = !hideTabBarRoutes.includes(pathname)

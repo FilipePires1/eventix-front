@@ -1,28 +1,27 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { router } from "expo-router";
 import { Input } from "../app/components/input";
 import DropDownPicker from "react-native-dropdown-picker";
 import ButtonCancel from "./components/button-cancel";
 import ButtonDark from "./components/button-dark";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Singup() {
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
   const [selectedSexo, setSelectedSexo] = useState<string | null>(null);
-  const [selectedFuncao, setSelectedFuncao] = useState<string | null>(null);
+  const [selectedFuncao, setSelectedFuncao] = useState<number[]>([]);
   const [date, setDate] = useState("");
 
   // estado para abrir/fechar dropdowns
   const [openSexo, setOpenSexo] = useState(false);
   const [openFuncao, setOpenFuncao] = useState(false);
+  const [funcaoItems, setFuncaoItems] = useState<any[]>([]);
 
   const [sexoItems, setSexoItems] = useState([
-    { label: "Masculino", value: "masculino" },
-    { label: "Feminino", value: "feminino" },
-  ]);
-
-  const [funcaoItems, setFuncaoItems] = useState([
-    { label: "Guitarrista", value: "Guitarrista" },
-    { label: "Diácono", value: "Diácono" },
+    { label: "Masculino", value: "Masculino" },
+    { label: "Feminino", value: "Feminino" },
   ]);
 
   const formatDate = (input: string) => {
@@ -41,11 +40,95 @@ export default function Singup() {
     setDate(formattedDate);
   };
 
+  // Buscar funções da API ao montar o componente
+  useEffect(() => {
+    const fetchFuncoes = async () => {
+      const token = await AsyncStorage.getItem("jwtToken");
+      console.log("Token JWT:", token);
+
+      try {
+        const response = await fetch("http://192.168.15.5:8080/funcao/admin", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Erro ao buscar funções");
+        }
+        
+        const data = await response.json();
+        console.log("funcoes", data);
+        const lista = data.map((f: any) => ({
+          label: f.nome,
+          value: f.id,
+        }));
+        setFuncaoItems(lista);
+      } catch (error) {
+        console.error("Erro ao buscar funções:", error);
+      }
+    };
+
+    fetchFuncoes();
+  }, []);
+
+  const handleSubmit = async () => {
+    if (!nome || !email || !selectedSexo || !selectedFuncao || !date) {
+      Alert.alert("Por favor, preencha todos os campos.");
+      return;
+    }
+
+    // Converte a data para o formato ISO esperado (yyyy-MM-dd)
+    const parts = date.split("/"); // se a data estiver como dd/MM/yyyy
+    const isoDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+
+    const usuario = {
+      nome,
+      email,
+      senha: "1234",
+      sexo: selectedSexo.charAt(0).toUpperCase() + selectedSexo.slice(1),
+      funcoesIds: selectedFuncao,
+      dataNascimento: isoDate
+    };
+
+    console.log(usuario);
+
+    try {
+      const token = await AsyncStorage.getItem("jwtToken");
+      console.log("Token JWT:", token);
+
+      const response = await fetch("http://192.168.15.5:8080/usuarios/admin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify(usuario),
+      });
+
+      if (response.ok) {
+        Alert.alert("Sucesso", "Usuário cadastrado!");
+        router.navigate("/users");
+      } else {
+        const errorText = await response.text();
+        Alert.alert("Erro", errorText || "Não foi possível cadastrar");
+      }
+    } catch (error) {
+      Alert.alert("Erro de conexão", "Não foi possível conectar à API");
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Cadastrar usuário</Text>
 
-      <Input placeholder="Nome" placeholderTextColor="#b5b5b5" />
+      <Input
+        placeholder="Nome"
+        placeholderTextColor="#b5b5b5"
+        value={nome}
+        onChangeText={setNome}
+      />
 
       <Input
         placeholder="Data de Nascimento"
@@ -56,7 +139,12 @@ export default function Singup() {
         maxLength={10}
       />
 
-      <Input placeholder="Email" placeholderTextColor="#b5b5b5" />
+      <Input
+        placeholder="Email"
+        placeholderTextColor="#b5b5b5"
+        value={email}
+        onChangeText={setEmail}
+      />
 
       {/* Dropdown Sexo */}
       <DropDownPicker
@@ -73,8 +161,10 @@ export default function Singup() {
         zIndexInverse={1000}
       />
 
-      {/* Dropdown Função */}
       <DropDownPicker
+        multiple={true} // habilita múltipla seleção
+        min={0}
+        max={10} // limite opcional de quantas funções podem ser escolhidas
         open={openFuncao}
         value={selectedFuncao}
         items={funcaoItems}
@@ -88,6 +178,7 @@ export default function Singup() {
         zIndexInverse={2000}
       />
 
+
       <View style={styles.buttonContainer}>
         <View style={styles.buttonWrapper}>
           <ButtonCancel
@@ -98,7 +189,7 @@ export default function Singup() {
         <View style={styles.buttonWrapper}>
           <ButtonDark
             title="Confirmar"
-            onPress={() => router.navigate("/users")}
+            onPress={handleSubmit}
           />
         </View>
       </View>

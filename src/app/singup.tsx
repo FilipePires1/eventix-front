@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { router } from "expo-router";
 import { Picker } from '@react-native-picker/picker';
 import Input from '@/app/components/input';
