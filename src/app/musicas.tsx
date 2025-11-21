@@ -4,31 +4,26 @@ import { router } from "expo-router"
 import { FontAwesome5 } from '@expo/vector-icons'
 import { useState } from 'react'
 import { MusicaCardEdit } from './components/musica-card-edit'
+import { Linking } from 'react-native'
 
 const musicas = [
   {
-    titulo: "Música A",
-    autor: "Pessoa A"
+    titulo: "Ruja o Leão / Que se abram os céus",
+    autor: "Isaias Saad + Nívea Soares",
+    link: "https://www.youtube.com/watch?v=gTRFVMkMajw&list=RDgTRFVMkMajw&start_radio=1",
+    letra: "https://www.letras.mus.br/talita-catanzaro/ruja-o-leao/"
   },
   {
-    titulo: "Música B",
-    autor: "Pessoa B"
+    titulo: "Meia Noite (Ao Vivo)",
+    autor: "Fhop music",
+    link: "https://www.youtube.com/watch?v=hRJUcvsnqKs&list=RDhRJUcvsnqKs&start_radio=1",
+    letra: "https://www.letras.mus.br/florianopolis-house-of-prayer/meia-noite/"
   },
   {
-    titulo: "Música C",
-    autor: "Pessoa C"
-  },
-  {
-    titulo: "Música D",
-    autor: "Pessoa D"
-  },
-  {
-    titulo: "Música E",
-    autor: "Pessoa E"
-  },
-  {
-    titulo: "Música F",
-    autor: "Pessoa F"
+    titulo: "O Rio + Espontâneo (Ao Vivo)",
+    autor: "Central MSC",
+    link: "https://www.youtube.com/watch?v=zj6rGyCwHtc&list=RDzj6rGyCwHtc&start_radio=1",
+    letra: "https://www.letras.mus.br/vox-central-msc/o-rio/"
   },
 ]
 
@@ -85,6 +80,10 @@ export default function Musicas() {
                   id={index}
                   titulo={musica.titulo}
                   autor={musica.autor}
+                  link={musica.link}
+                  letra={musica.letra}
+                  onOpenVideo={() => Linking.openURL(musica.link)}
+                  onOpenLetra={() => Linking.openURL(musica.letra)}
                 />
               ))
             ) : (
@@ -109,74 +108,74 @@ export default function Musicas() {
 
 const styles = StyleSheet.create({
   container: {
-        flex: 1,
-        backgroundColor: '#00988D',
-        marginBottom: 50,
-        justifyContent: 'center',
-        paddingBottom: 10
-    },
+    flex: 1,
+    backgroundColor: '#00988D',
+    marginBottom: 50,
+    justifyContent: 'center',
+    paddingBottom: 10
+  },
 
-    title: {
-        color: 'white',
-        textAlign: 'center',
-        fontWeight: '400',
-        fontSize: 40,
-        textShadowColor: '#000000aa',
-        textShadowOffset: { width: 0.5, height: 0.5 },
-        textShadowRadius: 0.5,
-        marginTop: 50,
-        marginBottom: 20,
-    },
+  title: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: '400',
+    fontSize: 40,
+    textShadowColor: '#000000aa',
+    textShadowOffset: { width: 0.5, height: 0.5 },
+    textShadowRadius: 0.5,
+    marginTop: 50,
+    marginBottom: 20,
+  },
 
   cardContainer: {
-        flex: 1,
-        gap: 20
-    },
+    flex: 1,
+    gap: 20
+  },
 
-    searchContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#FEF5C8',
-        borderRadius: 10,
-        paddingHorizontal: 15,
-        width: '100%',
-        height: 50,
-    },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FEF5C8',
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    width: '100%',
+    height: 50,
+  },
 
-    searchInput: {
-        flex: 1,
-        fontSize: 16,
-        color: 'black',
-    },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+    color: 'black',
+  },
 
-    searchButton: {
-        padding: 10,
-    },
+  searchButton: {
+    padding: 10,
+  },
 
-    content: {
-        flex: 1,
-        paddingHorizontal: 20,
-    },
+  content: {
+    flex: 1,
+    paddingHorizontal: 20,
+  },
 
-    scrollContainer: {
-        flex: 1,
-        marginBottom: 10
-    },
+  scrollContainer: {
+    flex: 1,
+    marginBottom: 10
+  },
 
-    scrollContent: {
-        paddingBottom: 10,
-        gap: 5,
-    },
+  scrollContent: {
+    paddingBottom: 10,
+    gap: 0,
+  },
 
-    buttonContainer: {
-        width: '100%',
-        justifyContent: 'flex-end',
-    },
+  buttonContainer: {
+    width: '100%',
+    justifyContent: 'flex-end',
+  },
 
-    noResultsText: {
-        color: 'white',
-        textAlign: 'center',
-        fontSize: 18,
-        marginTop: 20,
-    }
+  noResultsText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 18,
+    marginTop: 20,
+  }
 })

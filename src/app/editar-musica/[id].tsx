@@ -4,22 +4,27 @@ import { Input } from "../components/input"
 import { ButtonDark } from '../components/button-dark'
 import ButtonCancel from '../components/button-cancel'
 
-export default function EditarMusica() {
-    const { id } = useLocalSearchParams();
-
+export default function CadastroMusica() {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Editar música</Text>
 
             <Input
-                placeholder="Digite o título da música..."
+                placeholder="Título da música..."
                 placeholderTextColor="#b5b5b5"
             />
             <Input
-                placeholder="Digite o autor da música..."
+                placeholder="Versão da música..."
                 placeholderTextColor="#b5b5b5"
             />
-
+            <Input
+                placeholder="Link da música..."
+                placeholderTextColor="#b5b5b5"
+            />
+            <Input
+                placeholder="Letra da música (link)..."
+                placeholderTextColor="#b5b5b5"
+            />
             <View style={styles.buttonContainer}>
                 <View style={styles.buttonWrapper}>
                     <ButtonCancel title="Cancelar" onPress={() => router.navigate('/musicas')} />
@@ -56,6 +61,8 @@ const styles = StyleSheet.create({
         textShadowColor: '#000000aa',
         textShadowOffset: { width: 0.5, height: 0.5 },
         textShadowRadius: 0.5,
+        position: "absolute",
+        top: 60
     },
 
     buttonText: { //botao de cancelar

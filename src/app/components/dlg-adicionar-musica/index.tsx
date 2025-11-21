@@ -100,8 +100,9 @@ export default function DlgAdicionarMusica({
             <View style={styles.searchBar}>
               <TextInput
                 style={styles.inputSearchBar}
-                placeholder="Pesquisar"
+                placeholder="Pesquisar músicas..."
                 onChangeText={setSearchText}
+                placeholderTextColor="#b5b5b5"
               />
               <FontAwesome
                 name="search"
@@ -189,6 +190,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingBottom: 20,
+    gap: 0
   },
   searchBar: {
     flexDirection: "row",
@@ -225,6 +227,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
     marginBottom: 10,
+    
   },
   noResultsText: {
     color: "white",

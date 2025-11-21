@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native'
 import { ButtonLigth } from "@/app/components/button-ligth"
 import { router } from "expo-router"
 import { Input } from "../app/components/input"
@@ -7,53 +7,60 @@ import ButtonCancel from './components/button-cancel'
 import { useState } from 'react'
 import { ParticipanteCard } from './components/participantescard'
 import DlgAdicionarMusica from './components/dlg-adicionar-musica'
+import DlgAdicionarParticipantes from './components/dlg-add-participantes'
 import { FontAwesome5 } from '@expo/vector-icons'
+import { MusicaCardSelected } from "./components/musica-card-selected"
 
 export default function CadastroEvento() {
     const [date, setDate] = useState('');
     const [openDialog, setOpenDialog] = useState<string>('')
-    const [selectedSongs, setSelectedSongs] = useState<{titulo: string; autor: string, tom: string}[]>([]);
+    const [selectedSongs, setSelectedSongs] = useState<{ titulo: string; autor: string, tom: string }[]>([]);
+    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-    const formatDate = (input) => {
-        // Remove tudo que não é dígito
+    const formatDate = (input: string) => {
         let value = input.replace(/\D/g, '');
 
-        // Aplica a formatação
-        if (value.length > 2) {
-            value = value.substring(0, 2) + '/' + value.substring(2);
-        }
-        if (value.length > 5) {
-            value = value.substring(0, 5) + '/' + value.substring(5, 9);
-        }
+        if (value.length > 2) value = value.substring(0, 2) + '/' + value.substring(2);
+        if (value.length > 5) value = value.substring(0, 5) + '/' + value.substring(5, 9);
 
         return value;
     };
 
-    const handleDateChange = (text) => {
-        const formattedDate = formatDate(text);
-        setDate(formattedDate);
+    const handleDateChange = (text: string) => {
+        setDate(formatDate(text));
     };
 
-    const participantes = [
-        {
-            usuario: "Filipe Pires",
-            funcao: "Guitarrista",
-
-        },
-    ]
-
-   const handleSelectSong = (song: { titulo: string; autor: string, tom: string }) => {
-        setSelectedSongs((prev) => {
-            if (prev.find((s) => s.titulo === song.titulo && s.autor === song.autor && s.tom === song.tom)) {
+    const handleSelectSong = (song: { titulo: string; autor: string; tom: string }) => {
+        setSelectedSongs(prev => {
+            if (prev.some(s => s.titulo === song.titulo && s.autor === song.autor && s.tom === song.tom)) {
                 return prev;
             }
             return [...prev, song];
         });
+
         setOpenDialog('');
     };
 
     const handleDeleteSong = (index: number) => {
-        setSelectedSongs((prev) => prev.filter((_, i) => i !== index));
+        setSelectedSongs(prev => prev.filter((_, i) => i !== index));
+
+        if (selectedIndex === index) setSelectedIndex(null);
+    };
+
+    const showAlert = (index: number) => {
+        Alert.alert(
+            "Remover",
+            "Você deseja remover essa música?",
+            [
+                { text: "Voltar", style: "cancel" },
+                {
+                    text: "Remover",
+                    style: "destructive",
+                    onPress: () => handleDeleteSong(index),
+                },
+            ],
+            { cancelable: true }
+        );
     };
 
     return (
@@ -65,14 +72,9 @@ export default function CadastroEvento() {
             <View style={styles.container}>
                 <Text style={styles.title}>Cadastrar evento</Text>
 
-                <Input
-                    placeholder="Digite o nome do evento..."
-                    placeholderTextColor="#b5b5b5"
-                />
-                <Input
-                    placeholder="Digite o local do evento..."
-                    placeholderTextColor="#b5b5b5"
-                />
+                <Input placeholder="Digite o nome do evento..." placeholderTextColor="#b5b5b5" />
+                <Input placeholder="Digite o local do evento..." placeholderTextColor="#b5b5b5" />
+
                 <Input
                     placeholder="Digite a data do evento..."
                     placeholderTextColor="#b5b5b5"
@@ -81,43 +83,46 @@ export default function CadastroEvento() {
                     keyboardType="numeric"
                     maxLength={10}
                 />
-                <Input
-                    placeholder="Digite o horário do evento..."
-                    placeholderTextColor="#b5b5b5"
+
+                <Input placeholder="Digite o horário do evento..." placeholderTextColor="#b5b5b5" />
+
+                {/* Participantes */}
+                <ButtonLigth title="Adicionar Participantes" onPress={() => setOpenDialog('addParticipante')} />
+
+                <DlgAdicionarParticipantes
+                    visible={openDialog}
+                    onClose={() => setOpenDialog('')}
+                    onSelectParticipante={() => { }}
                 />
 
-                <ButtonLigth title="Adicionar Participantes" onPress={() => router.navigate('/')} />
-                <ParticipanteCard
-                    usuario= ''
-                    funcao= ''/>
-                
+                <ParticipanteCard usuario='' funcao='' />
+
+                {/* Músicas */}
                 <ButtonLigth title="Adicionar Músicas" onPress={() => setOpenDialog('addSong')} />
-                <DlgAdicionarMusica 
-                    visible={openDialog} 
-                    onClose={() => setOpenDialog('')} 
+
+                <DlgAdicionarMusica
+                    visible={openDialog}
+                    onClose={() => setOpenDialog('')}
                     onSelectSong={handleSelectSong}
                 />
 
-                <ScrollView
-                    style={styles.scrollContainer}
-                    contentContainerStyle={styles.scrollContent}
-                    showsVerticalScrollIndicator={false}
-                >
+                <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
                     {selectedSongs.map((song, index) => (
-                        <View style={styles.card} key={index}>
-                            <View>
-                                <Text style={styles.text}>Título: {song.titulo}</Text>
-                                <Text style={styles.text}>Autor: {song.autor}</Text>
-                                <Text style={styles.text}>Tom: {song.tom}</Text>
-                            </View>
-                            <TouchableOpacity onPress={() => handleDeleteSong(index)}>
-                                <FontAwesome5
-                                    name='trash'
-                                    size={25}
-                                    color="#F23E02"
-                                />
+                        <View key={index} style={{ width: "100%" }}>
+                            <MusicaCardSelected
+                                titulo={song.titulo}
+                                autor={song.autor}
+                                selected={selectedIndex === index}
+                                onPress={() => setSelectedIndex(index)}
+                            />
+
+                            <TouchableOpacity
+                                onPress={() => showAlert(index)}
+                                style={{ position: "absolute", right: 20, top: 25 }}
+                            >
+                                <FontAwesome5 name='trash' size={25} color="#F23E02" />
                             </TouchableOpacity>
-                        </View>                    
+                        </View>
                     ))}
                 </ScrollView>
 
@@ -125,6 +130,7 @@ export default function CadastroEvento() {
                     <View style={styles.buttonWrapper}>
                         <ButtonCancel title="Cancelar" onPress={() => router.navigate('/eventos')} />
                     </View>
+
                     <View style={styles.buttonWrapper}>
                         <ButtonDark title="Confirmar" onPress={() => router.navigate('/eventos')} />
                     </View>
@@ -143,31 +149,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 20,
         backgroundColor: '#00988D',
-        textShadowColor: '#000000aa',
-        textShadowOffset: { width: 2, height: 2 },
     },
 
-    title: { //meus enventos
-
+    title: {
         color: 'white',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontWeight: 400,
+        fontWeight: '400',
         fontSize: 35,
         textShadowColor: '#000000aa',
         textShadowOffset: { width: 0.5, height: 0.5 },
-        textShadowRadius: 0.5,
-    },
-
-    buttonText: { //botao de cancelar
-
-        justifyContent: 'center',
-        backgroundColor: '#f23e02',
-        paddingVertical: 12,
-        width: '50%',
-        alignItems: 'center',
-        height: 52,
-
     },
 
     buttonContainer: {
@@ -181,29 +170,8 @@ const styles = StyleSheet.create({
     buttonWrapper: {
         flex: 1,
     },
-    card: {
-        backgroundColor: "#013750",
-        borderRadius: 15,
-        padding: 18,
-        marginVertical: 8,
-        width: "100%",
-        elevation: 4,
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-    text: {
-        color: "#fff",
-        fontSize: 20,
-        fontWeight: "300",
-    },
+
     scrollContainer: {
         width: '100%',
-        flex: 1,
-        marginBottom: 10
     },
-    scrollContent: {
-        paddingBottom: 20,
-    },
-})
+});

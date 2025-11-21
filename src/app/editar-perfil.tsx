@@ -5,12 +5,17 @@ import { router } from "expo-router"
 import { Input } from "../app/components/input"
 import ButtonDark from './components/button-dark'
 import ButtonCancel from './components/button-cancel'
-import { Picker } from '@react-native-picker/picker';
+import DropDownPicker from "react-native-dropdown-picker"
 import { useState } from 'react'
 
 export default function EditarPerfil() {
 
-    const [selectedSexo, setSelectedSexo] = useState('');
+    const [selectedSexo, setSelectedSexo] = useState<string | null>(null);
+    const [openSexo, setOpenSexo] = useState(false);
+    const [sexoItems, setSexoItems] = useState([
+        { label: "Masculino", value: "Masculino" },
+        { label: "Feminino", value: "Feminino" },
+    ])
 
     return (
         <View style={styles.container}>
@@ -20,15 +25,19 @@ export default function EditarPerfil() {
             <Input placeholder="Email" />
 
             <View style={styles.pickerWrapper}>
-                <Picker
-                    selectedValue={selectedSexo}
-                    onValueChange={(itemValue) => setSelectedSexo(itemValue)}
-                    style={styles.picker}
-                >
-                    <Picker.Item label="Sexo" value="" />
-                    <Picker.Item label="Masculino" value="masculino" />
-                    <Picker.Item label="Feminino" value="feminino" />
-                </Picker>
+                <DropDownPicker
+                    open={openSexo}
+                    value={selectedSexo}
+                    items={sexoItems}
+                    setOpen={setOpenSexo}
+                    setValue={setSelectedSexo}
+                    setItems={setSexoItems}
+                    placeholder="Sexo"
+                    style={styles.dropdown}
+                    dropDownContainerStyle={styles.dropdownContainer}
+                    zIndex={3000}
+                    zIndexInverse={1000}
+                />
             </View>
 
             <View style={styles.buttonContainer}>
@@ -57,8 +66,7 @@ const styles = StyleSheet.create({
         paddingTop: 40,
     },
 
-    title: { //meus enventos
-
+    title: { 
         color: 'white',
         alignItems: 'center',
         justifyContent: 'center',
@@ -67,7 +75,8 @@ const styles = StyleSheet.create({
         textShadowColor: '#000000aa',
         textShadowOffset: { width: 0.5, height: 0.5 },
         textShadowRadius: 0.5,
-
+        position: "absolute",
+        top: 60
     },
 
     pickerWrapper: {
@@ -95,4 +104,18 @@ const styles = StyleSheet.create({
     buttonWrapper: {
         flex: 1,
     },
+
+    dropdown: {
+    width: "100%",
+    backgroundColor: "#FEF5C8",
+    borderRadius: 11,
+    borderColor: "transparent",
+    elevation: 8,
+    shadowRadius: 7,
+  },
+
+  dropdownContainer: {
+    backgroundColor: "#FEF5C8",
+    borderColor: "transparent",
+  },
 })

@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   View,
   Text,
@@ -21,14 +20,22 @@ export function MusicaCardSelected({
   onPress
 }: MusicaCardProps) {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.card}>
-        <Text style={styles.titulo}>Título: {titulo}</Text>
-        <Text style={styles.autor}>Autor: {autor}</Text>
-        {selected && (
-          <Text style={{color: '#fef5c8', textTransform: 'uppercase'}}>Selecionado</Text>
-        )}
-      </View>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[
+        styles.card,
+        selected && styles.cardSelected
+      ]}
+    >
+      <Text style={styles.titulo}>{titulo} | </Text>
+
+      <Text
+        style={styles.autor}
+        numberOfLines={1}
+        ellipsizeMode="tail"
+      >
+        {autor}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -41,7 +48,8 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     width: "100%",
     elevation: 4,
-    flex: 1,
+    flexDirection: "row",
+    alignItems: "center"
   },
 
   titulo: {
@@ -49,10 +57,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "300",
   },
+
   autor: {
     color: "#fff",
     fontSize: 20,
     fontWeight: "300",
-    marginHorizontal: 1,
+    flex: 1,               
+  },
+
+  cardSelected: {
+    backgroundColor: "#4487a0ff",
   },
 });

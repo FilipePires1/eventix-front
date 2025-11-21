@@ -215,6 +215,8 @@ const styles = StyleSheet.create({
     textShadowColor: "#000000aa",
     textShadowOffset: { width: 0.5, height: 0.5 },
     textShadowRadius: 0.5,
+    position: "absolute",
+        top: 60
   },
   dropdown: {
     width: "100%",

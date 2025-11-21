@@ -1,6 +1,7 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { router } from "expo-router";
+import { Linking } from "react-native";
 
 import {
   View,
@@ -14,13 +15,21 @@ import {
 interface MusicaCardProps {
   titulo: string;
   autor: string;
+  link: string
+  letra: string
   id: number;
+  onOpenVideo: () => void;
+  onOpenLetra: () => void;
 }
 
 export function MusicaCardEdit({
   titulo,
   autor,
+  link,
+  letra,
   id,
+  onOpenVideo,
+  onOpenLetra
 }: MusicaCardProps) {
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -45,22 +54,52 @@ export function MusicaCardEdit({
 
   return (
     <TouchableOpacity onPress={() => setOpenDialog(true)}>
-      <View style={styles.row}>
-        <View style={styles.card}>
-          <Text style={styles.titulo}>Título: {titulo}</Text>
+      <View>
 
-          <Text style={styles.autor}>Autor: {autor}</Text>
-      </View>
+        <View style={styles.card}>
+          <Text style={styles.titulo}>{titulo} | </Text>
+          <Text
+            style={styles.titulo}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >{autor}</Text>
+        </View>
+
         <Modal visible={openDialog} transparent={true} animationType="fade">
+
           <View style={styles.modalOverlay}>
+
             <View style={styles.modalContainer}>
+
               <TouchableOpacity style={styles.iconClose} onPress={() => setOpenDialog(false)}>
                 <MaterialIcons name="close" size={28} color="white" />
               </TouchableOpacity>
 
               <Text style={styles.modalTitle}>{titulo}</Text>
-              <Text style={styles.titulo}>Título: {titulo}</Text>
-              <Text style={styles.autor}>Autor: {autor}</Text>
+
+              <View style={styles.gap}>
+                <Text style={styles.titulo}>Versão: {autor}</Text>
+
+                <TouchableOpacity onPress={() => Linking.openURL(link)}>
+                  <Text
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                    style={styles.link}
+                  >
+                    Link no Youtube: {link}
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => Linking.openURL(letra)}>
+                  <Text
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                    style={styles.link}
+                  >
+                    Letra (link): {letra}
+                  </Text>
+                </TouchableOpacity>
+              </View>
 
               <View style={styles.buttonRow}>
                 <TouchableOpacity
@@ -69,12 +108,14 @@ export function MusicaCardEdit({
                 >
                   <Text style={styles.buttonText}>Editar</Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity
                   style={styles.deleteButton}
                   onPress={handleExcluir}
                 >
                   <Text style={styles.buttonText}>Excluir</Text>
                 </TouchableOpacity>
+
               </View>
             </View>
           </View>
@@ -93,6 +134,7 @@ const styles = StyleSheet.create({
     width: "100%",
     elevation: 4,
     flex: 1,
+    flexDirection: "row",
   },
 
   titulo: {
@@ -101,6 +143,12 @@ const styles = StyleSheet.create({
     fontWeight: "300",
   },
   autor: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "300",
+    marginHorizontal: 1,
+  },
+  link: {
     color: "#fff",
     fontSize: 20,
     fontWeight: "300",
@@ -158,4 +206,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
   },
+  gap: {
+    gap: 10
+  }
 });
