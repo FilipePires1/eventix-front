@@ -9,9 +9,10 @@ interface EventoCardProps {
   local: string
   data: string
   horario: string
+  participantes: string
 }
 
-export function EventoCard({ titulo, funcao, local, data, horario, id }: EventoCardProps) {
+export function EventoCard({ titulo, funcao, local, data, horario, participantes, id }: EventoCardProps) {
   const [visible, setVisible] = useState(false)
 
   return (
@@ -49,6 +50,7 @@ export function EventoCard({ titulo, funcao, local, data, horario, id }: EventoC
             <Text style={styles.text}>Local: {local}</Text>
             <Text style={styles.text}>Data: {data}</Text>
             <Text style={styles.text}>Horário: {horario}</Text>
+            <Text style={styles.text}>Participantes: {participantes}</Text>
 
           </View>
         </View>
@@ -96,6 +98,11 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   horario: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: '400',
+  },
+  participantes: {
     color: '#fff',
     fontSize: 20,
     fontWeight: '400',

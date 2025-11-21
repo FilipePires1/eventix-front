@@ -10,9 +10,10 @@ interface EventoCardProps {
   local: string
   data: string
   horario: string
+  participantes: string
 }
 
-export function EventoCardEdit({ titulo, funcao, local, data, horario, id }: EventoCardProps) {
+export function EventoCardEdit({ titulo, funcao, local, data, horario, participantes, id }: EventoCardProps) {
   const [visible, setVisible] = useState(false)
 
   const handleExcluir = () => {
@@ -74,6 +75,7 @@ export function EventoCardEdit({ titulo, funcao, local, data, horario, id }: Eve
             <Text style={styles.text}>Local: {local}</Text>
             <Text style={styles.text}>Data: {data}</Text>
             <Text style={styles.text}>Horário: {horario}</Text>
+            <Text style={styles.text}>Participantes: {participantes}</Text>
 
             <View style={styles.buttonRow}>
               <TouchableOpacity style={styles.editButton} onPress={handleEditar}>

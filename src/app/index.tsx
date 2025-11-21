@@ -40,7 +40,7 @@ export default function Login() {
 
         // ip da maquina rede 192.168.15.5
         try {
-            const response = await fetch("http://192.168.15.5:8080/auth/login", {
+            const response = await fetch("http://192.168.1.68:8080/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, senha }),

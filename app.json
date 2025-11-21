@@ -8,6 +8,7 @@
     "scheme": "",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "sdkVersion": "54.0.0",
     "splash": {
       "backgroundColor": "#00988D",
       "image": "./assets/images/EVENTIX.png",

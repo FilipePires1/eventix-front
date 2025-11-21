@@ -10,9 +10,10 @@ interface EventoCardProps {
   local: string
   data: string
   horario: string
+  participantes: string
 }
 
-export function UserCard({ titulo, funcao, local, data, horario, id }: EventoCardProps) {
+export function UserCard({ titulo, funcao, local, data, horario, participantes, id }: EventoCardProps) {
   const [visible, setVisible] = useState(false)
 
   const handleExcluir = () => {

@@ -45,11 +45,12 @@ export function MusicaCardEdit({
 
   return (
     <TouchableOpacity onPress={() => setOpenDialog(true)}>
-      <View style={styles.card}>
-        <Text style={styles.titulo}>Título: {titulo}</Text>
+      <View style={styles.row}>
+        <View style={styles.card}>
+          <Text style={styles.titulo}>Título: {titulo}</Text>
 
-        <Text style={styles.autor}>Autor: {autor}</Text>
-
+          <Text style={styles.autor}>Autor: {autor}</Text>
+      </View>
         <Modal visible={openDialog} transparent={true} animationType="fade">
           <View style={styles.modalOverlay}>
             <View style={styles.modalContainer}>

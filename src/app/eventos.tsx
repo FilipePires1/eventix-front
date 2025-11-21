@@ -11,7 +11,8 @@ const eventos = [
     funcao: "Diácono",
     local: "Igreja batista shallom",
     data: "06/03/2027",
-    horario: "18:00"
+    horario: "18:00",
+    participantes: "filipe, walter, henrique, ozeias"
   },
   {
     titulo: "Culto de adoração",
@@ -97,6 +98,7 @@ export default function Eventos() {
                   local={evento.local}
                   data={evento.data}
                   horario={evento.horario}
+                  participantes={evento.participantes}
                 />
               ))
             ) : (

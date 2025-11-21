@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     shadowRadius: 3,
+    elevation: 8
   },
   buttonText: {
     color: '#FFF',
