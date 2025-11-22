@@ -1,10 +1,27 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import { ButtonLigth } from "@/app/components/button-ligth"
 import { router } from "expo-router"
 import { MaterialIcons } from '@expo/vector-icons'
 import { PerfilCard } from '@/app/components/PerfilCard'
 
 export default function Perfil() {
+  const handleExcluir = () => {
+    Alert.alert(
+      "Sair?",
+      "Tem certeza de que deseja sair?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Sair",
+          onPress: () => {
+            router.replace('/')
+          },
+          style: "destructive",
+        },
+      ]
+    )
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Meu perfil</Text>
@@ -14,20 +31,20 @@ export default function Perfil() {
           nome="Filipe Pires Nogueira"
           funcoes="Guitarrista"
           nascimento="11/01/2009"
-          sexo='Masculino' 
+          sexo='Masculino'
         />
 
         <View style={styles.buttonsRow}>
           <View style={styles.buttonWrapper}>
-            <ButtonLigth 
-              title="Editar perfil" 
-              onPress={() => router.navigate('/editar-perfil')} 
+            <ButtonLigth
+              title="Editar perfil"
+              onPress={() => router.navigate('/editar-perfil')}
             />
           </View>
-          
-          <TouchableOpacity 
-            style={styles.buttonSair} 
-            onPress={() => router.navigate('/')}
+
+          <TouchableOpacity
+            style={styles.buttonSair}
+            onPress={handleExcluir}
           >
             <MaterialIcons name="logout" size={25} color="#fff" />
             <Text style={styles.buttonTextSair}>Sair</Text>
@@ -45,7 +62,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#00988D',
     paddingTop: 50,
   },
-  
+
   title: {
     color: 'white',
     textAlign: 'center',
@@ -80,7 +97,11 @@ const styles = StyleSheet.create({
     borderRadius: 11,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowRadius: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 3, height: 0.1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 5,
     flexDirection: 'row',
     gap: 8,
   },

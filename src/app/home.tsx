@@ -46,6 +46,9 @@ const eventos = [
 export default function Home() {
 
     const [searchText, setSearchText] = useState('')
+    const [convitesPendentes, setConvitesPendentes] = useState(3);
+
+
 
     // Função para filtrar os eventos baseado no texto de busca
     const filteredEventos = eventos.filter(evento =>
@@ -112,6 +115,12 @@ export default function Home() {
                         title="Convites"
                         onPress={() => router.navigate('/convites')}
                     />
+
+                    {convitesPendentes > 0 && (
+                        <View style={styles.badge}>
+                            <Text style={styles.badgeText}>{convitesPendentes}</Text>
+                        </View>
+                    )}
                 </View>
             </View>
         </View>
@@ -189,5 +198,24 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 18,
         marginTop: 20,
-    }
+    },
+    badge: {
+        position: 'absolute',
+        top: -5,
+        right: -5,
+        backgroundColor: 'red',
+        width: 22,
+        height: 22,
+        borderRadius: 11,
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 10,
+    },
+
+    badgeText: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 12,
+    },
+
 })

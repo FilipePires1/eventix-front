@@ -63,50 +63,52 @@ export default function CadastroEvento() {
         );
     };
 
-    return (
-        <ScrollView
-            style={styles.scrollContainer}
-            contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
-            showsVerticalScrollIndicator={false}
-        >
-            <View style={styles.container}>
-                <Text style={styles.title}>Cadastrar evento</Text>
+     return (
+        <View style={{ flex: 1, backgroundColor: "#00988D" }}>
+            
+            {/* TÍTULO FIXO */}
+            <Text style={styles.title}>Cadastrar evento</Text>
 
-                <Input placeholder="Digite o nome do evento..." placeholderTextColor="#b5b5b5" />
-                <Input placeholder="Digite o local do evento..." placeholderTextColor="#b5b5b5" />
+            {/* Scroll passa por baixo do título */}
+            <ScrollView
+                style={{ flex: 1 }}
+                contentContainerStyle={{ paddingTop: 120 }} 
+                showsVerticalScrollIndicator={false}
+            >
+                <View style={styles.container}>
 
-                <Input
-                    placeholder="Digite a data do evento..."
-                    placeholderTextColor="#b5b5b5"
-                    value={date}
-                    onChangeText={handleDateChange}
-                    keyboardType="numeric"
-                    maxLength={10}
-                />
+                    <Input placeholder="Digite o nome do evento..." placeholderTextColor="#b5b5b5" />
+                    <Input placeholder="Digite o local do evento..." placeholderTextColor="#b5b5b5" />
 
-                <Input placeholder="Digite o horário do evento..." placeholderTextColor="#b5b5b5" />
+                    <Input
+                        placeholder="Digite a data do evento..."
+                        placeholderTextColor="#b5b5b5"
+                        value={date}
+                        onChangeText={handleDateChange}
+                        keyboardType="numeric"
+                        maxLength={10}
+                    />
 
-                {/* Participantes */}
-                <ButtonLigth title="Adicionar Participantes" onPress={() => setOpenDialog('addParticipante')} />
+                    <Input placeholder="Digite o horário do evento..." placeholderTextColor="#b5b5b5" />
 
-                <DlgAdicionarParticipantes
-                    visible={openDialog}
-                    onClose={() => setOpenDialog('')}
-                    onSelectParticipante={() => { }}
-                />
+                    <ButtonLigth title="Adicionar Participantes" onPress={() => setOpenDialog('addParticipante')} />
 
-                <ParticipanteCard usuario='' funcao='' />
+                    <DlgAdicionarParticipantes
+                        visible={openDialog}
+                        onClose={() => setOpenDialog('')}
+                        onSelectParticipante={() => {}}
+                    />
 
-                {/* Músicas */}
-                <ButtonLigth title="Adicionar Músicas" onPress={() => setOpenDialog('addSong')} />
+                    <ParticipanteCard usuario='' funcao='' />
 
-                <DlgAdicionarMusica
-                    visible={openDialog}
-                    onClose={() => setOpenDialog('')}
-                    onSelectSong={handleSelectSong}
-                />
+                    <ButtonLigth title="Adicionar Músicas" onPress={() => setOpenDialog('addSong')} />
 
-                <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+                    <DlgAdicionarMusica
+                        visible={openDialog}
+                        onClose={() => setOpenDialog('')}
+                        onSelectSong={handleSelectSong}
+                    />
+
                     {selectedSongs.map((song, index) => (
                         <View key={index} style={{ width: "100%" }}>
                             <MusicaCardSelected
@@ -124,39 +126,41 @@ export default function CadastroEvento() {
                             </TouchableOpacity>
                         </View>
                     ))}
-                </ScrollView>
 
-                <View style={styles.buttonContainer}>
-                    <View style={styles.buttonWrapper}>
-                        <ButtonCancel title="Cancelar" onPress={() => router.navigate('/eventos')} />
+                    <View style={styles.buttonContainer}>
+                        <View style={styles.buttonWrapper}>
+                            <ButtonCancel title="Cancelar" onPress={() => router.navigate('/eventos')} />
+                        </View>
+
+                        <View style={styles.buttonWrapper}>
+                            <ButtonDark title="Confirmar" onPress={() => router.navigate('/eventos')} />
+                        </View>
                     </View>
 
-                    <View style={styles.buttonWrapper}>
-                        <ButtonDark title="Confirmar" onPress={() => router.navigate('/eventos')} />
-                    </View>
                 </View>
-            </View>
-        </ScrollView>
-    )
+            </ScrollView>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-
     container: {
-        flex: 1,
         padding: 45,
-        justifyContent: 'center',
         alignItems: 'center',
         gap: 20,
-        backgroundColor: '#00988D',
     },
 
     title: {
-        color: 'white',
-        fontWeight: '400',
+        position: "absolute",
+        top: 60,
+        width: "100%",
+        textAlign: "center",
+        color: "white",
         fontSize: 35,
-        textShadowColor: '#000000aa',
+        fontWeight: "400",
+        textShadowColor: "#000000aa",
         textShadowOffset: { width: 0.5, height: 0.5 },
+        zIndex: 10,
     },
 
     buttonContainer: {
@@ -165,13 +169,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         gap: 20,
         marginTop: 10,
+        marginBottom: 40
     },
 
     buttonWrapper: {
         flex: 1,
-    },
-
-    scrollContainer: {
-        width: '100%',
-    },
+    }
 });

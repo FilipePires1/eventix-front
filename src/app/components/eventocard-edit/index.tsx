@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Modal, TouchableOpacity, Alert } from 'react-native'
+import { View, Text, StyleSheet, Modal, TouchableOpacity, Alert, ScrollView } from 'react-native'
 import { router } from 'expo-router'
 import { MaterialIcons } from '@expo/vector-icons'
+import { ParticipanteoCardEdit } from '../participantecardedit'
 
 interface EventoCardProps {
   id: number
@@ -14,7 +15,8 @@ interface EventoCardProps {
 }
 
 export function EventoCardEdit({ titulo, funcao, local, data, horario, participantes, id }: EventoCardProps) {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
+  const [visibleParticipantes, setVisibleParticipantes] = useState(false);
 
   const handleExcluir = () => {
     Alert.alert(
@@ -78,9 +80,42 @@ export function EventoCardEdit({ titulo, funcao, local, data, horario, participa
             <Text style={styles.text}>Participantes: {participantes}</Text>
 
             <View style={styles.buttonRow}>
-              <TouchableOpacity style={styles.editButton} onPress={handleEditar}>
+              <TouchableOpacity style={styles.editButton} onPress={() => setVisibleParticipantes(true)}>
                 <Text style={styles.buttonText}>Editar</Text>
               </TouchableOpacity>
+              <Modal
+                visible={visibleParticipantes}
+                transparent
+                animationType="fade"
+                onRequestClose={() => setVisibleParticipantes(false)}
+              >
+                <View style={styles.modalOverlay}>
+                  <View style={styles.modalContainer}>
+
+                    <TouchableOpacity
+                      style={styles.iconClose}
+                      onPress={() => setVisibleParticipantes(false)}
+                    >
+                      <MaterialIcons name="close" size={28} color="white" />
+                    </TouchableOpacity>
+
+                    <Text style={styles.modalTitle}>Participantes deste evento</Text>
+
+                    <ScrollView
+                      contentContainerStyle={styles.scrollContent}
+                      showsVerticalScrollIndicator={false}
+                    >
+                      <ParticipanteoCardEdit usuario='Filipe Pires' funcao='Guitarrista' />
+                      <ParticipanteoCardEdit usuario='Walter Nogueira' funcao='Diácono' />
+                      <ParticipanteoCardEdit usuario='Filipe Pires' funcao='Guitarrista' />
+                      <ParticipanteoCardEdit usuario='Walter Nogueira' funcao='Diácono' />
+                      <ParticipanteoCardEdit usuario='Filipe Pires' funcao='Guitarrista' />
+                    </ScrollView>
+
+                  </View>
+                </View>
+              </Modal>
+
               <TouchableOpacity style={styles.deleteButton} onPress={handleExcluir}>
                 <Text style={styles.buttonText}>Excluir</Text>
               </TouchableOpacity>
@@ -100,6 +135,9 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     width: '100%',
     elevation: 4,
+  },
+  scrollContent: {
+    paddingBottom: 20,
   },
   row: {
     flexDirection: 'row',
